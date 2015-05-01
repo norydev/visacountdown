@@ -13,6 +13,7 @@ class PeriodsController < ApplicationController
   # GET /periods/new
   def new
     @period = Period.new
+    @period.user = current_user
   end
 
   # GET /periods/1/edit
@@ -22,6 +23,7 @@ class PeriodsController < ApplicationController
   # POST /periods
   def create
     @period = Period.new(period_params)
+    @period.user = current_user
 
     if @period.save
       redirect_to @period, notice: 'Period was successfully created.'
@@ -53,6 +55,6 @@ class PeriodsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def period_params
-      params.require(:period).permit(:user_id, :first_day, :last_day)
+      params.require(:period).permit(:first_day, :last_day)
     end
 end
