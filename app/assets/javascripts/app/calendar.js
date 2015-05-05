@@ -7,7 +7,7 @@
       changeMonth: true,
       numberOfMonths: 1,
       onClose: function( selectedDate ) {
-        $(this).parents('#inside_last_entry').find( ".last_day").datepicker( "option", "minDate", selectedDate );
+        $(this).parents('.form-inputs').find( ".last_day").datepicker( "option", "minDate", selectedDate );
       }
     });
     $( ".last_day" ).datepicker({
@@ -16,7 +16,7 @@
       changeMonth: true,
       numberOfMonths: 1,
       onClose: function( selectedDate ) {
-        $(this).parents('#inside_last_entry').find( ".first_day").datepicker( "option", "maxDate", selectedDate );
+        $(this).parents('.form-inputs').find( ".first_day").datepicker( "option", "maxDate", selectedDate );
       }
     });
   });
