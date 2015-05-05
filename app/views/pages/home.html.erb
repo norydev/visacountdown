@@ -25,7 +25,7 @@
       </p> -->
 
 
-      Turkey time is: <span id="current_tk_dt"></span>
+      Turkey time is: <%= Time.now %><span id="current_tk_dt"></span>
 
       <form action="fill" method="post">
         <div class="form-group">
@@ -43,9 +43,15 @@
           <label for="last_entry">Latest Entry:</label>
           <input type="text" name="last_entry" id="period_last_entry" class="first_day form-control">
         </div>
+      </form>
+
+      <form action="old_stays" method="post">
         <div class="form-group" id="inside_last_entry">
-          <label for="last_entry">Previous Stay since <%= Date. %>:</label>
-          <input type="text" name="last_entry" id="period_last_entry" class="first_day form-control">
+          <label for="last_entry">All your Stays since <%= Date.today - 179 %> included</label>
+          <span class="text-muted">If you where in Turkey on <%= Date.today - 179 %> please enter this stay as well.</span>
+          <input type="text" name="last_entry" class="first_day form-control">
+          <input type="text" name="last_entry" class="last_day form-control">
+          <button type="submit" class="btn btn-success">Add</button>
         </div>
       </form>
 
