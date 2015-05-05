@@ -1,4 +1,5 @@
 class PeriodsController < ApplicationController
+  skip_before_action :authenticate_user!
   before_action :set_period, only: [:show, :edit, :update, :destroy]
 
   # GET /periods

@@ -1,34 +1,89 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Periods</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
 
-<table class="table table-bordered table-condensed">
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>First day</th>
-      <th>Last day</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+      <!-- <h1>Listing Periods</h1> -->
 
-  <tbody>
-    <% @periods.each do |period| %>
-      <tr>
-        <td><%= period.user %></td>
-        <td><%= period.first_day %></td>
-        <td><%= period.last_day %></td>
-        <td><%= link_to 'Show', period %></td>
-        <td><%= link_to 'Edit', edit_period_path(period) %></td>
-        <td><%= link_to 'Destroy', period, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      Turkey time is: <span id="current_tk_dt"><%= Time.now %></span>
 
-<br>
-time spent: <%= current_user.time_spent(Date.today) %>
-<br>
-remaining time: <%= current_user.remaining_time %>
+      <form action="fill" method="post">
+        <div class="form-group">
+          Are you in Turkey right now?
+          <div class="radio">
+            <label>
+              <input type="radio" name="radio_inside" id="in_turkey" value="Yes" checked>Yes
+            </label>
+            <label>
+              <input type="radio" name="radio_inside" id="not_in_turkey" value="No">No
+            </label>
+          </div>
+        </div>
+        <div class="form-group" id="inside_last_entry">
+          <label for="last_entry">Latest Entry:</label>
+          <input type="text" name="last_entry" id="period_last_entry" class="first_day form-control">
+        </div>
+      </form>
 
-<%= link_to 'New Period', new_period_path %>
+      <!-- <form action="old_stays" method="post">
+        <div class="form-group" id="inside_last_entry">
+          <label for="last_entry">All your Stays since <%= Date.today - 179 %> included</label>
+          <span class="text-muted">If you where in Turkey on <%= Date.today - 179 %> please enter this stay as well.</span>
+          <input type="text" name="last_entry" class="first_day form-control">
+          <input type="text" name="last_entry" class="last_day form-control">
+          <button type="submit" class="btn btn-success">Add</button>
+        </div>
+      </form> -->
+
+      <p>All your Stays since <%= Date.today - 179 %> included</p>
+      <p class="text-muted">If you where in Turkey on <%= Date.today - 179 %> please enter this stay as well.</p>
+      <%= render 'form', period: Period.new %>
+
+      <!-- All Stays -->
+      <% if user_signed_in? %>
+        <h4>All your stays</h4>
+        <table class="table table-bordered table-condensed">
+          <thead>
+            <tr>
+              <th>First day</th>
+              <th>Last day</th>
+              <th colspan="3"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% current_user.periods.each do |p| %>
+              <tr>
+                <td><%= p.first_day %></td>
+                <td><%= p.last_day %></td>
+                <td><%= link_to 'Show', p %></td>
+                <td><%= link_to 'Edit', edit_period_path(p) %></td>
+                <td><%= link_to 'Destroy', p, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+
+      <br>
+      time spent: <%#= current_user.time_spent(Date.today) %>
+      <br>
+      remaining time: <%#= current_user.remaining_time %>
+
+      <p><%= link_to 'New Period', new_period_path %></p>
+
+      <h4>check: all stays at all</h4>
+
+      <% @periods.each do |p| %>
+        <p>
+          <%= p.user %> |
+          <%= p.first_day %> |
+          <%= p.last_day %>
+        </p>
+      <% end %>
+
+    </div>
+  </div>
+</div>
+
