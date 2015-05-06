@@ -2,11 +2,11 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+    <div class="col-xs-10 col-sm-8 col-sm-offset-2 col-xs-offset-1">
 
       <!-- <h1>Listing Periods</h1> -->
 
-      Turkey time is: <span id="current_tk_dt"><%= Time.now %></span>
+      Turkey time is: <span id="current_tk_dt"></span>
 
       <form action="fill" method="post">
         <div class="form-group">
@@ -36,9 +36,23 @@
         </div>
       </form> -->
 
-      <p>All your Stays since <%= Date.today - 179 %> included</p>
+      <h3>All your Stays since <%= Date.today - 179 %> included</h3>
       <p class="text-muted">If you where in Turkey on <%= Date.today - 179 %> please enter this stay as well.</p>
-      <%= render 'form', period: Period.new %>
+      <%= simple_form_for(Period.new) do |f| %>
+        <%= f.error_notification %>
+
+        <div class="form-inputs">
+          <%= f.input :first_day, as: :string, input_html: {class: "first_day"} %>
+          <%= f.input :last_day, as: :string, input_html: {class: "last_day"} %>
+        </div>
+        <div>
+          Time spent: <span id="time-spent" ></span>
+        </div>
+
+        <!-- <div class="form-actions">
+          <%= f.button :submit %>
+        </div> -->
+      <% end %>
 
       <!-- All Stays -->
       <% if user_signed_in? %>

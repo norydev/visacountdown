@@ -1,7 +1,9 @@
+$(document).ready(function () {
+
 //Calendar dates for booking
   $(function() {
     $( ".first_day" ).datepicker({
-      dateFormat: "dd/mm/yy",
+      dateFormat: "dd MM yy",
       // minDate: 0,
       defaultDate: 0,
       changeMonth: true,
@@ -11,7 +13,7 @@
       }
     });
     $( ".last_day" ).datepicker({
-      dateFormat: "dd/mm/yy",
+      dateFormat: "dd MM yy",
       defaultDate: +1,
       changeMonth: true,
       numberOfMonths: 1,
@@ -21,3 +23,5 @@
     });
   });
 //end calendar dates for booking
+
+});
