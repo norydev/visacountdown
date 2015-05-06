@@ -1,7 +1,7 @@
 <%= simple_form_for(@period) do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs form-inline">
+  <div class="form-inputs">
     <%#= f.association :user %>
     <%= f.input :first_day, as: :string, input_html: {class: "first_day"} %>
     <%= f.input :last_day, as: :string, input_html: {class: "last_day"} %>

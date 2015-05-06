@@ -3,5 +3,5 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  root 'periods#index'
+  # root 'periods#index'
 end
