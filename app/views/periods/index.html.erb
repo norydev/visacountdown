@@ -26,34 +26,12 @@
         </div>
       </form>
 
-      <!-- <form action="old_stays" method="post">
-        <div class="form-group" id="inside_last_entry">
-          <label for="last_entry">All your Stays since <%= Date.today - 179 %> included</label>
-          <span class="text-muted">If you where in Turkey on <%= Date.today - 179 %> please enter this stay as well.</span>
-          <input type="text" name="last_entry" class="first_day form-control">
-          <input type="text" name="last_entry" class="last_day form-control">
-          <button type="submit" class="btn btn-success">Add</button>
-        </div>
-      </form> -->
-
       <h3>All your Stays since <%= Date.today - 179 %> included</h3>
       <p class="text-muted">If you where in Turkey on <%= Date.today - 179 %> please enter this stay as well.</p>
-      <%= simple_form_for(Period.new) do |f| %>
-        <%= f.error_notification %>
-
-        <div class="form-inputs">
-          <%= f.input :first_day, as: :string, input_html: {class: "first_day"} %>
-          <%= f.input :last_day, as: :string, input_html: {class: "last_day"} %>
-        </div>
-        <div>
-          Time spent: <span id="time-spent" ></span>
-        </div>
-
-        <!-- <div class="form-actions">
-          <%= f.button :submit %>
-        </div> -->
-      <% end %>
-
+      <div id="all_stays">
+        <%= render 'periods/jsform' %>
+      </div>
+      <a href="#" class="add_stay btn btn-success">Add a stay</a>
       <!-- All Stays -->
       <% if user_signed_in? %>
         <h4>All your stays</h4>
@@ -81,21 +59,11 @@
       <% end %>
 
       <br>
-      time spent: <span id="time_spent"></span><%#= current_user.time_spent(Date.today) %>
+      Total time spent in the last 180 days: <span id="total_time_spent"></span><%#= current_user.time_spent(Date.today) %>
       <br>
-      remaining time: <%#= current_user.remaining_time %>
-
-      <p><%= link_to 'New Period', new_period_path %></p>
-
-      <h4>check: all stays at all</h4>
-
-      <% @periods.each do |p| %>
-        <p>
-          <%= p.user %> |
-          <%= p.first_day %> |
-          <%= p.last_day %>
-        </p>
-      <% end %>
+      Remaining days: <span id="remaining_days"></span> <%#= current_user.remaining_time %>
+      <br>
+      You can stay until: <span id="stay_until"></span>
 
     </div>
   </div>
