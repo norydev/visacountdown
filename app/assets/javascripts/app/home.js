@@ -103,7 +103,7 @@ $(document).ready(function () {
 
     if ($('#in_turkey').prop("checked") && $('#period_last_entry').val()) {
       last_entry = $('#period_last_entry').val();
-      total += Math.round((Date.parse(today) - Date.parse(last_entry) ) / 86400000) + 1;
+      total += Math.round((Date.parse(today) - Date.parse(last_entry) ) / 86400000);
     }
 
     for (i = 0; i <= stay_row_pt; i++) {
