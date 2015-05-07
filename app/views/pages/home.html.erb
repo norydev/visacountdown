@@ -36,57 +36,49 @@
 
       <!-- <h1>Listing Periods</h1> -->
 
-      Turkey time is: <span id="current_tk_dt"></span>
+      Turkey time is: <%= Time.now %>
 
-      <form action="fill" method="post">
-        <div class="form-group">
-          Are you in Turkey right now?
-          <div class="radio">
-            <label>
-              <input type="radio" name="radio_inside" id="in_turkey" value="Yes" checked>Yes
-            </label>
-            <label>
-              <input type="radio" name="radio_inside" id="not_in_turkey" value="No">No
-            </label>
-          </div>
+      <div class="form-group">
+        Are you in Turkey right now?
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="radio_inside" id="in_turkey" value="Yes" checked>Yes
+          </label>
         </div>
-        <div class="form-group" id="inside_last_entry">
-          <label for="last_entry">Latest Entry:</label>
-          <input type="text" name="last_entry" id="period_last_entry" class="first_day form-control">
-        </div>
-      </form>
-
-      <h3>All your Stays since <%= Date.today - 179 %> included</h3>
-      <p class="text-muted">If you where in Turkey on <%= Date.today - 179 %> please enter this stay as well.</p>
-      <div id="all_stays">
-        <%= render 'periods/jsform' %>
       </div>
-      <a href="#" class="add_stay btn btn-success">Add a stay</a>
-      <!-- All Stays -->
-      <% if user_signed_in? %>
-        <h4>All your stays</h4>
-        <table class="table table-bordered table-condensed">
-          <thead>
-            <tr>
-              <th>First day</th>
-              <th>Last day</th>
-              <th colspan="3"></th>
-            </tr>
-          </thead>
+      <div class="form-group" id="inside_last_entry">
+        <label for="last_entry">Latest Entry:</label>
+        <input type="text" name="last_entry" id="period_last_entry" class="first_day form-control">
+      </div>
 
-          <tbody>
-            <% current_user.periods.each do |p| %>
-              <tr>
-                <td><%= p.first_day %></td>
-                <td><%= p.last_day %></td>
-                <td><%= link_to 'Show', p %></td>
-                <td><%= link_to 'Edit', edit_period_path(p) %></td>
-                <td><%= link_to 'Destroy', p, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      <% end %>
+      <div class="form-group">
+        <p><strong>Did you do other stays in Turkey since <%= Date.today - 179 %> included?</strong></p>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="radio_inside" id="in_turkey" value="Yes">Yes
+          </label>
+        </div>
+      </div>
+
+      <h4>All your Stays since <%= Date.today - 179 %> included</h4>
+      <p class="text-muted">If you where in Turkey on <%= Date.today - 179 %> please enter this stay as well.</p>
+      <table id="all_stays">
+        <tr class="form-inputs">
+          <td>
+            <label for="entry_date_0">Entry Day:</label>
+            <input type="text" id="entry_date_0" class="first_day form-control">
+          </td>
+          <td>
+            <label for="exit_date_0">Exit Day:</label>
+            <input type="text" id="exit_date_0" class="last_day form-control">
+          </td>
+          <td>
+            <label>Time spent:</label>
+            <output id="time_spent_0" class="time-spent">0 days</output>
+          </td>
+        </tr>
+      </table>
+      <a href="#" class="add_stay btn btn-success">Add a stay</a>
 
       <br>
       Total time spent in the last 180 days: <span id="total_time_spent"></span><%#= current_user.time_spent(Date.today) %>
