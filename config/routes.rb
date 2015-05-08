@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  get 'welcome/index'
+
   resources :periods
 
   devise_for :users
 
-  # root 'periods#index'
+  root 'welcome#index'
 end
