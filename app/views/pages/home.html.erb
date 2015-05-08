@@ -36,6 +36,17 @@
 
       <!-- <h1>Listing Periods</h1> -->
 
+      <!-- tests -->
+      <% current_or_guest_user.periods.each do |p| %>
+        <p><%= p.first_day %></p>
+        <p><%= p.last_day %></p>
+        <p><%= p.user %></p>
+      <% end %>
+
+      <%= render 'periods/jsform' %>
+
+      <!-- tests -->
+
       Turkey time is: <%= Time.now %>
 
       <div class="form-group">

@@ -1,4 +1,5 @@
 class PeriodsController < ApplicationController
+  skip_before_action :authenticate_user!
   before_action :set_period, only: [:show, :edit, :update, :destroy]
 
   # GET /periods
@@ -13,7 +14,7 @@ class PeriodsController < ApplicationController
   # GET /periods/new
   def new
     @period = Period.new
-    @period.user = current_user
+    @period.user = current_or_guest_user
   end
 
   # GET /periods/1/edit
@@ -23,7 +24,7 @@ class PeriodsController < ApplicationController
   # POST /periods
   def create
     @period = Period.new(period_params)
-    @period.user = current_user
+    @period.user = current_or_guest_user
 
     if @period.save
       redirect_to @period, notice: 'Period was successfully created.'

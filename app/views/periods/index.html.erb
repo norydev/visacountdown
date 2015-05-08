@@ -27,11 +27,11 @@
 </table>
 
 <br>
-time spent: <%= current_user.time_spent(Date.today) %>
+time spent: <%= current_or_guest_user.time_spent(Date.today) %>
 <br>
-remaining time: <%= current_user.remaining_time %>
+remaining time: <%= current_or_guest_user.remaining_time %>
 <br>
-You must leave on <%= current_user.latest_exit %> or before
+You must leave on <%= current_or_guest_user.latest_exit %> or before
 <br>
 
 <%= link_to 'New Period', new_period_path %>
@@ -49,7 +49,7 @@ You must leave on <%= current_user.latest_exit %> or before
     </thead>
 
     <tbody>
-      <% current_user.periods.each do |p| %>
+      <% current_or_guest_user.periods.each do |p| %>
         <tr>
           <td><%= p.first_day %></td>
           <td><%= p.last_day %></td>
