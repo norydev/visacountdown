@@ -53,8 +53,8 @@
               </tr>
             </thead>
             <tbody>
-              <% @periods.each do |p| %>
-                <tr>
+              <% @periods.order(:last_day).each do |p| %>
+                <tr data-id="<%= p.id %>">
                   <td><%= p.first_day.strftime("%B %d, %Y") %></td>
                   <td><%= p.last_day.strftime("%B %d, %Y") %></td>
                   <td><%= (p.last_day - p.first_day).to_i + 1 %></td>
