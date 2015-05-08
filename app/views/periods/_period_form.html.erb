@@ -1,0 +1,14 @@
+<%= form_for :period, url: periods_path, html: { class: "form-inline form-inputs" }, remote: true do |f| %>
+
+  <div class="form-group">
+    <%= f.text_field :first_day, class: "form-control first_day", placeholder: "Entry Date", required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.text_field :last_day, class: "form-control last_day", placeholder: "Exit Date", required: true %>
+  </div>
+
+  <div class="form-group">
+    <button id="period_submit" type="submit" class="btn btn-success"><i class="fa fa-check"></i></button>
+  </div>
+<% end %>
