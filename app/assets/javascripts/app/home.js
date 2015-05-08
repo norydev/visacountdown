@@ -101,8 +101,8 @@ $(document).ready(function () {
     var total = 0;
     var today = new Date();
 
-    if ($('#in_turkey').prop("checked") && $('#period_last_entry').val()) {
-      last_entry = $('#period_last_entry').val();
+    if ($('#in_turkey').prop("checked") && $('#user_last_entry').val()) {
+      last_entry = $('#user_last_entry').val();
       total += Math.round((Date.parse(today) - Date.parse(last_entry) ) / 86400000);
     }
 
@@ -117,7 +117,7 @@ $(document).ready(function () {
   // Total amount of days
 
   // Detect change
-  $('#period_last_entry').change(function(){
+  $('#user_last_entry').change(function(){
     total_amount();
   });
   // Detect change
