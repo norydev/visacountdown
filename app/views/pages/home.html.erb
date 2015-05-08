@@ -91,13 +91,15 @@
         <%= render "periods/period_form" %>
         <!-- All previous stays -->
 
-        <br>
-        time spent: <%= current_or_guest_user.time_spent(Date.today) %>
-        <br>
-        remaining time: <%= current_or_guest_user.remaining_time %>
-        <br>
-        You must leave on <%= current_or_guest_user.latest_exit %> or before
-        <br>
+        <% if current_or_guest_user.periods %>
+          <br>
+          time spent: <%= current_or_guest_user.time_spent(Date.today) %>
+          <br>
+          remaining time: <%= current_or_guest_user.remaining_time %>
+          <br>
+          You must leave on <%= current_or_guest_user.latest_exit %> or before
+          <br>
+        <% end %>
 
     </div>
   </div>
