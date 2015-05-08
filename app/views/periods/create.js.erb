@@ -1,0 +1,21 @@
+// app/views/comments/create.js.erb
+// Here you will write *javascript* that would be executed by the browser
+<% if @period.errors.any? %>
+  // Render new comment form with errors
+  $('#new_period_form').html("<%= j render 'periods/period_form' %>");
+<% else %>
+  // Create a paragraph for the new comment. But hide it.
+  var all_periods = $("<%= j render 'periods/all_periods', periods: @period.user.periods.order(:last_day) %>").hide();
+  // var new_period = $("<%= j render 'periods/show', period: @period %>").hide();
+  // Add it to the DOM, at the end of the existing comments. It's still hidden.
+  $('#all_stays table tbody').html(all_periods);
+  // $('#all_stays table tbody').append(new_period);
+
+  // Show the new comment with an animation!
+  all_periods.show();
+  // new_period.slideDown();
+  // Remove the text from the content textarea.
+  $('#period_first_day').val('');
+  $('#period_last_day').val('');
+
+<% end %>

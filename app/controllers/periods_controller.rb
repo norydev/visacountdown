@@ -2,6 +2,8 @@ class PeriodsController < ApplicationController
   skip_before_action :authenticate_user!
   before_action :set_period, only: [:show, :edit, :update, :destroy]
 
+  skip_before_filter :verify_authenticity_token, only: :create
+
   # GET /periods
   def index
     @periods = Period.all
@@ -27,9 +29,15 @@ class PeriodsController < ApplicationController
     @period.user = current_or_guest_user
 
     if @period.save
-      redirect_to @period, notice: 'Period was successfully created.'
+      respond_to do |format|
+        format.html { redirect_to @period, notice: 'Period was successfully created.' }
+        format.js
+      end
     else
-      render :new
+      respond_to do |format|
+        format.html { render :new }
+        format.js
+      end
     end
   end
 
