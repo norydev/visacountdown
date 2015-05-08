@@ -27,9 +27,15 @@ class PeriodsController < ApplicationController
     @period.user = current_or_guest_user
 
     if @period.save
-      redirect_to @period, notice: 'Period was successfully created.'
+      respond_to do |format|
+        format.html { redirect_to @period, notice: 'Period was successfully created.' }
+        format.js
+      end
     else
-      render :new
+      respond_to do |format|
+        format.html { render :new }
+        format.js
+      end
     end
   end
 

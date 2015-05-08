@@ -79,6 +79,22 @@ $(document).ready(function () {
   });
   // latest visible if in Turkey
 
+  // all stays visible if had previous stays
+  if ($('#has_previous_stays').prop("checked")){
+    $('#all_stays').show();
+  } else {
+    $('#all_stays').hide();
+  }
+
+  $('#has_previous_stays').change(function() {
+    if ($(this).prop("checked")){
+      $('#all_stays').slideDown();
+    } else {
+      $('#all_stays').slideUp();
+    }
+  });
+  // all stays visible if had previous stays
+
   // Add a stay
   // var stay_row_pt = 0;
 
