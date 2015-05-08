@@ -40,7 +40,6 @@
         Entry Date:
         Exit Date:
 
-
     </div>
   </div>
 </div>
@@ -53,7 +52,18 @@
 
 
 
-Turkey time is: <%= Time.now %>
+      Turkey time is: <%= Time.now %>
+
+      <!-- tests -->
+      <% current_or_guest_user.periods.each do |p| %>
+        <p><%= p.first_day %></p>
+        <p><%= p.last_day %></p>
+        <p><%= p.user %></p>
+      <% end %>
+
+      <%= render 'periods/jsform' %>
+
+      <!-- tests -->
 
       <div class="form-group">
         Are you in Turkey right now?
