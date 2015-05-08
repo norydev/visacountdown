@@ -34,9 +34,26 @@
   <div class="row">
     <div class="col-xs-10 col-sm-8 col-sm-offset-2 col-xs-offset-1">
 
-      <!-- <h1>Listing Periods</h1> -->
+      Are you in Turkey right now?
+        Latest Entry:
+      Did you do other stays in Turkey since <%= (Date.today - 179).strftime("%B %d, %Y") %> included?
+        Entry Date:
+        Exit Date:
 
-      Turkey time is: <%= Time.now %>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+Turkey time is: <%= Time.now %>
 
       <div class="form-group">
         Are you in Turkey right now?
@@ -86,7 +103,3 @@
       Remaining days: <span id="remaining_days"></span> <%#= current_user.remaining_time %>
       <br>
       You can stay until: <span id="stay_until"></span>
-
-    </div>
-  </div>
-</div>
