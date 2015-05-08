@@ -52,8 +52,13 @@ class PeriodsController < ApplicationController
 
   # DELETE /periods/1
   def destroy
+    @id = @period.id
     @period.destroy
-    redirect_to periods_url, notice: 'Period was successfully destroyed.'
+
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'Period was successfully destroyed.' }
+      format.js
+    end
   end
 
   private

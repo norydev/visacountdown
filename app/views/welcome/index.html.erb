@@ -36,7 +36,7 @@
           <div class="checkbox">
           <strong>Did you do other stays in Turkey since <%= @oldest_date %> included?</strong>
             <label>
-              <input type="checkbox" name="check_previous" id="has_previous_stays" value="Yes">Yes
+              <input type="checkbox" name="check_previous" id="has_previous_stays" value="Yes" checked>Yes
             </label>
           </div>
         </div>
@@ -58,7 +58,7 @@
                   <td><%= p.first_day.strftime("%B %d, %Y") %></td>
                   <td><%= p.last_day.strftime("%B %d, %Y") %></td>
                   <td><%= (p.last_day - p.first_day).to_i + 1 %></td>
-                  <td><%= link_to edit_period_path(p), class: "btn btn-primary" do %><i class="fa fa-pencil"></i><% end %> <%= link_to p, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" do %><i class="fa fa-trash"></i><% end %></td>
+                  <td><%= link_to edit_period_path(p), class: "btn btn-primary" do %><i class="fa fa-pencil"></i><% end %> <%= link_to p, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", remote: true do %><i class="fa fa-trash"></i><% end %></td>
                 </tr>
               <% end %>
             </tbody>
