@@ -5,6 +5,7 @@ class WelcomeController < ApplicationController
     @time_now = Time.zone.now.strftime("%B %d, %Y - %H:%M")
     @oldest_date = (Time.zone.now.to_date - 179).strftime("%B %d, %Y")
     @user = current_or_guest_user
-    @periods = current_or_guest_user.periods.order(:last_day)
+    @periods = @user.periods.order(:last_day)
+    @latest_entry = @user.latest_entry.strftime("%B %d, %Y") if @user.latest_entry
   end
 end

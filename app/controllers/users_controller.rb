@@ -3,9 +3,9 @@ class UsersController < ApplicationController
 
   def latest_entry
     @user = current_or_guest_user
-    if latest_params[:is_inside] == "Yes"
+    if latest_params[:is_in_turkey] == "Yes"
       @user.is_in_turkey = true
-      @user.latest_entry = latest_params[:last_entry]
+      @user.latest_entry = latest_params[:latest_entry]
     else
       @user.is_in_turkey = false
       @user.latest_entry = nil
@@ -27,6 +27,6 @@ class UsersController < ApplicationController
   private
     # Only allow a trusted parameter "white list" through.
     def latest_params
-      params.require(:latest).permit(:last_entry, :is_inside)
+      params.require(:user).permit(:latest_entry, :is_in_turkey)
     end
 end

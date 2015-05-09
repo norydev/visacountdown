@@ -1,12 +1,11 @@
 <%= simple_form_for(period, remote: true) do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :first_day, label: "Entry Date", as: :string, input_html: {class: "first_day"} %>
-    <%= f.input :last_day, label: "Exit Date", as: :string, input_html: {class: "last_day"} %>
+  <div class="form-inputs form-inline">
+    <%= f.input :first_day, label: "Entry Date", label_html: {class: "sr-only"}, as: :string, input_html: {class: "first_day"}, placeholder: "Entry Date" %>
+    <%= f.input :last_day, label: "Exit Date", label_html: {class: "sr-only"}, as: :string, input_html: {class: "last_day"}, placeholder: "Exit Date" %>
 
-    <%= f.button :submit, "Add", class: "btn btn-success" %>
-    <i class="fa fa-plus"></i>
+    <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i></button>
   </div>
 
 <% end %>

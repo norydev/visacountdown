@@ -4,14 +4,15 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :periods
+  has_many :periods, dependent: :destroy
 
   def to_s
     email
   end
 
-  def time_spent(today)
-    oldest_date = today - 179
+  def time_spent(day)
+    nb_days = 0
+    oldest_date = day - 179
     user_periods = self.periods
 
     user_periods = remove_too_old(user_periods, oldest_date)
@@ -19,33 +20,38 @@ class User < ActiveRecord::Base
     user_periods = user_periods.map do |period|
       (period.last_day - period.first_day).to_i + 1
     end
-    user_periods.reduce(:+)
+    nb_days += user_periods.reduce(:+) unless user_periods.empty?
+
+    if self.is_in_turkey
+      nb_days += (day - self.latest_entry).to_i + 1
+    end
+
+    nb_days
   end
 
   def remaining_time
+
     rt = 0
-    latest = self.periods.order(first_day: :desc).first
+    latest = self.latest_entry
+    today = Time.zone.now.to_date
 
-    (latest.first_day..(latest.first_day + 89)).each do |day|
-      rt = rt + 1 if time_spent(day)+rt < 90
+    if self.is_in_turkey
+      (today..(latest + 89)).each do |day|
+        rt += 1 if time_spent(day) < 90
+      end
     end
-
     rt
 
     # rt = 0
-    # today = Time.zone.now.to_date
-    # latest_entry = self.latest_entry
+    # latest = self.periods.order(first_day: :desc).first
 
-    # rt += 89 - (today - latest_entry).to_i
-    # (today..(latest_entry + 89)).each do |day|
+    # (latest.first_day..(latest.first_day + 89)).each do |day|
     #   rt = rt + 1 if time_spent(day)+rt < 90
     # end
-
-    # rt
   end
 
   def latest_exit
-    Date.today + remaining_time
+    (Time.zone.now.to_date + remaining_time).strftime("%B %d, %Y")
   end
 
   private

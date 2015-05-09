@@ -6,9 +6,9 @@
   With a tourist visa you can stay in Turkey 90 days every 180 days. When should you leave? Make the math!
 <% end %>
 
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-xs-10 col-sm-8 col-sm-offset-2 col-xs-offset-1">
+    <div class="col-xs-10 col-xs-offset-1 col-lg-8 col-lg-offset-2">
 
       <h4>Turkey Clock: <%= @time_now %></h4>
 
@@ -29,18 +29,18 @@
           <button type="submit" class="btn btn-success">Save</button>
         </form> -->
 
-        <%= form_for :latest, url: users_latest_entry_path do |f| %>
+        <%= form_for(@user, url: users_latest_entry_path) do |f| %>
           <div class="form-group">
             <div class="checkbox">
             <strong>Are you in Turkey right now?</strong>
               <label>
-                <%= f.check_box :is_inside, {id: "in_turkey"}, "Yes", "No" %> Yes
+                <%= f.check_box :is_in_turkey, {id: "in_turkey"}, "Yes", "No" %> Yes
               </label>
             </div>
           </div>
           <div class="form-group" id="inside_last_entry">
-            <label for="last_entry">Latest Entry:</label>
-            <%= f.text_field :last_entry, id: "user_last_entry", class: "form-control first_day", placeholder: "Click to Select" %>
+            <label for="last_entry">Latest Entry</label>
+            <%= f.text_field :latest_entry, id: "user_last_entry", class: "form-control first_day", placeholder: "Click to Select", value: @latest_entry %>
           </div>
           <button type="submit" class="btn btn-success">Save</button>
         <% end %>
@@ -78,11 +78,11 @@
         <!-- All previous stays -->
 
         <br>
-        time spent: <%#= @user.time_spent(Date.today) %>
+        time spent: <span id="time_spent"><%= @user.time_spent(Time.zone.now.to_date) %></span>
         <br>
-        remaining time: <%#= @user.remaining_time %>
+        remaining time: <span id="remaining_time"><%= @user.remaining_time %></span>
         <br>
-        You must leave on <%#= @user.latest_exit %> or before
+        You must leave on <span id="leave_on"><%= @user.latest_exit %></span> or before
         <br>
 
     </div>

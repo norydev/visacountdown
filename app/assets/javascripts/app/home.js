@@ -3,7 +3,7 @@ $(document).ready(function () {
   //Calendar dates for booking
   var date_picker = function(){
     $( ".first_day" ).datepicker({
-      dateFormat: "dd MM yy",
+      dateFormat: "MM dd, yy",
       defaultDate: 0,
       maxDate: 0,
       defaultDate: 0,
@@ -14,7 +14,7 @@ $(document).ready(function () {
       }
     });
     $( ".last_day" ).datepicker({
-      dateFormat: "dd MM yy",
+      dateFormat: "MM dd, yy",
       defaultDate: +1,
       maxDate: 0,
       changeMonth: false,
