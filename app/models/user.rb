@@ -30,7 +30,6 @@ class User < ActiveRecord::Base
   end
 
   def remaining_time
-
     rt = 0
     latest = self.latest_entry
     today = Time.zone.now.to_date
@@ -41,13 +40,6 @@ class User < ActiveRecord::Base
       end
     end
     rt
-
-    # rt = 0
-    # latest = self.periods.order(first_day: :desc).first
-
-    # (latest.first_day..(latest.first_day + 89)).each do |day|
-    #   rt = rt + 1 if time_spent(day)+rt < 90
-    # end
   end
 
   def latest_exit

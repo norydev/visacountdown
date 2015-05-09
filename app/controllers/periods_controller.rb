@@ -21,6 +21,10 @@ class PeriodsController < ApplicationController
 
   # GET /periods/1/edit
   def edit
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # POST /periods
@@ -44,9 +48,15 @@ class PeriodsController < ApplicationController
   # PATCH/PUT /periods/1
   def update
     if @period.update(period_params)
-      redirect_to @period, notice: 'Period was successfully updated.'
+      respond_to do |format|
+        format.html { redirect_to @period, notice: 'Period was successfully updated.' }
+        format.js
+      end
     else
-      render :edit
+      respond_to do |format|
+        format.html { render :edit }
+        format.js
+      end
     end
   end
 

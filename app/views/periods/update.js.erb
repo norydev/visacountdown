@@ -1,0 +1,16 @@
+var period_id = <%= @period.id %>
+
+$('#edit_period_form').slideUp();
+
+$('#all_stays table tbody tr').each(function(){
+  var id = $(this).data('id');
+
+  if (id == period_id) {
+
+    $(this).find('td').first().html('<%= @period.first_day.strftime("%B %d, %Y") %>');
+    $(this).find('td').first().next().html('<%= @period.last_day.strftime("%B %d, %Y") %>');
+
+    $(this).removeClass('text-muted active').find('a').removeClass('disabled');
+  }
+
+});

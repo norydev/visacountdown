@@ -1,0 +1,49 @@
+//Calendar dates for booking
+var date_picker = function(){
+  $( ".first_day" ).datepicker({
+    dateFormat: "MM dd, yy",
+    defaultDate: 0,
+    maxDate: 0,
+    defaultDate: 0,
+    changeMonth: false,
+    numberOfMonths: 1,
+    onClose: function( selectedDate ) {
+      $(this).parents('.form-inputs').find( ".last_day").datepicker( "option", {"minDate": selectedDate, "defaultDate": selectedDate} );
+    }
+  });
+  $( ".last_day" ).datepicker({
+    dateFormat: "MM dd, yy",
+    defaultDate: +1,
+    maxDate: 0,
+    changeMonth: false,
+    numberOfMonths: 1,
+    onClose: function( selectedDate ) {
+      $(this).parents('.form-inputs').find( ".first_day").datepicker( "option", {"maxDate": selectedDate, "defaultDate": selectedDate} );
+    }
+  });
+};
+date_picker();
+//end calendar dates for booking
+
+var period_id = <%= @period.id %>
+
+$('#all_stays table tbody tr').each(function(){
+  var id = $(this).data('id');
+  // console.log("id: " + id + ", period.id: " + period_id + ", is this:" + (id == period_id));
+
+  if (id == period_id) {
+    // $(this).hide();
+    $(this).addClass('text-muted active').find('a').addClass('disabled');
+    // $(this).children().first().attr('colspan',4).html('<%= j render "periods/form", period: @period %>');
+
+    var edit_form = $('<tr id="edit_period_form"><td class="active" colspan="4"><strong class="pull-left">Edit:&nbsp;</strong><%= j render "periods/form", period: @period %></td></tr>').hide();
+
+    $(this).after(edit_form);
+    edit_form.slideDown();
+
+    date_picker();
+
+    // $('#new_period_form').html('<%= j render "periods/form", period: @period %>');
+  }
+
+});
