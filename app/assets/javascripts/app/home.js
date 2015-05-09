@@ -5,7 +5,7 @@ $(document).ready(function () {
     $( ".first_day" ).datepicker({
       dateFormat: "dd MM yy",
       defaultDate: 0,
-      maxDate: +1,
+      maxDate: 0,
       defaultDate: 0,
       changeMonth: false,
       numberOfMonths: 1,
@@ -16,7 +16,7 @@ $(document).ready(function () {
     $( ".last_day" ).datepicker({
       dateFormat: "dd MM yy",
       defaultDate: +1,
-      maxDate: +1,
+      maxDate: 0,
       changeMonth: false,
       numberOfMonths: 1,
       onClose: function( selectedDate ) {

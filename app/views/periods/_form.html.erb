@@ -1,13 +1,12 @@
-<%= simple_form_for(@period) do |f| %>
+<%= simple_form_for(period, remote: true) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%#= f.association :user %>
-    <%= f.input :first_day, as: :string, input_html: {class: "first_day"} %>
-    <%= f.input :last_day, as: :string, input_html: {class: "last_day"} %>
+    <%= f.input :first_day, label: "Entry Date", as: :string, input_html: {class: "first_day"} %>
+    <%= f.input :last_day, label: "Exit Date", as: :string, input_html: {class: "last_day"} %>
+
+    <%= f.button :submit, "Add", class: "btn btn-success" %>
+    <i class="fa fa-plus"></i>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
 <% end %>

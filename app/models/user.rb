@@ -31,6 +31,17 @@ class User < ActiveRecord::Base
     end
 
     rt
+
+    # rt = 0
+    # today = Time.zone.now.to_date
+    # latest_entry = self.latest_entry
+
+    # rt += 89 - (today - latest_entry).to_i
+    # (today..(latest_entry + 89)).each do |day|
+    #   rt = rt + 1 if time_spent(day)+rt < 90
+    # end
+
+    # rt
   end
 
   def latest_exit

@@ -13,7 +13,7 @@
       <h4>Turkey Clock: <%= @time_now %></h4>
 
         <!-- User is in? -->
-        <form action="">
+        <!-- <form action="">
           <div class="form-group">
             <div class="checkbox">
             <strong>Are you in Turkey right now?</strong>
@@ -27,8 +27,23 @@
             <input type="text" name="last_entry" id="user_last_entry" class="first_day form-control">
           </div>
           <button type="submit" class="btn btn-success">Save</button>
-        </form>
+        </form> -->
 
+        <%= form_for :latest, url: users_latest_entry_path do |f| %>
+          <div class="form-group">
+            <div class="checkbox">
+            <strong>Are you in Turkey right now?</strong>
+              <label>
+                <%= f.check_box :is_inside, {id: "in_turkey"}, "Yes", "No" %> Yes
+              </label>
+            </div>
+          </div>
+          <div class="form-group" id="inside_last_entry">
+            <label for="last_entry">Latest Entry:</label>
+            <%= f.text_field :last_entry, id: "user_last_entry", class: "form-control first_day", placeholder: "Click to Select" %>
+          </div>
+          <button type="submit" class="btn btn-success">Save</button>
+        <% end %>
         <!-- User is in? -->
 
         <!-- Been there before? -->
@@ -36,7 +51,7 @@
           <div class="checkbox">
           <strong>Did you do other stays in Turkey since <%= @oldest_date %> included?</strong>
             <label>
-              <input type="checkbox" name="check_previous" id="has_previous_stays" value="Yes" checked>Yes
+              <input type="checkbox" name="check_previous" id="has_previous_stays" value="Yes" <%= "checked" if @user.periods %>>Yes
             </label>
           </div>
         </div>
@@ -53,18 +68,11 @@
               </tr>
             </thead>
             <tbody>
-              <% @periods.order(:last_day).each do |p| %>
-                <tr data-id="<%= p.id %>">
-                  <td><%= p.first_day.strftime("%B %d, %Y") %></td>
-                  <td><%= p.last_day.strftime("%B %d, %Y") %></td>
-                  <td><%= (p.last_day - p.first_day).to_i + 1 %></td>
-                  <td><%= link_to edit_period_path(p), class: "btn btn-primary" do %><i class="fa fa-pencil"></i><% end %> <%= link_to p, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", remote: true do %><i class="fa fa-trash"></i><% end %></td>
-                </tr>
-              <% end %>
+              <%= render "periods/all_periods", periods: @periods %>
             </tbody>
           </table>
           <div id="new_period_form">
-            <%= render "periods/period_form" %>
+            <%= render "periods/form", period: Period.new() %>
           </div>
         </div>
         <!-- All previous stays -->
