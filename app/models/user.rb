@@ -39,15 +39,19 @@ class User < ActiveRecord::Base
         rt += 1 if time_spent(day) < 90
       end
     else
-      (today..(today + 89)).each do |day|
-        rt += 1 if time_spent(day) < 90
+      (latest..(latest + 89)).each do |day|
+        rt += 1 if time_spent(day) + rt < 90
       end
     end
     rt
   end
 
   def latest_exit
-    (Time.zone.now.to_date + remaining_time).strftime("%B %d, %Y")
+    if self.is_in_turkey
+      (Time.zone.now.to_date + remaining_time).strftime("%B %d, %Y")
+    else
+      (self.latest_entry + remaining_time - 1).strftime("%B %d, %Y")
+    end
   end
 
   private

@@ -18,4 +18,17 @@
   $('#period_first_day').val('');
   $('#period_last_day').val('');
 
+  var max_date = "";
+
+  if ($('#user_last_entry').val()) {
+    max_date = $('#user_last_entry').val();
+  }
+
+  $( ".first_day" ).datepicker( "option",
+    "maxDate", max_date
+  );
+  $( ".last_day" ).datepicker( "option",
+    "maxDate", max_date
+  );
+
 <% end %>

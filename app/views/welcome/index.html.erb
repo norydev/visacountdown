@@ -12,8 +12,28 @@
 
       <h4>Turkey Clock: <%= @time_now %></h4>
 
+        <!-- User is in? -->
+        <%= form_for(@user, url: users_latest_entry_path) do |f| %>
+          <div class="form-group">
+            <div class="checkbox">
+            <strong>Are you in Turkey right now?</strong>
+              <%= f.check_box :is_in_turkey, {id: "in_turkey", class: "cmn-toggle-yes-no"}, "Yes", "No" %>
+              <label for="in_turkey" data-on="Yes" data-off="No"></label>
+            </div>
+          </div>
+          <div class="form-group" id="inside_last_entry">
+            <label for="last_entry">Latest/Planned Entry</label>
+            <%= f.text_field :latest_entry, id: "user_last_entry", class: "form-control latest_planned", placeholder: "Click to Select", value: @latest_entry %>
+          </div>
+
+          <button type="submit" class="btn btn-success">Calculate</button>
+        <% end %>
+        <!-- User is in? -->
+
+
         <!-- All previous stays -->
-        <strong>Please enter all your stays in Turkey since <%= @oldest_date %> included</strong>
+        <strong>Please enter all your stays in Turkey since <%= @oldest_date %> (included) and your planned stays before planned entry</strong>
+        <p><small>Example: you plan to enter on <%= (@today + 20).strftime("%B %d, %Y") %> and plan a trip between <%= (@today + 5).strftime("%B %d, %Y") %> and <%= (@today + 10).strftime("%B %d, %Y") %></small></p>
         <div id="all_stays">
           <table class="table tablebordered table-condensed">
             <thead>
@@ -33,30 +53,35 @@
         </div>
         <!-- All previous stays -->
 
-
-        <%= form_for(@user, url: users_latest_entry_path) do |f| %>
-          <div class="form-group">
-            <div class="checkbox">
-            <strong>Are you in Turkey right now?</strong>
-              <%= f.check_box :is_in_turkey, {id: "in_turkey", class: "cmn-toggle-yes-no"}, "Yes", "No" %>
-              <label for="in_turkey" data-on="Yes" data-off="No"></label>
-            </div>
+        <!-- Results -->
+        <% if @overstay && @user.is_in_turkey %>
+          <p>
+            time spent in the last 180 days: <span id="time_spent"><%= @user.time_spent(@today) %></span>
+          </p>
+          <p><strong>You are in overstay! Get out of here as soon as you can to avoid paying more penalty!</strong></p>
+        <% elsif @user.latest_entry %>
+          <div>
+            <p>
+              time spent in the last 180 days: <span id="time_spent"><%= @user.time_spent(@today) %></span>
+            </p>
+            <% if @user.is_in_turkey%>
+              <p>
+                remaining days: <span id="remaining_time"><%= @user.remaining_time %></span>
+              </p>
+              <p>
+                You must leave on <span id="leave_on"><%= @user.latest_exit %></span> or before
+              </p>
+            <% else %>
+              <p>
+                You will be able to stay: <span id="remaining_time"><%= @user.remaining_time %></span> days
+              </p>
+              <p>
+                You will have to leave on <span id="leave_on"><%= @user.latest_exit %></span> or before
+              </p>
+            <% end %>
           </div>
-          <div class="form-group" id="inside_last_entry">
-            <label for="last_entry">Latest/Planned Entry</label>
-            <%= f.text_field :latest_entry, id: "user_last_entry", class: "form-control first_day", placeholder: "Click to Select", value: @latest_entry %>
-          </div>
-          <button type="submit" class="btn btn-success">Calculate</button>
         <% end %>
-        <!-- User is in? -->
-
-        <br>
-        time spent: <span id="time_spent"><%= @user.time_spent(Time.zone.now.to_date) %></span>
-        <br>
-        remaining time: <span id="remaining_time"><%= @user.remaining_time %></span>
-        <br>
-        You must leave on <span id="leave_on"><%= @user.latest_exit %></span> or before
-        <br>
+        <!-- Results -->
 
     </div>
   </div>

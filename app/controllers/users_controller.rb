@@ -5,11 +5,11 @@ class UsersController < ApplicationController
     @user = current_or_guest_user
     if latest_params[:is_in_turkey] == "Yes"
       @user.is_in_turkey = true
-      @user.latest_entry = latest_params[:latest_entry]
     else
       @user.is_in_turkey = false
-      @user.latest_entry = nil
     end
+
+    @user.latest_entry = latest_params[:latest_entry]
 
     if @user.save
       respond_to do |format|

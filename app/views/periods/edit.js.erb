@@ -1,28 +1,52 @@
 //Calendar dates for booking
 var date_picker = function(){
-  $( ".first_day" ).datepicker({
+
+  var max_date = "";
+
+  if ($('#user_last_entry').val()) {
+    max_date = $('#user_last_entry').val();
+  }
+
+  $(".latest_planned").datepicker({
     dateFormat: "MM dd, yy",
     defaultDate: 0,
-    maxDate: 0,
     defaultDate: 0,
     changeMonth: false,
     numberOfMonths: 1,
     onClose: function( selectedDate ) {
-      $(this).parents('.form-inputs').find( ".last_day").datepicker( "option", {"minDate": selectedDate, "defaultDate": selectedDate} );
+      $( ".last_day").datepicker( "option", {"maxDate": selectedDate, "defaultDate": 0} );
+      $( ".first_day").datepicker( "option", {"maxDate": selectedDate, "defaultDate": 0} );
+    }
+  });
+
+  $( ".first_day" ).datepicker({
+    dateFormat: "MM dd, yy",
+    defaultDate: 0,
+    // maxDate: 0,
+    maxDate: max_date,
+    defaultDate: 0,
+    changeMonth: false,
+    numberOfMonths: 1,
+    onClose: function( selectedDate ) {
+      if (selectedDate) {
+        $(this).parents('.form-inputs').find( ".last_day").datepicker( "option", {"minDate": selectedDate, "defaultDate": selectedDate} );
+      }
     }
   });
   $( ".last_day" ).datepicker({
     dateFormat: "MM dd, yy",
     defaultDate: +1,
-    maxDate: 0,
+    // maxDate: 0,
+    maxDate: max_date,
     changeMonth: false,
     numberOfMonths: 1,
     onClose: function( selectedDate ) {
-      $(this).parents('.form-inputs').find( ".first_day").datepicker( "option", {"maxDate": selectedDate, "defaultDate": selectedDate} );
+      if (selectedDate) {
+        $(this).parents('.form-inputs').find( ".first_day").datepicker( "option", {"maxDate": selectedDate, "defaultDate": selectedDate} );
+      }
     }
   });
 };
-date_picker();
 //end calendar dates for booking
 
 var period_id = <%= @period.id %>
@@ -32,15 +56,26 @@ $('#all_stays table tbody tr').each(function(){
   // console.log("id: " + id + ", period.id: " + period_id + ", is this:" + (id == period_id));
 
   if (id == period_id) {
-    // $(this).hide();
-    $(this).addClass('text-muted active').find('a').addClass('disabled');
+
+    var this_row = $(this);
+
+    this_row.addClass('text-muted active').find('a').addClass('disabled');
     // $(this).children().first().attr('colspan',4).html('<%= j render "periods/form", period: @period %>');
 
     var edit_form = $('<tr id="edit_period_form"><td class="active" colspan="4"><strong class="pull-left btn"><i class="fa fa-pencil"></i></strong><%= j render "periods/form", period: @period %></td></tr>').hide();
 
-    $(this).after(edit_form);
+    edit_form.find('.form-inputs').append('<a href="#" class="cancel text-muted btn">Cancel</a>');
+
+    this_row.after(edit_form);
     edit_form.slideDown();
 
+    $('.cancel').click(function (e) {
+      // prevent the default click action
+      e.preventDefault();
+      // show the edit form
+      edit_form.hide();
+      this_row.removeClass('text-muted active').find('a').removeClass('disabled');
+    });
     date_picker();
 
     // $('#new_period_form').html('<%= j render "periods/form", period: @period %>');

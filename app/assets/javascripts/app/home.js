@@ -2,30 +2,63 @@ $(document).ready(function () {
 
   //Calendar dates for booking
   var date_picker = function(){
-    $( ".first_day" ).datepicker({
+
+    var max_date = "";
+
+    if ($('#user_last_entry').val()) {
+      max_date = $('#user_last_entry').val();
+    }
+
+    $(".latest_planned").datepicker({
       dateFormat: "MM dd, yy",
       defaultDate: 0,
-      maxDate: 0,
       defaultDate: 0,
       changeMonth: false,
       numberOfMonths: 1,
       onClose: function( selectedDate ) {
-        $(this).parents('.form-inputs').find( ".last_day").datepicker( "option", {"minDate": selectedDate, "defaultDate": selectedDate} );
+        $( ".last_day").datepicker( "option", {"maxDate": selectedDate, "defaultDate": 0} );
+        $( ".first_day").datepicker( "option", {"maxDate": selectedDate, "defaultDate": 0} );
+      }
+    });
+
+    $( ".first_day" ).datepicker({
+      dateFormat: "MM dd, yy",
+      defaultDate: 0,
+      // maxDate: 0,
+      maxDate: max_date,
+      defaultDate: 0,
+      changeMonth: false,
+      numberOfMonths: 1,
+      onClose: function( selectedDate ) {
+        if (selectedDate) {
+          $(this).parents('.form-inputs').find( ".last_day").datepicker( "option", {"minDate": selectedDate, "defaultDate": selectedDate} );
+        }
       }
     });
     $( ".last_day" ).datepicker({
       dateFormat: "MM dd, yy",
       defaultDate: +1,
-      maxDate: 0,
+      // maxDate: 0,
+      maxDate: max_date,
       changeMonth: false,
       numberOfMonths: 1,
       onClose: function( selectedDate ) {
-        $(this).parents('.form-inputs').find( ".first_day").datepicker( "option", {"maxDate": selectedDate, "defaultDate": selectedDate} );
+        if (selectedDate) {
+          $(this).parents('.form-inputs').find( ".first_day").datepicker( "option", {"maxDate": selectedDate, "defaultDate": selectedDate} );
+        }
       }
     });
   };
   date_picker();
   //end calendar dates for booking
+
+  $('#in_turkey').change(function() {
+    $('#user_last_entry').focus();
+    // function() {
+    //     $(".first_day").datepicker("show");
+    // });
+    console.log('focus');
+  });
 
   // // latest visible if in Turkey
   // if ($('#in_turkey').prop("checked")){
