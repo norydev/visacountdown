@@ -52,3 +52,7 @@ input.cmn-toggle-yes-no:checked + label:before {
 input.cmn-toggle-yes-no:checked + label:after {
   transform: rotateY(0);
 }
+
+input.cmn-toggle-yes-no + label:hover {
+  opacity: 0.8;
+}

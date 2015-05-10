@@ -61,10 +61,16 @@ class ApplicationController < ActionController::Base
       # comment.user_id = current_user.id
       # comment.save!
     # end
-    guest_user.periods.each do |p|
+    guest_periods = guest_user.periods.all
+    guest_periods.each do |p|
       p.user_id = current_user.id
       p.save!
     end
+
+    current_user.is_in_turkey = guest_user.is_in_turkey
+    current_user.latest_entry = guest_user.latest_entry
+    current_user.save
+
   end
 
   def create_guest_user

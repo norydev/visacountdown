@@ -26,7 +26,7 @@
             <%= f.text_field :latest_entry, id: "user_last_entry", class: "form-control latest_planned", placeholder: "Click to Select", value: @latest_entry %>
           </div>
 
-          <button type="submit" class="btn btn-success">Calculate</button>
+          <button if="calculate" type="submit" class="btn btn-success">Calculate</button>
         <% end %>
         <!-- User is in? -->
 

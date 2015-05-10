@@ -7,18 +7,6 @@ var date_picker = function(){
     max_date = $('#user_last_entry').val();
   }
 
-  $(".latest_planned").datepicker({
-    dateFormat: "MM dd, yy",
-    defaultDate: 0,
-    defaultDate: 0,
-    changeMonth: false,
-    numberOfMonths: 1,
-    onClose: function( selectedDate ) {
-      $( ".last_day").datepicker( "option", {"maxDate": selectedDate, "defaultDate": 0} );
-      $( ".first_day").datepicker( "option", {"maxDate": selectedDate, "defaultDate": 0} );
-    }
-  });
-
   $( ".first_day" ).datepicker({
     dateFormat: "MM dd, yy",
     defaultDate: 0,
@@ -59,8 +47,7 @@ $('#all_stays table tbody tr').each(function(){
 
     var this_row = $(this);
 
-    this_row.addClass('text-muted active').find('a').addClass('disabled');
-    // $(this).children().first().attr('colspan',4).html('<%= j render "periods/form", period: @period %>');
+    this_row.addClass('text-muted active').find('a').attr('disabled', 'disabled');
 
     var edit_form = $('<tr id="edit_period_form"><td class="active" colspan="4"><strong class="pull-left btn"><i class="fa fa-pencil"></i></strong><%= j render "periods/form", period: @period %></td></tr>').hide();
 
@@ -74,7 +61,7 @@ $('#all_stays table tbody tr').each(function(){
       e.preventDefault();
       // show the edit form
       edit_form.hide();
-      this_row.removeClass('text-muted active').find('a').removeClass('disabled');
+      this_row.removeClass('text-muted active').find('a').removeAttr("disabled");
     });
     date_picker();
 
