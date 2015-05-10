@@ -7,8 +7,17 @@ $('#all_stays table tbody tr').each(function(){
 
   if (id == period_id) {
 
-    $(this).find('td').first().html('<%= @period.first_day.strftime("%B %d, %Y") %>');
-    $(this).find('td').first().next().html('<%= @period.last_day.strftime("%B %d, %Y") %>');
+    // $(this).find('td').first().html('<%= @period.first_day.strftime("%B %d, %Y") %>');
+    // $(this).find('td').first().next().html('<%= @period.last_day.strftime("%B %d, %Y") %>');
+
+    var all_periods = $("<%= j render 'periods/all_periods', periods: @period.user.periods.order(:last_day) %>").hide();
+    // var new_period = $("<%= j render 'periods/show', period: @period %>").hide();
+    // Add it to the DOM, at the end of the existing comments. It's still hidden.
+    $('#all_stays table tbody').html(all_periods);
+    // $('#all_stays table tbody').append(new_period);
+
+    // Show the new comment with an animation!
+    all_periods.show();
 
     $(this).removeClass('text-muted active').find('a').removeClass('disabled');
   }

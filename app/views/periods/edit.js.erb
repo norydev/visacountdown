@@ -36,7 +36,7 @@ $('#all_stays table tbody tr').each(function(){
     $(this).addClass('text-muted active').find('a').addClass('disabled');
     // $(this).children().first().attr('colspan',4).html('<%= j render "periods/form", period: @period %>');
 
-    var edit_form = $('<tr id="edit_period_form"><td class="active" colspan="4"><strong class="pull-left">Edit:&nbsp;</strong><%= j render "periods/form", period: @period %></td></tr>').hide();
+    var edit_form = $('<tr id="edit_period_form"><td class="active" colspan="4"><strong class="pull-left btn"><i class="fa fa-pencil"></i></strong><%= j render "periods/form", period: @period %></td></tr>').hide();
 
     $(this).after(edit_form);
     edit_form.slideDown();
