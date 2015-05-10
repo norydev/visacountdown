@@ -38,6 +38,10 @@ class User < ActiveRecord::Base
       (today..(latest + 89)).each do |day|
         rt += 1 if time_spent(day) < 90
       end
+    else
+      (today..(today + 89)).each do |day|
+        rt += 1 if time_spent(day) < 90
+      end
     end
     rt
   end

@@ -12,52 +12,8 @@
 
       <h4>Turkey Clock: <%= @time_now %></h4>
 
-        <!-- User is in? -->
-        <!-- <form action="">
-          <div class="form-group">
-            <div class="checkbox">
-            <strong>Are you in Turkey right now?</strong>
-              <label>
-                <input type="checkbox" name="check_inside" id="in_turkey" value="Yes" checked>Yes
-              </label>
-            </div>
-          </div>
-          <div class="form-group" id="inside_last_entry">
-            <label for="last_entry">Latest Entry:</label>
-            <input type="text" name="last_entry" id="user_last_entry" class="first_day form-control">
-          </div>
-          <button type="submit" class="btn btn-success">Save</button>
-        </form> -->
-
-        <%= form_for(@user, url: users_latest_entry_path) do |f| %>
-          <div class="form-group">
-            <div class="checkbox">
-            <strong>Are you in Turkey right now?</strong>
-              <label>
-                <%= f.check_box :is_in_turkey, {id: "in_turkey"}, "Yes", "No" %> Yes
-              </label>
-            </div>
-          </div>
-          <div class="form-group" id="inside_last_entry">
-            <label for="last_entry">Latest Entry</label>
-            <%= f.text_field :latest_entry, id: "user_last_entry", class: "form-control first_day", placeholder: "Click to Select", value: @latest_entry %>
-          </div>
-          <button type="submit" class="btn btn-success">Save</button>
-        <% end %>
-        <!-- User is in? -->
-
-        <!-- Been there before? -->
-        <div class="form-group">
-          <div class="checkbox">
-          <strong>Did you do other stays in Turkey since <%= @oldest_date %> included?</strong>
-            <label>
-              <input type="checkbox" name="check_previous" id="has_previous_stays" value="Yes" <%= "checked" if @user.periods %>>Yes
-            </label>
-          </div>
-        </div>
-        <!-- Been there before? -->
-
         <!-- All previous stays -->
+        <strong>Please enter all your stays in Turkey since <%= @oldest_date %> included</strong>
         <div id="all_stays">
           <table class="table tablebordered table-condensed">
             <thead>
@@ -76,6 +32,23 @@
           </div>
         </div>
         <!-- All previous stays -->
+
+
+        <%= form_for(@user, url: users_latest_entry_path) do |f| %>
+          <div class="form-group">
+            <div class="checkbox">
+            <strong>Are you in Turkey right now?</strong>
+              <%= f.check_box :is_in_turkey, {id: "in_turkey", class: "cmn-toggle-yes-no"}, "Yes", "No" %>
+              <label for="in_turkey" data-on="Yes" data-off="No"></label>
+            </div>
+          </div>
+          <div class="form-group" id="inside_last_entry">
+            <label for="last_entry">Latest/Planned Entry</label>
+            <%= f.text_field :latest_entry, id: "user_last_entry", class: "form-control first_day", placeholder: "Click to Select", value: @latest_entry %>
+          </div>
+          <button type="submit" class="btn btn-success">Calculate</button>
+        <% end %>
+        <!-- User is in? -->
 
         <br>
         time spent: <span id="time_spent"><%= @user.time_spent(Time.zone.now.to_date) %></span>
