@@ -2,6 +2,11 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_user!
 
   def latest_entry
+
+    @time_now = Time.zone.now.strftime("%B %d, %Y - %H:%M")
+    @today = Time.zone.now.to_date
+    @oldest_date = (Time.zone.now.to_date - 179).strftime("%B %d, %Y")
+
     @user = current_or_guest_user
     if latest_params[:is_in_turkey] == "Yes"
       @user.is_in_turkey = true
@@ -11,9 +16,13 @@ class UsersController < ApplicationController
 
     @user.latest_entry = latest_params[:latest_entry]
 
+    @periods = @user.periods.order(:last_day)
+    @latest_entry = @user.latest_entry.strftime("%B %d, %Y") if @user.latest_entry
+
     if @user.save
       respond_to do |format|
-        format.html { redirect_to root_path, notice: 'Your infos have been updated.' }
+        # format.html { redirect_to root_path, notice: 'Your infos have been updated.' }
+        format.html
         format.js
       end
     else

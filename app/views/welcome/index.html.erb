@@ -52,36 +52,6 @@
         <% end %>
         <!-- User is in? -->
 
-        <!-- Results -->
-        <% if @overstay && @user.is_in_turkey %>
-          <p>
-            time spent in the last 180 days: <span id="time_spent"><%= @user.time_spent(@today) %></span>
-          </p>
-          <p><strong>You are in overstay! Get out of here as soon as you can to avoid paying more penalty!</strong></p>
-        <% elsif @user.latest_entry %>
-          <div>
-            <p>
-              time spent in the last 180 days: <span id="time_spent"><%= @user.time_spent(@today) %></span>
-            </p>
-            <% if @user.is_in_turkey%>
-              <p>
-                remaining days: <span id="remaining_time"><%= @user.remaining_time %></span>
-              </p>
-              <p>
-                You must leave on <span id="leave_on"><%= @user.latest_exit %></span> or before
-              </p>
-            <% else %>
-              <p>
-                You will be able to stay: <span id="remaining_time"><%= @user.remaining_time %></span> days
-              </p>
-              <p>
-                You will have to leave on <span id="leave_on"><%= @user.latest_exit %></span> or before
-              </p>
-            <% end %>
-          </div>
-        <% end %>
-        <!-- Results -->
-
     </div>
   </div>
 </div>
