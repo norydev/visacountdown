@@ -2,7 +2,7 @@ class PeriodsController < ApplicationController
   skip_before_action :authenticate_user!
   before_action :set_period, only: [:show, :edit, :update, :destroy]
 
-  skip_before_filter :verify_authenticity_token, only: :create
+  # skip_before_filter :verify_authenticity_token, only: [:update]
 
   # GET /periods
   def index

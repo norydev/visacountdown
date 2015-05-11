@@ -12,25 +12,6 @@
 
       <h4>Turkey Clock: <%= @time_now %></h4>
 
-        <!-- User is in? -->
-        <%= form_for(@user, url: users_latest_entry_path) do |f| %>
-          <div class="form-group">
-            <div class="checkbox">
-            <strong>Are you in Turkey right now?</strong>
-              <%= f.check_box :is_in_turkey, {id: "in_turkey", class: "cmn-toggle-yes-no"}, "Yes", "No" %>
-              <label for="in_turkey" data-on="Yes" data-off="No"></label>
-            </div>
-          </div>
-          <div class="form-group" id="inside_last_entry">
-            <label for="last_entry">Latest/Planned Entry</label>
-            <%= f.text_field :latest_entry, id: "user_last_entry", class: "form-control latest_planned", placeholder: "Click to Select", value: @latest_entry %>
-          </div>
-
-          <button if="calculate" type="submit" class="btn btn-success">Calculate</button>
-        <% end %>
-        <!-- User is in? -->
-
-
         <!-- All previous stays -->
         <strong>Please enter all your stays in Turkey since <%= @oldest_date %> (included) and your planned stays before planned entry</strong>
         <p><small>Example: you plan to enter on <%= (@today + 20).strftime("%B %d, %Y") %> and plan a trip between <%= (@today + 5).strftime("%B %d, %Y") %> and <%= (@today + 10).strftime("%B %d, %Y") %></small></p>
@@ -52,6 +33,24 @@
           </div>
         </div>
         <!-- All previous stays -->
+
+        <!-- User is in? -->
+        <%= form_for(@user, url: users_latest_entry_path) do |f| %>
+          <div class="form-group">
+            <div class="checkbox">
+            <strong>Are you in Turkey right now?</strong>
+              <%= f.check_box :is_in_turkey, {id: "in_turkey", class: "cmn-toggle-yes-no"}, "Yes", "No" %>
+              <label for="in_turkey" data-on="Yes" data-off="No"></label>
+            </div>
+          </div>
+          <div class="form-group" id="inside_last_entry">
+            <label for="last_entry">Latest/Planned Entry</label>
+            <%= f.text_field :latest_entry, id: "user_last_entry", class: "form-control latest_planned", placeholder: "Click to Select", value: @latest_entry %>
+          </div>
+
+          <button if="calculate" type="submit" class="btn btn-success">Calculate</button>
+        <% end %>
+        <!-- User is in? -->
 
         <!-- Results -->
         <% if @overstay && @user.is_in_turkey %>

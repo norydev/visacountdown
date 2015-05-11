@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :periods, dependent: :destroy
+  has_many :periods, dependent: :nullify #:destroy
 
   def to_s
     email
