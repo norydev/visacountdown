@@ -3,9 +3,12 @@
  * These are examples of utilities classes
  * Feel free to change them and create your own
  * ------------------------------------- */
+.marged {
+  padding: 1em;
+}
 .padded {
-  padding-top: 8em;
-  padding-bottom: 8em;
+  padding-top: 3em;
+  padding-bottom: 3em;
 }
 .bg-red {
   background: $red;

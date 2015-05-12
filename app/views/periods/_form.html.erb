@@ -6,10 +6,11 @@
   <%= f.error_notification %>
 
   <div class="form-inputs form-inline">
-    <%= f.input :first_day, label: "Entry Date", label_html: {class: "sr-only"}, as: :string, input_html: {class: "first_day", value: first_day}, placeholder: "Entry Date" %>
-    <%= f.input :last_day, label: "Exit Date", label_html: {class: "sr-only"}, as: :string, input_html: {class: "last_day", value: last_day}, placeholder: "Exit Date" %>
+    <%= f.input :first_day, label: "Entry Date", label_html: {class: "sr-only"}, as: :string, input_html: {class: "first_day", value: first_day, required: "required"}, placeholder: "Entry Date" %>
+    <%= f.input :last_day, label: "Exit Date", label_html: {class: "sr-only"}, as: :string, input_html: {class: "last_day", value: last_day, required: "required"}, placeholder: "Exit Date" %>
 
-    <button type="submit" class="btn btn-success"><i class="fa fa-<%= symbol %>"></i></button>
+    <button id="stay_submit" type="submit" class="btn btn-success"><i class="fa fa-<%= symbol %>"></i></button>
+    <!-- <button id="stay_submit" type="submit" class="btn btn-success" disabled="disabled"><i class="fa fa-<%= symbol %>"></i></button> -->
   </div>
 
 <% end %>

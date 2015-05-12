@@ -3,7 +3,7 @@
     <div class="col-xs-10 col-xs-offset-1 col-lg-8 col-lg-offset-2">
 
       <!-- Results -->
-      <% if @user.is_in_turkey %>
+      <% if @user.is_in_turkey? %>
         <% if @user.time_spent(@today) > 90 %>
           <p>
             time spent in the last 180 days: <span id="time_spent"><%= @user.time_spent(@today) %></span>

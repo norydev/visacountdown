@@ -10,7 +10,15 @@ class User < ActiveRecord::Base
     email
   end
 
-  def time_spent(day)
+  def is_in_turkey?
+    if self.latest_entry
+      (Time.zone.now.to_date - self.latest_entry).to_i >= 0
+    else
+      false
+    end
+  end
+
+  def time_spent(day, future = false)
     nb_days = 0
     oldest_date = day - 179
     user_periods = self.periods
@@ -26,20 +34,23 @@ class User < ActiveRecord::Base
     end
     nb_days += user_periods.reduce(:+) unless user_periods.empty?
 
-    if self.is_in_turkey
+    if self.is_in_turkey? && !future
       nb_days += (day - self.latest_entry).to_i + 1
     end
 
     nb_days
   end
 
-  def remaining_time
+  def remaining_time(date = Time.zone.now.to_date, future = false)
     rt = 0
     latest = self.latest_entry
-    today = Time.zone.now.to_date
 
-    if self.is_in_turkey
-      (today..(latest + 89)).each do |day|
+    if future
+      (date..(date + 89)).each do |day|
+        rt += 1 if time_spent(day, future) < 90
+      end
+    elsif self.is_in_turkey?
+      (date..(latest + 89)).each do |day|
         rt += 1 if time_spent(day) < 90
       end
     else
@@ -51,7 +62,7 @@ class User < ActiveRecord::Base
   end
 
   def latest_exit
-    if self.is_in_turkey
+    if self.is_in_turkey?
       (Time.zone.now.to_date + remaining_time).strftime("%B %d, %Y")
     else
       (self.latest_entry + remaining_time - 1).strftime("%B %d, %Y")
