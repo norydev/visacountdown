@@ -8,11 +8,6 @@ class UsersController < ApplicationController
     @oldest_date = (Time.zone.now.to_date - 179).strftime("%B %d, %Y")
 
     @user = current_or_guest_user
-    if latest_params[:is_in_turkey] == "Yes"
-      @user.is_in_turkey = true
-    else
-      @user.is_in_turkey = false
-    end
 
     @user.latest_entry = latest_params[:latest_entry]
 
@@ -21,8 +16,8 @@ class UsersController < ApplicationController
 
     if @user.save
       respond_to do |format|
-        # format.html { redirect_to root_path, notice: 'Your infos have been updated.' }
-        format.html
+        format.html { redirect_to root_path, notice: 'Your infos have been updated.' }
+        # format.html
         format.js
       end
     else
@@ -36,6 +31,6 @@ class UsersController < ApplicationController
   private
     # Only allow a trusted parameter "white list" through.
     def latest_params
-      params.require(:user).permit(:latest_entry, :is_in_turkey)
+      params.require(:user).permit(:latest_entry)
     end
 end
