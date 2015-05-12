@@ -52,12 +52,18 @@ $(document).ready(function () {
   date_picker();
   //end calendar dates for booking
 
-  $('#in_turkey').change(function() {
-    $('#user_last_entry').focus();
-    // function() {
-    //     $(".first_day").datepicker("show");
-    // });
-    console.log('focus');
+  $('#all_stays first_day').change(function() {
+    var last_day_val = $(this).parents('#all_stays').find('.last_day').val();
+    if ($(this).val() != '' && last_day_val != '') {
+      $(this).parents('#all_stays').find('#stay_submit').attr('disabled', '');
+    }
+  });
+
+  $('#all_stays last_day').change(function() {
+    var last_day_val = $(this).parents('#all_stays').find('.first_day').val();
+    if ($(this).val() != '' && last_day_val != '') {
+      $(this).parents('#all_stays').find('#stay_submit').attr('disabled', '');
+    }
   });
 
   // // latest visible if in Turkey

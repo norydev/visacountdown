@@ -15,39 +15,23 @@
         <!-- Results -->
         <% if @user.latest_entry %>
           <div id="results">
+            <p>Time you spent in Turkey in the last 180 days: <span id="time_spent"><%= @user.time_spent(@today) %></span></p>
             <% if @user.is_in_turkey? %>
               <% if @user.time_spent(@today) > 90 %>
                 <div id="should-leave">
-                  <p>Time you spent in Turkey in the last 180 days: <span id="time_spent"><%= @user.time_spent(@today) %></span></p>
                   <p class="marged bg-red"><strong>You are in overstay! Get out of here as soon as you can to avoid paying more penalty!</strong></p>
                 </div>
               <% else %>
-                <p>
-                  time spent in the last 180 days: <span id="time_spent"><%= @user.time_spent(@today) %></span>
-                </p>
-                <p>
-                  remaining days: <span id="remaining_time"><%= @user.remaining_time %></span>
-                </p>
-                <p>
-                  You must leave on <span id="leave_on"><%= @user.latest_exit %></span> or before
-                </p>
+                <p>Remaining days: <span id="remaining_time"><%= @user.remaining_time %></span></p>
+                <p>You must leave on <span id="leave_on"><%= @user.latest_exit %></span> or before</p>
               <% end %>
             <% else %>
               <% if @user.time_spent(@today) >= 90 %>
-                <p>
-                  time spent in the last 180 days: <span id="time_spent"><%= @user.time_spent(@today) %></span>
-                </p>
                 <p>You used your quota of days. Next time you can enter is on <span><%= @user.next_entry %></span></p>
+                <p>You will be able to stay: <span id="remaining_time"><%= @user.remaining_time(@user.next_entry) %></span> days</p>
               <% else %>
-                <p>
-                  time spent in the last 180 days: <span id="time_spent"><%= @user.time_spent(@today) %></span>
-                </p>
-                <p>
-                  You will be able to stay: <span id="remaining_time"><%= @user.remaining_time %></span> days
-                </p>
-                <p>
-                  You will have to leave on <span id="leave_on"><%= @user.latest_exit %></span> or before
-                </p>
+                <p>You will be able to stay: <span id="remaining_time"><%= @user.remaining_time %></span> days</p>
+                <p>You will have to leave on <span id="leave_on"><%= @user.latest_exit %></span> or before</p>
               <% end %>
             <% end %>
           </div>
@@ -55,9 +39,9 @@
         <!-- Results -->
 
         <!-- All previous stays -->
-        <strong>Please enter all your stays in Turkey since <%= @oldest_date %> (included) and your planned stays before planned entry</strong>
-        <p><small>Example: you plan to enter on <%= (@today + 20).strftime("%B %d, %Y") %> and plan a trip between <%= (@today + 5).strftime("%B %d, %Y") %> and <%= (@today + 10).strftime("%B %d, %Y") %></small></p>
-        <div id="all_stays">
+        <div id="all_stays" class="padded">
+
+          <strong>Please enter all your stays in Turkey between <%= @oldest_date %> (included) and your latest or planned entry (not included)</strong>
           <table class="table tablebordered table-condensed">
             <thead>
               <tr>
@@ -79,7 +63,7 @@
         <!-- User is in? -->
         <%= form_for(@user, url: users_latest_entry_path) do |f| %>
           <div class="form-group" id="inside_last_entry">
-            <label for="last_entry">Latest/Planned Entry</label>
+            <label for="last_entry">Latest or planned Entry</label>
             <%= f.text_field :latest_entry, id: "user_last_entry", class: "form-control latest_planned", placeholder: "Click to Select", value: @latest_entry, required: "required" %>
           </div>
 
