@@ -14,24 +14,25 @@
 
         <!-- Results -->
         <% if @user.latest_entry %>
-          <div id="results">
-            <p>Time you spent in Turkey in the last 180 days: <span id="time_spent"><%= @user.time_spent(@today) %></span></p>
+          <div id="results" class="bg-info marged">
+            <p>In the last 180 days, you spent <strong><span id="time_spent"><%= @user.time_spent(@today) %></span></strong> days in Turkey.</p>
             <% if @user.is_in_turkey? %>
               <% if @user.time_spent(@today) > 90 %>
                 <div id="should-leave">
-                  <p class="marged bg-red"><strong>You are in overstay! Get out of here as soon as you can to avoid paying more penalty!</strong></p>
+                  <p class="marged bg-red"><i class="fa fa-exclamation-triangle fa-2x pull-left"></i><strong> You are in overstay! Get out of here as soon as you can to avoid paying more penalty!</strong></p>
                 </div>
               <% else %>
-                <p>Remaining days: <span id="remaining_time"><%= @user.remaining_time %></span></p>
-                <p>You must leave on <span id="leave_on"><%= @user.latest_exit %></span> or before</p>
+                <p>You can stay <strong><span id="remaining_time"><%= @user.remaining_time %></span></strong> more days.</p>
+                <p>You must leave on <strong><span id="leave_on"><%= @user.latest_exit %></span></strong> or before.</p>
               <% end %>
             <% else %>
               <% if @user.time_spent(@today) >= 90 %>
-                <p>You used your quota of days. Next time you can enter is on <span><%= @user.next_entry %></span></p>
-                <p>You will be able to stay: <span id="remaining_time"><%= @user.remaining_time(@user.next_entry) %></span> days</p>
+                <p>You used your quota of days. Next time you can enter is on <strong><span><%= @user.next_entry.strftime("%B %d, %Y") %></span></strong></p>
+                <p>You will be able to stay: <strong><span id="remaining_time"><%= @user.remaining_time(@user.next_entry, true) %></span></strong> days</p>
+                <p>You will have to leave on <strong><span id="leave_on"><%= @user.latest_exit %></span></strong> or before</p>
               <% else %>
-                <p>You will be able to stay: <span id="remaining_time"><%= @user.remaining_time %></span> days</p>
-                <p>You will have to leave on <span id="leave_on"><%= @user.latest_exit %></span> or before</p>
+                <p>You will be able to stay: <strong><span id="remaining_time"><%= @user.remaining_time(@user.next_entry, true) %></span></strong> days</p>
+                <p>You will have to leave on <strong><span id="leave_on"><%= @user.latest_exit %></span></strong> or before</p>
               <% end %>
             <% end %>
           </div>
@@ -50,6 +51,7 @@
                   <th>Entry Date</th>
                   <th>Exit Date</th>
                   <th>Number of Days</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -62,7 +64,7 @@
           </div>
 
           <div id="new_period_form">
-            <strong>Add a period</strong>
+            <label>Add a stay</label>
             <%= render "periods/form", period: Period.new() %>
           </div>
 

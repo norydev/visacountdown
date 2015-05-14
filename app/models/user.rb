@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
 
     user_periods = remove_too_old(user_periods, oldest_date)
 
-    if self.latest_entry
+    if self.latest_entry && !future
       user_periods = remove_overlaps(user_periods)
     end
 
@@ -75,7 +75,7 @@ class User < ActiveRecord::Base
     (today..(today + 90)).each do |day|
       rt += 1 if time_spent(day) >= 90
     end
-    (today + rt).strftime("%B %d, %Y")
+    today + rt
   end
 
   private
