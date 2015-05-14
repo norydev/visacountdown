@@ -54,7 +54,7 @@
               </thead>
               <tbody>
                 <% if @periods.empty? %>
-                  <tr id="no_periods"><td class="active" colspan="4">You did not enter any period yet</td></tr>
+                  <tr id="no_periods"><td class="active" colspan="4">You did not enter any stay yet</td></tr>
                 <% end %>
                 <%= render "periods/all_periods", periods: @periods %>
               </tbody>
@@ -79,6 +79,18 @@
           <button id="calculate" type="submit" class="btn btn-success" disabled="disabled">Calculate</button>
         <% end %>
         <!-- User is in? -->
+
+        <div id="disclaimer" class="marged bg-info">
+          <small>
+            <p><strong>Disclaimer</strong></p>
+            <p>With our Visa Calculator, you can enter all the information about your past and projected trip days, and figure out if you are following the rules and not overstaying on your trips in Turkey.</p>
+
+            <p>Our service is provided as is. It is not linked in any way to any official authorities. We will not accept any liability for any negative effects of any nature its use may have.</p>
+
+            <p><strong>Credit</strong></p>
+            <p>Logo: Created by Yazmin Alanis, from the Noun Project</p>
+          </small>
+        </div>
 
     </div>
   </div>
