@@ -1,15 +1,15 @@
 /* -------------------------------------
  * Colors & Fonts
  * ------------------------------------- */
-$navbar-color: $gray-light;
-$navbar-hover-color: $yellow;
+$navbar-color: $red;//$gray-light;
+$navbar-hover-color: white; //$yellow;
 $navbar-font-family: $navbar-font;
 $navbar-font-size: 14px;
-$navbar-text-transform: capitalize;
+$navbar-text-transform: none; //capitalize;
 $navbar-font-weight: 300;
 $navbar-letter-spacing: 1.5px;
 $navbar-font-family: $navbar-font;
-$navbar-bg: white;
+$navbar-bg: $red;//white;
 
 /* -------------------------------------
  * Box model
@@ -18,14 +18,14 @@ $navbar-height: 50px;
 $navbar-vertical-padding: 10px;
 $navbar-horizontal-padding: 20px;
 $navbar-border-bottom-width: 1px;
-$navbar-border-bottom-color: $gray-lighter;
+$navbar-border-bottom-color: transparent;//$gray-lighter;
 
 /* -------------------------------------
  * Navbar button
  * ------------------------------------- */
 $navbar-btn-height: 40px;
-$navbar-btn-bg: lightgrey;
-$navbar-btn-color: white;
+$navbar-btn-bg: white;//lightgrey;
+$navbar-btn-color: $red;//white;
 $navbar-btn-horizontal-padding: 10px;
 $navbar-btn-radius: 2px;
 
@@ -34,7 +34,7 @@ $navbar-btn-radius: 2px;
  * ------------------------------------- */
 $navbar-profile-radius: 50%;
 $navbar-profile-border-color: white;
-$navbar-profile-border-width: 2px;
+$navbar-profile-border-width: 0px;
 
 /* -------------------------------------
  * SCSS code
@@ -43,6 +43,7 @@ $navbar-profile-border-width: 2px;
   background: $navbar-bg;
   font-family: $navbar-font-family;
   border: none;
+  border-radius: 0;
   font-size: $navbar-font-size;
   text-transform: $navbar-text-transform;
   font-weight: $navbar-font-weight;
@@ -85,11 +86,14 @@ $navbar-profile-border-width: 2px;
     color: $navbar-btn-color;
     border-radius: $navbar-btn-radius;
     margin-top: ($navbar-height + 2 * $navbar-vertical-padding - $navbar-btn-height) / 2;
+    margin-bottom: ($navbar-height + 2 * $navbar-vertical-padding - $navbar-btn-height) / 2;
+    margin-left: ($navbar-height + 2 * $navbar-vertical-padding - $navbar-btn-height) / 2;
     font-weight: bold;
     background-color: $navbar-btn-bg;
     font-size: 12px;
     &:hover{
-      background-color: darken($navbar-btn-bg, 30%);
+      color: white;
+      background-color: $red;//darken($navbar-btn-bg, 30%);
     }
   }
 
