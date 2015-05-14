@@ -7,6 +7,9 @@ $('#all_stays table tbody tr').each(function(){
 
   if (id == period_id) {
 
+    btn_text = $(this).find(">:nth-child(4) .btn-primary").html();
+    $(this).find(">:nth-child(4) .btn-primary").html('<i class="fa fa-spinner fa-spin fa-fw"></i>');
+
     // $(this).find('td').first().html('<%= @period.first_day.strftime("%B %d, %Y") %>');
     // $(this).find('td').first().next().html('<%= @period.last_day.strftime("%B %d, %Y") %>');
 
