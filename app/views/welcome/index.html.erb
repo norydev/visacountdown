@@ -53,6 +53,9 @@
                 </tr>
               </thead>
               <tbody>
+                <% if @periods.empty? %>
+                  <tr id="no_periods"><td class="active" colspan="4">You did not enter any period yet</td></tr>
+                <% end %>
                 <%= render "periods/all_periods", periods: @periods %>
               </tbody>
             </table>

@@ -2,9 +2,15 @@
 // Here you will write *javascript* that would be executed by the browser
 
 // Create a paragraph for the new comment. But hide it.
-var all_periods = $("<%= j render 'periods/all_periods', periods: @period.user.periods.order(:last_day) %>").hide();
 
 // Add it to the DOM, at the end of the existing comments. It's still hidden.
+
+<% if @period.user.periods.empty? %>
+  var all_periods = '<tr id="no_periods"><td class="active" colspan="4">You did not enter any period yet</td></tr>'
+<% else %>
+  var all_periods = $("<%= j render 'periods/all_periods', periods: @period.user.periods.order(:last_day) %>").hide();
+<% end %>
+
 $('#all_stays table tbody').html(all_periods);
 
 // Show the new comment with an animation!

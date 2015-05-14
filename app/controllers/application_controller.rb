@@ -67,7 +67,6 @@ class ApplicationController < ActionController::Base
       p.save!
     end
 
-    current_user.is_in_turkey = guest_user.is_in_turkey
     current_user.latest_entry = guest_user.latest_entry
     current_user.save
 
