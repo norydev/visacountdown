@@ -42,21 +42,27 @@
         <div id="all_stays" class="padded">
 
           <strong>Please enter all your stays in Turkey between <%= @oldest_date %> (included) and your latest or planned entry (not included)</strong>
-          <table class="table tablebordered table-condensed">
-            <thead>
-              <tr>
-                <td>Entry Date</td>
-                <td>Exit Date</td>
-                <td>Number of Days</td>
-              </tr>
-            </thead>
-            <tbody>
-              <%= render "periods/all_periods", periods: @periods %>
-            </tbody>
-          </table>
+
+          <div class="mini-padded">
+            <table class="table tablebordered table-condensed">
+              <thead>
+                <tr>
+                  <th>Entry Date</th>
+                  <th>Exit Date</th>
+                  <th>Number of Days</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%= render "periods/all_periods", periods: @periods %>
+              </tbody>
+            </table>
+          </div>
+
           <div id="new_period_form">
+            <strong>Add a period</strong>
             <%= render "periods/form", period: Period.new() %>
           </div>
+
         </div>
         <!-- All previous stays -->
 
