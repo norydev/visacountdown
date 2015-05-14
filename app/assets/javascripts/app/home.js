@@ -18,6 +18,7 @@ $(document).ready(function () {
       onClose: function( selectedDate ) {
         $( ".last_day").datepicker( "option", {"maxDate": selectedDate, "defaultDate": 0} );
         $( ".first_day").datepicker( "option", {"maxDate": selectedDate, "defaultDate": 0} );
+        $(this).change();
       }
     });
 
@@ -32,6 +33,7 @@ $(document).ready(function () {
       onClose: function( selectedDate ) {
         if (selectedDate) {
           $(this).parents('.form-inputs').find( ".last_day").datepicker( "option", {"minDate": selectedDate, "defaultDate": selectedDate} );
+          $(this).change();
         }
       }
     });
@@ -45,6 +47,7 @@ $(document).ready(function () {
       onClose: function( selectedDate ) {
         if (selectedDate) {
           $(this).parents('.form-inputs').find( ".first_day").datepicker( "option", {"maxDate": selectedDate, "defaultDate": selectedDate} );
+          $(this).change();
         }
       }
     });
@@ -52,50 +55,44 @@ $(document).ready(function () {
   date_picker();
   //end calendar dates for booking
 
-  $('#all_stays first_day').change(function() {
-    var last_day_val = $(this).parents('#all_stays').find('.last_day').val();
-    if ($(this).val() != '' && last_day_val != '') {
-      $(this).parents('#all_stays').find('#stay_submit').attr('disabled', '');
+
+  // Validates submit btn
+  var validate_submit = function() {
+    var first_day_input = $('#all_stays .first_day');
+    var last_day_input = $('#all_stays .last_day');
+    var latest_planned_input = $('.latest_planned');
+
+    if (first_day_input.val() != '' && last_day_input.val() != '') {
+      $(this).parents('.form-inputs').find('.stay_submit').prop("disabled", false);
     }
-  });
 
-  $('#all_stays last_day').change(function() {
-    var last_day_val = $(this).parents('#all_stays').find('.first_day').val();
-    if ($(this).val() != '' && last_day_val != '') {
-      $(this).parents('#all_stays').find('#stay_submit').attr('disabled', '');
+    if (latest_planned_input != '') {
+      $('#calculate').prop("disabled", false);
     }
-  });
 
-  // // latest visible if in Turkey
-  // if ($('#in_turkey').prop("checked")){
-  //   $('#inside_last_entry').show();
-  // } else {
-  //   $('#inside_last_entry').hide();
-  // }
+      //on change
+    $('#all_stays .first_day').change(function() {
+      var last_day_val = $(this).parents('#all_stays').find('.last_day').val();
+      if ($(this).val() != '' && last_day_val != '') {
+        $(this).parents('.form-inputs').find('.stay_submit').prop("disabled", false);
+      }
+    });
 
-  // $('#in_turkey').change(function() {
-  //   if ($(this).prop("checked")){
-  //     $('#inside_last_entry').slideDown();
-  //   } else {
-  //     $('#inside_last_entry').slideUp();
-  //   }
-  // });
-  // // latest visible if in Turkey
+    $('#all_stays .last_day').change(function() {
+      var last_day_val = $(this).parents('#all_stays').find('.first_day').val();
+      if ($(this).val() != '' && last_day_val != '') {
+        $(this).parents('.form-inputs').find('.stay_submit').prop("disabled", false);
+      }
+    });
 
-  // // all stays visible if had previous stays
-  // if ($('#has_previous_stays').prop("checked")){
-  //   $('#all_stays').show();
-  // } else {
-  //   $('#all_stays').hide();
-  // }
+    $('.latest_planned').change(function() {
+      if ($(this).val() != '') {
+        $('#calculate').prop("disabled", false);
+      }
+    });
+  };
+  validate_submit();
 
-  // $('#has_previous_stays').change(function() {
-  //   if ($(this).prop("checked")){
-  //     $('#all_stays').slideDown();
-  //   } else {
-  //     $('#all_stays').slideUp();
-  //   }
-  // });
-  // // all stays visible if had previous stays
+  // Validates submit btn
 
 });

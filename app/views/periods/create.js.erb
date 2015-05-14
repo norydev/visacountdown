@@ -4,6 +4,11 @@
   // Render new comment form with errors
   $('#new_period_form').html("<%= j render 'periods/period_form' %>");
 <% else %>
+
+  //change btn content to loader
+  btn_text = $('#stay_submit').html();
+  $('#stay_submit').html('<i class="fa fa-spinner fa-spin fa-fw"></i>');
+
   // Create a paragraph for the new comment. But hide it.
   var all_periods = $("<%= j render 'periods/all_periods', periods: @period.user.periods.order(:last_day) %>").hide();
   // var new_period = $("<%= j render 'periods/show', period: @period %>").hide();
@@ -30,5 +35,7 @@
   $( ".last_day" ).datepicker( "option",
     "maxDate", max_date
   );
+
+  $('#stay_submit').html(btn_text);
 
 <% end %>
