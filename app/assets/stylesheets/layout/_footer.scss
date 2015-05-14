@@ -1,1 +1,35 @@
 // Your footer style
+
+* {
+  margin: 0;
+}
+html, body {
+  height: 100%;
+}
+.content {
+  min-height: 100%;
+  margin-bottom: calc( -50px - 1em);
+}
+.content:after {
+  content: "";
+  display: block;
+  height: calc( 50px + 1em );
+}
+
+footer.main {
+
+  height: 50px;
+  margin-top: 1em;
+  padding: 0.5em;
+
+  img {
+    height: 100%;
+  }
+
+  a {
+    color: white;
+    &:hover {
+      color: $gray-light;
+    }
+  }
+}
