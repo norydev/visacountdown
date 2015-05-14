@@ -41,6 +41,7 @@ $navbar-profile-border-width: 0px;
  * ------------------------------------- */
 .navbar-wagon {
   background: $navbar-bg;
+  color: white;
   font-family: $navbar-font-family;
   border: none;
   border-radius: 0;
@@ -53,6 +54,10 @@ $navbar-profile-border-width: 0px;
   border-bottom: $navbar-border-bottom-width solid $navbar-border-bottom-color;
   min-height: 0;
   transition: background 0.4s ease;
+
+  .normal-text {
+    padding-top: 27px;
+  }
 
   .navbar-nav > li > a,
   .navbar-nav > .open > a,
@@ -144,6 +149,20 @@ $navbar-profile-border-width: 0px;
 
 @media screen and (max-width: 768px) {
   .navbar-wagon {
+
+    .nav > li, .nav > li > a {
+      display: inline-block;
+    }
+    .navbar-right {
+      float: right !important;
+    }
+    .navbar-header {
+      float: left;
+    }
+    .navbar-nav {
+      margin: 0;
+    }
+
     .navbar-brand img, .navbar-brand svg {
       height: 50px;
     }
@@ -151,8 +170,8 @@ $navbar-profile-border-width: 0px;
      {
       display: block;
       color: $navbar-color;
-      padding-top: 0;
-      padding-bottom: 0;
+      // padding-top: 0;
+      // padding-bottom: 0;
     }
   }
 }
