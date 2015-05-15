@@ -9,11 +9,5 @@ class WelcomeController < ApplicationController
     @periods = @user.periods.order(:last_day)
     @latest_entry = @user.latest_entry.strftime("%B %d, %Y") if @user.latest_entry
 
-    if @user.time_spent(@today) > 90
-      @overstay = true
-    else
-      @overstay = false
-    end
-
   end
 end

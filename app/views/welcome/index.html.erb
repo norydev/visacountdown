@@ -22,15 +22,17 @@
                   <p class="marged bg-red"><i class="fa fa-exclamation-triangle fa-2x pull-left"></i><strong> You are in overstay! Get out of here as soon as you can to avoid paying more penalty!</strong></p>
                 </div>
               <% else %>
+                <p>You entered on <strong><%= @user.latest_entry.strftime("%B %d, %Y") %></strong></p>
                 <p>You can stay <strong><span id="remaining_time"><%= @user.remaining_time %></span></strong> more days.</p>
                 <p>You must leave on <strong><span id="leave_on"><%= @user.latest_exit %></span></strong> or before.</p>
               <% end %>
             <% else %>
               <% if @user.time_spent(@today) >= 90 %>
-                <p>You used your quota of days. Next time you can enter is on <strong><span><%= @user.next_entry.strftime("%B %d, %Y") %></span></strong></p>
-                <p>You will be able to stay: <strong><span id="remaining_time"><%= @user.remaining_time(@user.next_entry, true) %></span></strong> days</p>
-                <p>You will have to leave on <strong><span id="leave_on"><%= @user.latest_exit %></span></strong> or before</p>
+                <p>You used your quota of days. Next time you can enter is on <strong><span><% next_e = @user.next_entry %><%= next_e.strftime("%B %d, %Y") %></span></strong></p>
+                <p>You will be able to stay: <strong><span id="remaining_time"><%= next_rt = @user.remaining_time(@user.next_entry, true) %></span></strong> days</p>
+                <p>You will have to leave on <strong><span id="leave_on"><%= (next_e + next_rt - 1).strftime("%B %d, %Y") %></span></strong> or before</p>
               <% else %>
+                <p>You plan to enter on <strong><%= @user.latest_entry.strftime("%B %d, %Y") %></strong></p>
                 <p>You will be able to stay: <strong><span id="remaining_time"><%= @user.remaining_time(@user.next_entry, true) %></span></strong> days</p>
                 <p>You will have to leave on <strong><span id="leave_on"><%= @user.latest_exit %></span></strong> or before</p>
               <% end %>

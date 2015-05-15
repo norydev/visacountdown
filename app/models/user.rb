@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
 
     if future
       (date..(date + 89)).each do |day|
-        rt += 1 if time_spent(day, future) < 90
+        rt += 1 if time_spent(day, future) + rt < 90
       end
     elsif self.is_in_turkey?
       (date..(latest + 89)).each do |day|
@@ -73,7 +73,7 @@ class User < ActiveRecord::Base
     today = Time.zone.now.to_date
     rt = 0
     (today..(today + 90)).each do |day|
-      rt += 1 if time_spent(day) >= 90
+      rt += 1 if time_spent(day, true) >= 90
     end
     today + rt
   end
