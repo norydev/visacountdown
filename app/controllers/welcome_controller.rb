@@ -7,9 +7,9 @@ class WelcomeController < ApplicationController
     @oldest_date = (Time.zone.now.to_date - 179).strftime("%B %d, %Y")
     @user = current_or_guest_user
     @periods = @user.periods.order(:last_day)
-    @time_spent_today = @user.time_spent(@today)
 
     if @user.latest_entry
+      @time_spent_today = @user.time_spent(@today)
       @latest_entry = @user.latest_entry.strftime("%B %d, %Y")
       case @time_spent_today
         when 0..89
