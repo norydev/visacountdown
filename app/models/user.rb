@@ -10,26 +10,6 @@ class User < ActiveRecord::Base
     email
   end
 
-  def situation
-    case self.time_spent(Time.zone.now.to_date)
-      when 0..89
-        if self.is_in_turkey?
-          # calc days remaining from now to know when to leave
-          "inside_ok"
-        else
-          # exit day with latest exit given
-          "outside_ok"
-        end
-      when 90..180
-        if self.is_in_turkey?
-          # overstay: get out
-          "overstay"
-        else
-          # quota user: next it, next out
-        end
-    end
-  end
-
   def is_in_turkey?
     if self.latest_entry
       (Time.zone.now.to_date - self.latest_entry).to_i >= 0
@@ -83,9 +63,9 @@ class User < ActiveRecord::Base
 
   def latest_exit
     if self.is_in_turkey?
-      (Time.zone.now.to_date + remaining_time).strftime("%B %d, %Y")
+      (Time.zone.now.to_date + remaining_time)
     else
-      (self.latest_entry + remaining_time - 1).strftime("%B %d, %Y")
+      (self.latest_entry + remaining_time - 1)
     end
   end
 

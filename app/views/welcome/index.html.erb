@@ -9,49 +9,46 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-10 col-xs-offset-1 col-lg-8 col-lg-offset-2">
-      <h4>Turkey Clock: <%= @time_now %></h4>
+      <!-- <h4>Turkey Clock: <%#= @time_now %></h4> -->
 
         <!-- Results -->
         <% if @user.latest_entry %>
           <div id="results" class="bg-info marged">
-            <p>In the last 180 days, you spent <strong><span id="time_spent"><%= @user.time_spent(@today) %></span></strong> days in Turkey.</p>
-            <% if @user.is_in_turkey? %>
-              <% if @user.time_spent(@today) > 90 %>
-                <div id="should-leave">
-                  <p class="marged bg-red"><i class="fa fa-exclamation-triangle fa-2x pull-left"></i><strong> You are in overstay! Get out of here as soon as you can to avoid paying more penalty!</strong></p>
-                </div>
-              <% else %>
-                <p>You entered on <strong><%= @user.latest_entry.strftime("%B %d, %Y") %></strong></p>
-                <p>You can stay <strong><span id="remaining_time"><%= @user.remaining_time %></span></strong> more days.</p>
-                <p>You must leave on <strong><span id="leave_on"><%= @user.latest_exit %></span></strong> or before.</p>
-              <% end %>
-            <% else %>
-              <% if @user.time_spent(@today) >= 90 %>
 
 
-                <p>You used your quota of days. Next time you can enter is on <strong><span><% next_e = @user.next_entry %><%= next_e.strftime("%B %d, %Y") %></span></strong>.
+            <p>
+              In the last 180 days, you spent <strong><%= @time_spent_today %></strong> days in Turkey.
+            </p>
 
-                  <% if (@user.latest_entry - next_e).to_i < 0 %>
+            <% case @situation %>
+            <%   when "inside_ok" %>
+              <p>You entered on <strong><%= @latest_entry %></strong></p>
+              <p>You can stay <strong><%= @remaining_time %></strong> more days.</p>
+              <p>You must leave on <strong><%= @leave_on %></strong> or before.</p>
+            <%   when "outside_ok" %>
+              <p>You plan to enter on <strong><%= @latest_entry %></strong></p>
+              <p>You will be able to stay: <strong><%= @remaining_time %></strong> days</p>
+              <p>You will have to leave on <strong><%= @leave_on %></strong> or before</p>
+            <%   when "overstay" %>
+              <p class="marged bg-red"><i class="fa fa-exclamation-triangle fa-2x pull-left"></i><strong> You are in overstay! Get out of here as soon as you can to avoid paying more penalty!</strong></p>
+            <%   when "quota_used" %>
+              <p>You used your quota of days. Next time you can enter is on <strong><span><%= @next_entry.strftime("%B %d, %Y") %></span></strong>.
 
-                  You would be able to stay <strong><span id="remaining_time"><% next_rt = @user.remaining_time(next_e, true) %><%= next_rt %></span></strong> days and would have to leave on <strong><span id="leave_on"><%= (next_e + next_rt - 1).strftime("%B %d, %Y") %></span></strong> or before.
-                  <% end %>
-                </p>
+                <% if !@can_enter %>
+                  You would be able to stay <strong><%= @remaining_time %></strong> days and would have to leave on <strong><%= @leave_on %></strong> or before.
+                <% end %>
+              </p>
 
-                <p>You plan to enter on <strong><%= @user.latest_entry.strftime("%B %d, %Y") %></strong> which is
-                  <% if (@user.latest_entry - next_e).to_i >= 0%>
-                    <span class="label label-success">OK</span></p>
-                    <p>You will be able to stay <strong><%= @user.remaining_time(@user.latest_entry, true) %></strong> days.</p>
-                    <p>You will have to leave on <strong><span id="leave_on"><%= (@user.latest_entry + @user.remaining_time(@user.latest_entry, true) - 1).strftime("%B %d, %Y") %></span></strong> or before.</p>
-                  <% else %>
-                    <span class="label label-danger">NOT OK</span> - you will be denied entry.
-                  <% end %>
-                </p>
-
-              <% else %>
-                <p>You plan to enter on <strong><%= @user.latest_entry.strftime("%B %d, %Y") %></strong></p>
-                <p>You will be able to stay: <strong><span id="remaining_time"><%= @user.remaining_time(@user.next_entry, true) %></span></strong> days</p>
-                <p>You will have to leave on <strong><span id="leave_on"><%= @user.latest_exit %></span></strong> or before</p>
-              <% end %>
+              <p>You plan to enter on <strong><%= @latest_entry %></strong> which is
+                <% if @can_enter %>
+                  <span class="label label-success">OK</span>
+                  </p>
+                  <p>You will be able to stay <strong><%= @remaining_time %></strong> days.</p>
+                  <p>You will have to leave on <strong><%= @leave_on %></strong> or before.</p>
+                <% else %>
+                  <span class="label label-danger">NOT OK - you will be denied entry</span> <i class="fa fa-arrow"></i>
+                <% end %>
+              </p>
             <% end %>
           </div>
         <% end %>
