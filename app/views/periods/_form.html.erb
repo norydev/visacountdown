@@ -1,6 +1,5 @@
 <% first_day = period.first_day.strftime("%B %d, %Y") if period.first_day %>
 <% last_day = period.last_day.strftime("%B %d, %Y") if period.last_day %>
-<% symbol = period.first_day ? "check" : "plus" %>
 
 <%= simple_form_for(period, remote: true) do |f| %>
   <%= f.error_notification %>
@@ -9,9 +8,7 @@
     <%= f.input :first_day, label: "Entry Date", label_html: {class: "sr-only"}, as: :string, input_html: {class: "first_day", value: first_day, required: "required"}, placeholder: "Entry Date" %>
     <%= f.input :last_day, label: "Exit Date", label_html: {class: "sr-only"}, as: :string, input_html: {class: "last_day", value: last_day, required: "required"}, placeholder: "Exit Date" %>
 
-    <button type="submit" class="btn btn-success stay_submit" disabled="disabled"><i class="fa fa-<%= symbol %> fa-fw"></i></button>
-
-    <!-- <button id="stay_submit" type="submit" class="btn btn-success" disabled="disabled"><i class="fa fa-spinner fa-spin fa-fw"></i></button> -->
+    <button type="submit" class="btn btn-success stay_submit" disabled="disabled"><i class="fa fa-check fa-fw"></i></button>
   </div>
 
 <% end %>
