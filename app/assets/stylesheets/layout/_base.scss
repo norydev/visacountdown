@@ -5,10 +5,25 @@
  * already a Bootstrap SCSS variable that does the same job
  * ------------------------------------- */
 
+body {
+  font-weight: 300;
+}
+
 a[disabled] {
     pointer-events: none;
 }
 
 #disclaimer {
   margin-top: 100px;
+}
+
+.xs-marged {
+  margin: 0
+}
+
+@media (max-width:767px){
+  .xs-marged {
+    margin-left: 1%;
+    margin-right: 1%;
+  }
 }
