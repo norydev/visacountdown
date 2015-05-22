@@ -21,6 +21,10 @@ a[disabled] {
   margin: 0
 }
 
+.text-large {
+  font-size: 2em;
+}
+
 @media (max-width:767px){
   .xs-marged {
     margin-left: 1%;

@@ -60,34 +60,44 @@ $(document).ready(function () {
   var validate_submit = function() {
     var first_day_input = $('#all_stays .first_day');
     var last_day_input = $('#all_stays .last_day');
-    var latest_planned_input = $('.latest_planned');
+    var latest_planned_input = $('#user_last_entry');
 
     if (first_day_input.val() != '' && last_day_input.val() != '') {
-      $(this).parents('.form-inputs').find('.stay_submit').prop("disabled", false);
+      first_day_input.parents('.form-inputs').find('.stay_submit').prop("disabled", false);
+    } else {
+      first_day_input.parents('.form-inputs').find('.stay_submit').prop("disabled", true);
     }
 
-    if (latest_planned_input != '') {
+    if (latest_planned_input.val() != '') {
       $('#calculate').prop("disabled", false);
+    } else {
+      $('#calculate').prop("disabled", true);
     }
 
-      //on change
-    $('#all_stays .first_day').change(function() {
-      var last_day_val = $(this).parents('#all_stays').find('.last_day').val();
+    //on change
+    first_day_input.change(function() {
+      var last_day_val = $(this).parents('.form-inputs').find('.last_day').val();
       if ($(this).val() != '' && last_day_val != '') {
         $(this).parents('.form-inputs').find('.stay_submit').prop("disabled", false);
+      } else {
+        $(this).parents('.form-inputs').find('.stay_submit').prop("disabled", true);
       }
     });
 
-    $('#all_stays .last_day').change(function() {
-      var last_day_val = $(this).parents('#all_stays').find('.first_day').val();
+    last_day_input.change(function() {
+      var last_day_val = $(this).parents('.form-inputs').find('.first_day').val();
       if ($(this).val() != '' && last_day_val != '') {
         $(this).parents('.form-inputs').find('.stay_submit').prop("disabled", false);
+      } else {
+        $(this).parents('.form-inputs').find('.stay_submit').prop("disabled", true);
       }
     });
 
-    $('.latest_planned').change(function() {
+    latest_planned_input.change(function() {
       if ($(this).val() != '') {
         $('#calculate').prop("disabled", false);
+      } else {
+        $('#calculate').prop("disabled", true);
       }
     });
   };

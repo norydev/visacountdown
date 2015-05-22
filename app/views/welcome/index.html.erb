@@ -13,10 +13,11 @@
 
         <!-- Results -->
         <% if @user.latest_entry %>
-          <div id="results" class="bg-info marged">
+          <h2>Your CountDown</h2>
+          <div id="results" class="bg-warning marged">
 
             <p>
-              In the last 180 days, you spent <strong><%= @time_spent_today %></strong> days inside the area (Schengen or Turkey).
+              In the last 180 days, you spent <strong><%= @time_spent_today %></strong> days inside the area (Schengen or Turkey)
             </p>
 
             <% case @situation %>
@@ -56,7 +57,14 @@
         <!-- All previous stays -->
         <div id="all_stays" class="padded xs-marged">
 
-          <strong>Please enter all your stays in the area you want to calculate for (Schengen, Turkey) between <%= @oldest_date %> (included) and your latest or planned entry (not included)</strong>
+          <h2>1. Your past stays</h2>
+
+          <p>Please enter all your stays in the area you want to calculate for (Schengen, Turkey) between <strong><%= @oldest_date %></strong> (included) and your latest or planned entry (not included)</p>
+
+          <div id="new_period_form" class="mini-padded">
+            <label>Add a stay</label>
+            <%= render "periods/form", period: Period.new() %>
+          </div>
 
           <div class="mini-padded">
             <table class="table tablebordered table-condensed">
@@ -76,17 +84,16 @@
               </tbody>
             </table>
           </div>
-
-          <div id="new_period_form">
-            <label>Add a stay</label>
-            <%= render "periods/form", period: Period.new() %>
-          </div>
-
         </div>
         <!-- All previous stays -->
 
         <!-- User is in? -->
         <div id="calc_form" class="xs-marged">
+
+          <h2>2. Your latest entry</h2>
+
+          <p>Tell us when you entered last or when you plan to enter and calculate how long you can stay</p>
+
           <%= form_for(@user, url: users_latest_entry_path) do |f| %>
             <div class="form-group" id="inside_last_entry">
               <label for="last_entry">Latest or planned Entry</label>
@@ -102,7 +109,7 @@
         <div id="disclaimer" class="marged bg-info">
           <small>
             <p><strong>Disclaimer</strong></p>
-            <p>With our Visa Calculator, you can enter all the information about your past and projected trip days, and figure out if you are following the rules and not overstaying on your trips in the Schengen area or Turkey.</p>
+            <p>With our Visa Countdown calculator, you can enter all the information about your past and projected trip days, and figure out if you are following the rules and not overstaying on your trips in the Schengen area or Turkey.</p>
 
             <p>This calculator does not take into account visa expiration. If you need a visa to enter the Schengen area or Turkey, it's validity may limit our calculation.</p>
 
