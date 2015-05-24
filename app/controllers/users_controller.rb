@@ -16,8 +16,7 @@ class UsersController < ApplicationController
 
     if @user.save
       respond_to do |format|
-        format.html { redirect_to root_path, notice: 'Your infos have been updated.' }
-        # format.html
+        format.html { redirect_to root_path, notice: 'Your countdown has been updated.' }
         format.js
       end
     else

@@ -12,8 +12,8 @@
 
       <!-- Results -->
       <% if @user.latest_entry %>
-        <h2>Your Countdown</h2>
-        <div id="results" class="bg-primary marged text-center">
+        <h2 class="xs-marged mini-padded">Your Countdown</h2>
+        <div id="results" class="mini-padded text-center">
 
           <p>
             In the last 180 days, you spent <strong><%= @time_spent_today %></strong> days inside the area (Schengen or Turkey)
@@ -23,13 +23,13 @@
           <%   when "inside_ok" %>
             <p>You entered on <strong><%= @latest_entry %></strong></p>
             <p>You can stay <strong><%= @remaining_time %></strong> more days</p>
-            <p class="text-large">You must leave on <strong><%= @leave_on %></strong> or before</p>
+            <p class="text-large bg-green">You must leave on <strong><%= @leave_on %></strong> or before</p>
           <%   when "outside_ok" %>
             <p>You plan to enter on <strong><%= @latest_entry %></strong></p>
             <p>You will be able to stay: <strong><%= @remaining_time %></strong> days</p>
-            <p class="text-large">You will have to leave on <strong><%= @leave_on %></strong> or before</p>
+            <p class="text-large bg-green">You will have to leave on <strong><%= @leave_on %></strong> or before</p>
           <%   when "overstay" %>
-            <p class="marged bg-red"><i class="fa fa-exclamation-triangle fa-2x pull-left"></i><strong> You are in overstay! Get out of here as soon as you can to avoid paying more penalty!</strong></p>
+            <p class="marged bg-red text-large"><i class="fa fa-exclamation-triangle fa-2x pull-left"></i><strong> You are in overstay! Get out of here as soon as you can to avoid paying more penalty!</strong></p>
           <%   when "quota_used" %>
             <p>You used your quota of days. Next time you can enter is on <strong><span><%= @next_entry.strftime("%B %d, %Y") %></span></strong>.
 
@@ -43,10 +43,10 @@
                 <span class="label label-success">OK</span>
                 </p>
                 <p>You will be able to stay <strong><%= @remaining_time %></strong> days.</p>
-                <p class="text-large">You will have to leave on <strong><%= @leave_on %></strong> or before</p>
+                <p class="text-large bg-green">You will have to leave on <strong><%= @leave_on %></strong> or before</p>
               <% else %>
                 <span class="label label-danger">NOT OK</span>
-                <p class="text-large">You will be denied entry</p>
+                <p class="text-large bg-red">You will be denied entry</p>
               <% end %>
             </p>
           <% end %>
