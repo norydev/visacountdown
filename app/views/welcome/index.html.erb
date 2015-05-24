@@ -9,109 +9,125 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
-      <!-- <h4>Turkey Clock: <%#= @time_now %></h4> -->
 
-        <!-- Results -->
-        <% if @user.latest_entry %>
-          <div id="results" class="bg-info marged">
+      <!-- Results -->
+      <% if @user.latest_entry %>
+        <h2 class="xs-marged mini-padded">Your Countdown</h2>
+        <div id="results" class="mini-padded text-center">
 
-            <p>
-              In the last 180 days, you spent <strong><%= @time_spent_today %></strong> days inside the area (Schengen or Turkey).
+          <p>
+            In the last 180 days, you spent <strong><%= @time_spent_today %></strong> days inside the area (Schengen or Turkey)
+          </p>
+
+          <% case @situation %>
+          <%   when "inside_ok" %>
+            <p>You entered on <strong><%= @latest_entry %></strong></p>
+            <p>You can stay <strong><%= @remaining_time %></strong> more days</p>
+            <p class="text-large bg-green">You must leave on <strong><%= @leave_on %></strong> or before</p>
+          <%   when "outside_ok" %>
+            <p>You plan to enter on <strong><%= @latest_entry %></strong></p>
+            <p>You will be able to stay: <strong><%= @remaining_time %></strong> days</p>
+            <p class="text-large bg-green">You will have to leave on <strong><%= @leave_on %></strong> or before</p>
+          <%   when "overstay" %>
+            <p class="marged bg-red text-large"><i class="fa fa-exclamation-triangle fa-2x pull-left"></i><strong> You are in overstay! Get out of here as soon as you can to avoid paying more penalty!</strong></p>
+          <%   when "quota_used" %>
+            <p>You used your quota of days. Next time you can enter is on <strong><span><%= @next_entry.strftime("%B %d, %Y") %></span></strong>.
+
+              <% if !@can_enter %>
+                You would be able to stay <strong><%= @remaining_time %></strong> days and would have to leave on <strong><%= @leave_on %></strong> or before.
+              <% end %>
             </p>
 
-            <% case @situation %>
-            <%   when "inside_ok" %>
-              <p>You entered on <strong><%= @latest_entry %></strong></p>
-              <p>You can stay <strong><%= @remaining_time %></strong> more days.</p>
-              <p>You must leave on <strong><%= @leave_on %></strong> or before.</p>
-            <%   when "outside_ok" %>
-              <p>You plan to enter on <strong><%= @latest_entry %></strong></p>
-              <p>You will be able to stay: <strong><%= @remaining_time %></strong> days</p>
-              <p>You will have to leave on <strong><%= @leave_on %></strong> or before</p>
-            <%   when "overstay" %>
-              <p class="marged bg-red"><i class="fa fa-exclamation-triangle fa-2x pull-left"></i><strong> You are in overstay! Get out of here as soon as you can to avoid paying more penalty!</strong></p>
-            <%   when "quota_used" %>
-              <p>You used your quota of days. Next time you can enter is on <strong><span><%= @next_entry.strftime("%B %d, %Y") %></span></strong>.
-
-                <% if !@can_enter %>
-                  You would be able to stay <strong><%= @remaining_time %></strong> days and would have to leave on <strong><%= @leave_on %></strong> or before.
-                <% end %>
-              </p>
-
-              <p>You plan to enter on <strong><%= @latest_entry %></strong> which is
-                <% if @can_enter %>
-                  <span class="label label-success">OK</span>
-                  </p>
-                  <p>You will be able to stay <strong><%= @remaining_time %></strong> days.</p>
-                  <p>You will have to leave on <strong><%= @leave_on %></strong> or before.</p>
-                <% else %>
-                  <span class="label label-danger">NOT OK - you will be denied entry</span> <i class="fa fa-arrow"></i>
-                <% end %>
-              </p>
-            <% end %>
-          </div>
-        <% end %>
-        <!-- Results -->
-
-        <!-- All previous stays -->
-        <div id="all_stays" class="padded xs-marged">
-
-          <strong>Please enter all your stays in the area you want to calculate for (Schengen, Turkey) between <%= @oldest_date %> (included) and your latest or planned entry (not included)</strong>
-
-          <div class="mini-padded">
-            <table class="table tablebordered table-condensed">
-              <thead>
-                <tr>
-                  <th>Entry Date</th>
-                  <th>Exit Date</th>
-                  <th>Number of Days</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <% if @periods.empty? %>
-                  <tr id="no_periods"><td class="active" colspan="4">You did not enter any stay yet</td></tr>
-                <% end %>
-                <%= render "periods/all_periods", periods: @periods %>
-              </tbody>
-            </table>
-          </div>
-
-          <div id="new_period_form">
-            <label>Add a stay</label>
-            <%= render "periods/form", period: Period.new() %>
-          </div>
-
-        </div>
-        <!-- All previous stays -->
-
-        <!-- User is in? -->
-        <div id="calc_form" class="xs-marged">
-          <%= form_for(@user, url: users_latest_entry_path) do |f| %>
-            <div class="form-group" id="inside_last_entry">
-              <label for="last_entry">Latest or planned Entry</label>
-              <%= f.text_field :latest_entry, id: "user_last_entry", class: "form-control latest_planned", placeholder: "Click to Select", value: @latest_entry, required: "required" %>
-            </div>
-
-            <button id="calculate" type="submit" class="btn btn-success" disabled="disabled">Calculate</button>
+            <p>You plan to enter on <strong><%= @latest_entry %></strong> which is
+              <% if @can_enter %>
+                <span class="label label-success">OK</span>
+                </p>
+                <p>You will be able to stay <strong><%= @remaining_time %></strong> days.</p>
+                <p class="text-large bg-green">You will have to leave on <strong><%= @leave_on %></strong> or before</p>
+              <% else %>
+                <span class="label label-danger">NOT OK</span>
+                <p class="text-large bg-red">You will be denied entry</p>
+              <% end %>
+            </p>
           <% end %>
         </div>
+      <% end %>
+      <!-- Results -->
+    </div>
+  </div>
+  <div class="row padded">
+    <div class="col-xs-12 col-sm-5 col-sm-offset-1 col-lg-4 col-lg-offset-2">
+      <!-- All previous stays -->
+      <div id="all_stays" class="xs-marged">
 
-        <!-- User is in? -->
+        <h2>1. Your past stays</h2>
 
-        <div id="disclaimer" class="marged bg-info">
-          <small>
-            <p><strong>Disclaimer</strong></p>
-            <p>With our Visa Calculator, you can enter all the information about your past and projected trip days, and figure out if you are following the rules and not overstaying on your trips in the Schengen area or Turkey.</p>
+        <p>Please enter all your stays in the area you want to calculate for (Schengen, Turkey) between <strong><%= @oldest_date %></strong> (included) and your latest or planned entry (not included)</p>
 
-            <p>This calculator does not take into account visa expiration. If you need a visa to enter the Schengen area or Turkey, it's validity may limit our calculation.</p>
-
-            <p>Our service is provided as is. It is not linked in any way to any official authorities. We will not accept any liability for any negative effects of any nature its use may have.</p>
-
-            <p><strong>Credit</strong></p>
-            <p>Logo: Created by Yazmin Alanis, from the Noun Project</p>
-          </small>
+        <div id="new_period_form" class="mini-padded">
+          <label>Add a stay</label>
+          <%= render "periods/form", period: Period.new() %>
         </div>
+
+        <div class="mini-padded">
+          <table class="table tablebordered table-condensed">
+            <thead>
+              <tr>
+                <th>Entry Date</th>
+                <th>Exit Date</th>
+                <th>Days</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if @periods.empty? %>
+                <tr id="no_periods"><td class="active" colspan="4">You did not enter any stay yet</td></tr>
+              <% end %>
+              <%= render "periods/all_periods", periods: @periods %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- All previous stays -->
+    </div>
+    <div class="col-xs-12 col-sm-4 col-sm-offset-1 col-lg-3 col-lg-offset-1">
+
+      <!-- User is in? -->
+      <div id="calc_form" class="xs-marged">
+
+        <h2>2. Your latest entry</h2>
+
+        <p>Tell us when you entered last or when you plan to enter and calculate how long you can stay</p>
+
+        <%= form_for(@user, url: users_latest_entry_path) do |f| %>
+          <div class="form-group" id="inside_last_entry">
+            <label for="last_entry">Latest or planned Entry</label>
+            <%= f.text_field :latest_entry, id: "user_last_entry", class: "form-control latest_planned", placeholder: "Click to Select", value: @latest_entry, required: "required" %>
+          </div>
+
+          <button id="calculate" type="submit" class="btn btn-block btn-success" disabled="disabled"><i class="fa fa-calculator"></i> Calculate</button>
+        <% end %>
+      </div>
+      <!-- User is in? -->
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+
+      <div id="disclaimer" class="marged bg-info">
+        <small>
+          <p><strong>Disclaimer</strong></p>
+          <p>With our Visa Countdown calculator, you can enter all the information about your past and projected trip days, and figure out if you are following the rules and not overstaying on your trips in the Schengen area or Turkey.</p>
+
+          <p>This calculator does not take into account visa expiration. If you need a visa to enter the Schengen area or Turkey, it's validity may limit our calculation.</p>
+
+          <p>Our service is provided as is. It is not linked in any way to any official authorities. We will not accept any liability for any negative effects of any nature its use may have.</p>
+
+          <p><strong>Credit</strong></p>
+          <p>Logo: Created by Yazmin Alanis, from the Noun Project</p>
+        </small>
+      </div>
 
     </div>
   </div>
