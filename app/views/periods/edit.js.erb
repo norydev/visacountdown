@@ -100,9 +100,9 @@ $('#all_stays table tbody tr').each(function(){
 
     $('#all_stays table td').addClass('text-muted active').find('a').attr('disabled', 'disabled');
 
-    var edit_form = $('<tr id="edit_period_form"><td class="active" colspan="4"><strong class="pull-left btn"><i class="fa fa-pencil"></i></strong><%= j render "periods/form", period: @period %></td></tr>').hide();
+    var edit_form = $('<tr id="edit_period_form"><td class="active" colspan="4"><%= j render "periods/form", period: @period %></td></tr>').hide();
 
-    edit_form.find('.form-inputs').append('<a href="#" class="cancel text-muted btn">Cancel</a>');
+    edit_form.find('.form-inputs').append('<a href="#" class="cancel text-muted btn btn-sm">Cancel</a>');
 
     this_row.after(edit_form);
     edit_form.slideDown();

@@ -13,7 +13,7 @@
       <!-- Results -->
       <% if @user.latest_entry %>
         <h2>Your Countdown</h2>
-        <div id="results" class="bg-success marged text-center">
+        <div id="results" class="bg-primary marged text-center">
 
           <p>
             In the last 180 days, you spent <strong><%= @time_spent_today %></strong> days inside the area (Schengen or Turkey)
@@ -34,7 +34,7 @@
             <p>You used your quota of days. Next time you can enter is on <strong><span><%= @next_entry.strftime("%B %d, %Y") %></span></strong>.
 
               <% if !@can_enter %>
-                You would be able to stay <strong><%= @remaining_time %></strong> days and would have to leave on <strong><%= @leave_on %></strong> or before
+                You would be able to stay <strong><%= @remaining_time %></strong> days and would have to leave on <strong><%= @leave_on %></strong> or before.
               <% end %>
             </p>
 
@@ -45,7 +45,8 @@
                 <p>You will be able to stay <strong><%= @remaining_time %></strong> days.</p>
                 <p class="text-large">You will have to leave on <strong><%= @leave_on %></strong> or before</p>
               <% else %>
-                <span class="label label-danger">NOT OK - you will be denied entry</span> <i class="fa fa-arrow"></i>
+                <span class="label label-danger">NOT OK</span>
+                <p class="text-large">You will be denied entry</p>
               <% end %>
             </p>
           <% end %>
@@ -104,7 +105,7 @@
             <%= f.text_field :latest_entry, id: "user_last_entry", class: "form-control latest_planned", placeholder: "Click to Select", value: @latest_entry, required: "required" %>
           </div>
 
-          <button id="calculate" type="submit" class="btn btn-success" disabled="disabled">Calculate</button>
+          <button id="calculate" type="submit" class="btn btn-block btn-success" disabled="disabled"><i class="fa fa-calculator"></i> Calculate</button>
         <% end %>
       </div>
       <!-- User is in? -->
