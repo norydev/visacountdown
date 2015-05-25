@@ -1,6 +1,8 @@
 class Period < ActiveRecord::Base
   belongs_to :user
 
+  validates :first_day, :last_day, presence: true
+
   before_save :solve_overlaps
 
   private
