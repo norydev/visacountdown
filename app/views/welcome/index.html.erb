@@ -3,17 +3,55 @@
 <% end %>
 
 <%= content_for(:description) do %>
-  The Schengen area and Turkey are among the countries in which many foreigners can stay with a tourist visa 90 days in ANY 180 days period. Calculate when you must leave or when you can re-enter.
+  The Schengen area and Turkey are among the countries in which many foreigners can stay with a tourist visa for 90 days in ANY 180 days period. Calculate when you must leave or when you can re-enter.
 <% end %>
 
 <div class="container-fluid">
+
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
 
       <p>Visa Countdown helps you calculate your remaining visa days for areas that have a "90 days in any 180 days period" policy (Schengen Area, Turkey).</p>
 
-      <!-- Results -->
-      <% if @user.latest_entry %>
+      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+              <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                Is it for me?
+              </a>
+            </h4>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+              <p>Citizens of the following countries are concerned by the "90 days within any 180 days period" policy:</p>
+              <h5>To Enter the Schengen Area:</h5>
+              <p class="line-height-medium">
+                <% COUNTRIES['Schengen'].each do |country| %>
+                  <span class="label label-default"><%= country %></span>
+                <% end %>
+              </p>
+              <h5>To Enter Turkey:</h5>
+              <p class="line-height-medium">
+                <% COUNTRIES['Turkey'].first['no_visa'].each do |country| %>
+                  <span class="label label-default"><%= country %></span>
+                <% end %>
+
+                <% COUNTRIES['Turkey'].last['visa'].each do |country| %>
+                  <span class="label label-info" title="e-visa required"><%= country %></span>
+                <% end %>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <% if @user.latest_entry %>
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
         <h2 class="xs-marged mini-padded">Your Countdown</h2>
         <div id="results" class="mini-padded text-center">
 
@@ -53,10 +91,15 @@
             </p>
           <% end %>
         </div>
-      <% end %>
-      <!-- Results -->
+        <% unless user_signed_in? %>
+          <div class="text-center">
+            <%= link_to t(".save", default: "Save your countdown"), new_user_registration_path, class: "btn btn-lg btn-danger" %>
+          </div>
+        <% end %>
+      </div>
     </div>
-  </div>
+  <% end %>
+  <!-- Results -->
   <div class="row padded">
     <div class="col-xs-12 col-sm-5 col-sm-offset-1 col-lg-4 col-lg-offset-2">
       <!-- All previous stays -->
