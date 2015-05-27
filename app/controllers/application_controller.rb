@@ -55,19 +55,9 @@ class ApplicationController < ActionController::Base
   # called (once) when the user logs in, insert any code your application needs
   # to hand off from guest_user to current_user.
   def logging_in
-    # For example:
-    # guest_comments = guest_user.comments.all
-    # guest_comments.each do |comment|
-      # comment.user_id = current_user.id
-      # comment.save!
-    # end
-    guest_periods = guest_user.periods.all
-    guest_periods.each do |p|
-      p.user_id = current_user.id
-      p.save!
-    end
+    guest_user.periods.update_all(user_id: current_user.id)
 
-    current_user.latest_entry = guest_user.latest_entry
+    current_user.latest_entry = guest_user.latest_entry if guest_user.latest_entry
     current_user.save
 
   end

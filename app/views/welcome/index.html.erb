@@ -8,46 +8,6 @@
 
 <div class="container-fluid">
 
-  <div class="row">
-    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
-
-      <p>Visa Countdown helps you calculate your remaining visa days for areas that have a "90 days in any 180 days period" policy (Schengen Area, Turkey).</p>
-
-      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-        <div class="panel panel-default">
-          <div class="panel-heading" role="tab" id="headingOne">
-            <h4 class="panel-title">
-              <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                Is it for me?
-              </a>
-            </h4>
-          </div>
-          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-            <div class="panel-body">
-              <p>Citizens of the following countries are concerned by the "90 days within any 180 days period" policy:</p>
-              <h5>To Enter the Schengen Area:</h5>
-              <p class="line-height-medium">
-                <% COUNTRIES['Schengen'].each do |country| %>
-                  <span class="label label-default"><%= country %></span>
-                <% end %>
-              </p>
-              <h5>To Enter Turkey:</h5>
-              <p class="line-height-medium">
-                <% COUNTRIES['Turkey'].first['no_visa'].each do |country| %>
-                  <span class="label label-default"><%= country %></span>
-                <% end %>
-
-                <% COUNTRIES['Turkey'].last['visa'].each do |country| %>
-                  <span class="label label-info" title="e-visa required"><%= country %></span>
-                <% end %>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Results -->
   <% if @user.latest_entry %>
     <div class="row">
@@ -100,6 +60,48 @@
     </div>
   <% end %>
   <!-- Results -->
+
+  <!-- For me? -->
+  <div class="row xs-marged">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+
+      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+              <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                Is it for me?
+              </a>
+            </h4>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+
+              <p>Visa Countdown helps you calculate your remaining visa days for areas that have a "90 days in any 180 days period" policy (Schengen Area, Turkey). Citizens of the following countries are concerned by this policy:</p>
+              <h5>To Enter the Schengen Area:</h5>
+              <p class="line-height-medium">
+                <% COUNTRIES['Schengen'].each do |country| %>
+                  <span class="label label-default"><%= country %></span>
+                <% end %>
+              </p>
+              <h5>To Enter Turkey:</h5>
+              <p class="line-height-medium">
+                <% COUNTRIES['Turkey'].first['no_visa'].each do |country| %>
+                  <span class="label label-default"><%= country %></span>
+                <% end %>
+
+                <% COUNTRIES['Turkey'].last['visa'].each do |country| %>
+                  <span class="label label-info" title="e-visa required"><%= country %></span>
+                <% end %>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- For me? -->
+
   <div class="row padded">
     <div class="col-xs-12 col-sm-5 col-sm-offset-1 col-lg-4 col-lg-offset-2">
       <!-- All previous stays -->
