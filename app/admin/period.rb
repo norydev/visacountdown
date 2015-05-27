@@ -21,6 +21,8 @@ ActiveAdmin.register Period do
     column :user_id
     column :first_day
     column :last_day
+    column :created_at
+    column :updated_at
     actions
   end
 
