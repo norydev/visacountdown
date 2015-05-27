@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  ActiveAdmin.routes(self)
   get 'welcome/index'
 
   post 'users/latest_entry'
