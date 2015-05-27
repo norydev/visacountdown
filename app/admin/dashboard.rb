@@ -27,15 +27,15 @@ ActiveAdmin.register_page "Dashboard" do
         end
       end
 
-      column do
-        panel "Recent Periods" do
-          ul do
-            Period.last(10).reverse.map do |period|
-              li link_to("by " + User.find(period.user.id).email, admin_period_path(period))
-            end
-          end
-        end
-      end
+      # column do
+      #   panel "Recent Periods" do
+      #     ul do
+      #       Period.last(10).reverse.map do |period|
+      #         li link_to("by " + User.find(period.user).email, admin_period_path(period))
+      #       end
+      #     end
+      #   end
+      # end
     end
   end # content
 end
