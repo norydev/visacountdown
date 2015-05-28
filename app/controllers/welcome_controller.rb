@@ -45,6 +45,11 @@ class WelcomeController < ApplicationController
       end
     end
 
+    # if user_signed_in?
+    #   render 'dashboard'
+    # else
+    #   render 'index'
+    # end
 
   end
 end
