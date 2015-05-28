@@ -57,6 +57,11 @@
                 <% end %>
               </li>
               <li>
+                <%= link_to user_omniauth_authorize_path(:facebook) do %>
+                  <i class="fa fa-facebook fa-fw"></i> <%= t ".facebook", default: "with Facebook" %>
+                <% end %>
+              </li>
+              <li>
                 <%= link_to new_user_session_path do %>
                   <i class="fa fa-pencil-square-o fa-fw"></i> <%= t(".sign_in", default: "The classic way") %>
                 <% end %>
