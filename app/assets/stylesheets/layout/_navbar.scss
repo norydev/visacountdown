@@ -23,7 +23,7 @@ $navbar-border-bottom-color: transparent;//$gray-lighter;
 /* -------------------------------------
  * Navbar button
  * ------------------------------------- */
-$navbar-btn-height: 40px;
+$navbar-btn-height: 38px;
 $navbar-btn-bg: white;//lightgrey;
 $navbar-btn-color: $red;//white;
 $navbar-btn-horizontal-padding: 10px;
@@ -60,15 +60,15 @@ $navbar-profile-border-width: 0px;
   }
 
   .navbar-nav > li > a,
-  .navbar-nav > .open > a,
-  .navbar-nav > li > a:focus,
-  .navbar-nav > .open > a:focus {
+  .navbar-nav > li > a:focus {
     outline: none;
-    color: $navbar-color;
+    color: white;
     line-height: $navbar-height;
     padding-top: $navbar-vertical-padding;
     padding-bottom: $navbar-vertical-padding;
     background-color: transparent;
+    font-size: 12px;
+    font-weight: bold;
   }
 
   .navbar-nav > li > a:hover,
@@ -89,6 +89,7 @@ $navbar-profile-border-width: 0px;
     line-height: $navbar-btn-height;
     padding: 0 $navbar-btn-horizontal-padding;
     color: $navbar-btn-color;
+    border: none;
     border-radius: $navbar-btn-radius;
     margin-top: ($navbar-height + 2 * $navbar-vertical-padding - $navbar-btn-height) / 2;
     margin-bottom: ($navbar-height + 2 * $navbar-vertical-padding - $navbar-btn-height) / 2;
@@ -122,6 +123,7 @@ $navbar-profile-border-width: 0px;
   }
 
   .navbar-nav > li > .dropdown-menu{
+    font-size: 14px;
     border-radius: 0;
     margin-top: 10px;
   }
@@ -133,7 +135,7 @@ $navbar-profile-border-width: 0px;
     width: 10px;
     content: "\00a0";
     display: block;
-    left: 50%;
+    left: 75%;
     margin-left: -5px;
     top: -5px;
     transform: rotate(45deg);
@@ -153,6 +155,11 @@ $navbar-profile-border-width: 0px;
     .nav > li, .nav > li > a {
       display: inline-block;
     }
+
+    .dropdown-menu > li > a {
+      color: white !important;
+    }
+
     .navbar-right {
       float: right !important;
     }
