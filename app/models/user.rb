@@ -3,22 +3,29 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, :omniauth_providers => [ :twitter ]
+         :omniauthable, :omniauth_providers => [ :twitter, :facebook ]
 
   has_many :periods, dependent: :destroy
 
-  # def self.find_for_facebook_oauth(auth)
-  #   where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-  #     user.provider = auth.provider
-  #     user.uid = auth.uid
-  #     user.email = auth.info.email
-  #     user.password = Devise.friendly_token[0,20]  # Fake password for validation
-  #     user.name = auth.info.name
-  #     user.picture = auth.info.image
-  #     user.token = auth.credentials.token
-  #     user.token_expiry = Time.at(auth.credentials.expires_at)
-  #   end
-  # end
+  def self.find_for_facebook_oauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.provider = auth.provider
+      user.uid = auth.uid
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0,20]  # Fake password for validation
+      user.name = auth.info.name
+      user.nickname = auth.info.nickname
+      user.picture = "#{auth.info.image.gsub('?type=square', '')}?type=large"
+      user.cover_picture = auth.extra.raw_info.cover
+      user.facebook = auth.info.urls.Facebook
+      user.website = auth.info.urls.Website
+      user.location = auth.info.location
+      user.description = auth.info.description
+      user.time_zone = auth.extra.raw_info.timezone
+      user.token = auth.credentials.token
+      user.token_expiry = Time.at(auth.credentials.expires_at)
+    end
+  end
 
   def self.find_for_twitter_oauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

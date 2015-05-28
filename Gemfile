@@ -26,6 +26,7 @@ gem "devise-i18n"
 gem "devise-i18n-views"
 
 gem 'omniauth-twitter'
+gem 'omniauth-facebook'
 
 gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin.git'
 
