@@ -36,7 +36,6 @@ class User < ActiveRecord::Base
       user.twitter = auth.info.urls.Twitter
       user.website = auth.info.urls.Website
       user.token = auth.credentials.token
-      user.skip_confirmation!
     end
   end
 
