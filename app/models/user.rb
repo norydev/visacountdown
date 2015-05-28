@@ -2,9 +2,43 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, :omniauth_providers => [ :twitter ]
 
   has_many :periods, dependent: :destroy
+
+  # def self.find_for_facebook_oauth(auth)
+  #   where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+  #     user.provider = auth.provider
+  #     user.uid = auth.uid
+  #     user.email = auth.info.email
+  #     user.password = Devise.friendly_token[0,20]  # Fake password for validation
+  #     user.name = auth.info.name
+  #     user.picture = auth.info.image
+  #     user.token = auth.credentials.token
+  #     user.token_expiry = Time.at(auth.credentials.expires_at)
+  #   end
+  # end
+
+  def self.find_for_twitter_oauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.provider = auth.provider
+      user.uid = auth.uid
+      user.email = "#{auth.info.nickname}@visacountdown.com"
+      user.password = Devise.friendly_token[0,20]  # Fake password for validation
+      user.name = auth.info.name
+      user.nickname = auth.info.nickname
+      user.picture = auth.info.image.gsub(/_normal/, '')
+      user.cover_picture = auth.extra.raw_info.profile_background_image_url
+      user.location = auth.info.location
+      user.time_zone = auth.extra.raw_info.time_zone
+      user.description = auth.info.description
+      user.twitter = auth.info.urls.Twitter
+      user.website = auth.info.urls.Website
+      user.token = auth.credentials.token
+      user.skip_confirmation!
+    end
+  end
 
   def to_s
     email

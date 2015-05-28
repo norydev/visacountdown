@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   resources :periods
 
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
 
   root 'welcome#index'
 end
