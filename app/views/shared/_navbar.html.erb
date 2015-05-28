@@ -51,11 +51,11 @@
               <i class="fa fa-caret-down"></i> <%= t(".sign_in", default: "Log in") %>
             <% end %>
             <ul class="dropdown-menu" role="menu">
-              <li>
+              <!-- <li>
                 <%= link_to user_omniauth_authorize_path(:twitter) do %>
-                  <i class="fa fa-twitter fa-fw"></i> <%= t ".twitter", default: "with Twitter" %>
+                  <i class="fa fa-twitter fa-fw"></i> <%#= t ".twitter", default: "with Twitter" %>
                 <% end %>
-              </li>
+              </li> -->
               <li>
                 <%= link_to new_user_session_path do %>
                   <i class="fa fa-pencil-square-o fa-fw"></i> <%= t(".sign_in", default: "The classic way") %>
