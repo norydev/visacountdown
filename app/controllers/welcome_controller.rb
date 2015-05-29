@@ -8,6 +8,9 @@ class WelcomeController < ApplicationController
     @user = current_or_guest_user
     @periods = @user.periods.order(:last_day)
 
+    @regulations = COUNTRIES
+    @countries = COUNTRIES.map{ |key, val| key }.sort
+
     if @user.latest_entry
       @time_spent_today = @user.time_spent(@today)
       @latest_entry = @user.latest_entry.strftime("%B %d, %Y")
