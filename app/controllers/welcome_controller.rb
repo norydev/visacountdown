@@ -55,4 +55,30 @@ class WelcomeController < ApplicationController
     end
 
   end
+
+  def user_details
+    @details = user_details_params
+
+    current_or_guest_user.citizenship = @details["citizenship"]
+    current_or_guest_user.save
+
+    @countries = COUNTRIES.map{ |key, val| key }.sort
+
+    if COUNTRIES[@details["citizenship"]][@details["destination"]]["visa"] == "evisa_90_180"
+      @hi = "e-visa"
+    elsif COUNTRIES[@details["citizenship"]][@details["destination"]]["visa"] == "no_visa_90_180"
+      @hi = "no visa"
+    else
+      @hi = "error"
+    end
+
+    render 'index'
+  end
+
+  private
+    # Only allow a trusted parameter "white list" through.
+    def user_details_params
+      params.require(:resource).permit(:citizenship, :destination)
+    end
+
 end
