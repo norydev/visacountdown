@@ -1,0 +1,100 @@
+<%= content_for(:title) do %>
+  Visa Countdown
+<% end %>
+
+<%= content_for(:description) do %>
+  The Schengen area and Turkey are among the countries in which many foreigners can stay with a tourist visa for 90 days in ANY 180 days period. Calculate when you must leave or when you can re-enter.
+<% end %>
+
+<div class="container">
+  <div class="row xs-marged">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+
+
+    <% case @situation %>
+      <% when "no_visa" %>
+        <p class="alert-success marged">
+          You don't need a visa to enter <%= @user.destination == "Turkey" ? "" : "the " %><%= @user.destination %>. You can stay 90 days in ANY 180 days period.
+        </p>
+      <% when "e-visa" %>
+        <p class="alert-info marged">
+          You need an e-visa to enter <%= @user.destination == "Turkey" ? "" : "the " %><%= @user.destination %>. You can stay 90 days in ANY 180 days period.
+        </p>
+      <% when "error" %>
+        <p class="alert-danger marged">
+          Sorry, our calculator does not take your situation into account.
+        </p>
+    <% end %>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-5 table-padded">
+        <p>
+          Citizenship: <strong><%= @user.citizenship %></strong>
+        </p>
+      </div>
+      <div class="col-xs-12 col-sm-5 table-padded">
+        <p>
+          Destination: <strong><%= @user.destination %></strong>
+        </p>
+      </div>
+      <div class="col-xs-12 col-sm-2 table-padded">
+        <%= link_to root_path, class: "btn btn-info btn-block btn-xs text-uppercase" do %>
+          <small>Edit</small>
+        <% end %>
+      </div>
+    </div>
+
+    <% unless @situation == "error" %>
+      <div id="all_stays">
+        <%= form_tag(controller: "welcome", action: "user_details") do %>
+
+          <% @user.periods.each do |p| %>
+            <div class="row">
+              <div class="col-xs-5 table-padded">
+                <div class="form-group">
+                  <%= text_field :resource, "period-#{p.id}-first-day", options = {id: "period-#{p.id}-first-day", class: "form-control first_day input-sm", placeholder: "Entry Date", value: p.first_day.strftime("%B %d, %Y"), required: "required"} %>
+                </div>
+              </div>
+              <div class="col-xs-5 table-padded">
+                <div class="form-group">
+                  <%= text_field :resource,  "period-#{p.id}-last-day", options = {id: "period-#{p.id}-last-day", class: "form-control last_day input-sm", placeholder: "Exit Date", value: p.last_day.strftime("%B %d, %Y"), required: "required"} %>
+                </div>
+              </div>
+
+              <div class="col-xs-2 table-padded">
+                <%= link_to "#", class: "btn btn-danger btn-block btn-sm delete-row" do %>
+                  <i class="fa fa-trash"></i>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+
+          <div class="row">
+            <div class="col-xs-5 col-sm-5 table-padded">
+              <div class="form-group">
+                <%= text_field :resource, "period-first-day", options = {id: "period-first-day", class: "form-control first_day input-sm", placeholder: "Entry Date", required: "required"} %>
+              </div>
+            </div>
+            <div class="col-xs-5 col-sm-5 table-padded">
+              <div class="form-group">
+                <%= text_field :resource,  "period-last-day", options = {id: "period-last-day", class: "form-control last_day input-sm", placeholder: "Exit Date", required: "required"} %>
+              </div>
+            </div>
+
+            <div class="col-xs-2 col-sm-2 table-padded">
+              <%= link_to "#", class: "btn btn-success btn-block btn-sm add-row" do %>
+                <i class="fa fa-plus"></i>
+              <% end %>
+            </div>
+          </div>
+
+
+          <button id="calculate" type="submit" class="btn btn-block btn-success" disabled="disabled"><i class="fa fa-calculator"></i> Calculate</button>
+
+        <% end %>
+      </div>
+    <% end %>
+
+    </div>
+  </div>
+</div>

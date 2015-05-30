@@ -10,21 +10,22 @@
   <div class="row xs-marged">
     <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
 
-      <% if @hi %>
-        <%= @hi %>
-      <% end %>
-
       <%= form_tag(controller: "welcome", action: "user_details") do %>
         <div class="form-group">
-          <label for="citizenship" class="text-uppercase">Citizenship:</label>
-          <%= select("resource", "citizenship", @countries, {:include_blank => "Choose one", }, class: "form-control text-uppercase") %>
+          <label for="citizenship">Citizenship:</label>
+          <%= select("resource", "citizenship", @countries, {:include_blank => false, selected: @user.citizenship}, class: "form-control") %>
         </div>
         <div class="form-group">
-          <label for="destination" class="text-uppercase">Destination:</label>
-          <%= select("resource", "destination", ["Schengen area", "Turkey"], {:include_blank => "Choose one", }, class: "form-control text-uppercase") %>
+          <label for="destination">Destination:</label>
+          <%= select("resource", "destination", ["Schengen area", "Turkey"], {:include_blank => false, selected: @user.destination}, class: "form-control") %>
+        </div>
+        <div class="form-group">
+          <label for="latest_entry">Latest or planned entry:</label>
+          <%= text_field :resource, :latest_entry, options = {id: "user_last_entry", class: "form-control latest_planned", placeholder: "Click to Select", value: @user.latest_entry, required: "required"} %>
         </div>
         <button type="submit" class="btn btn-success btn-block text-uppercase"><small>Continue</small></button>
       <% end %>
+
     </div>
   </div>
 </div>

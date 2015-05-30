@@ -2,6 +2,7 @@ class WelcomeController < ApplicationController
   skip_before_action :authenticate_user!
 
   def index
+
     @time_now = Time.zone.now.strftime("%B %d, %Y - %H:%M")
     @today = Time.zone.now.to_date
     @oldest_date = (Time.zone.now.to_date - 179).strftime("%B %d, %Y")
@@ -59,26 +60,31 @@ class WelcomeController < ApplicationController
   def user_details
     @details = user_details_params
 
-    current_or_guest_user.citizenship = @details["citizenship"]
-    current_or_guest_user.save
+    @user = current_or_guest_user
+
+    @user.citizenship = @details["citizenship"]
+    @user.destination = @details["destination"]
+    @user.latest_entry = @details["latest_entry"]
+    @user.save
 
     @countries = COUNTRIES.map{ |key, val| key }.sort
 
-    if COUNTRIES[@details["citizenship"]][@details["destination"]]["visa"] == "evisa_90_180"
-      @hi = "e-visa"
-    elsif COUNTRIES[@details["citizenship"]][@details["destination"]]["visa"] == "no_visa_90_180"
-      @hi = "no visa"
+    if COUNTRIES[@user.citizenship][@user.destination]["visa"] == "evisa_90_180"
+      @situation = "e-visa"
+    elsif COUNTRIES[@user.citizenship][@user.destination]["visa"] == "no_visa_90_180"
+      @situation = "no_visa"
     else
-      @hi = "error"
+      @situation = "error"
     end
 
-    render 'index'
+    render 'add_periods'
+
   end
 
   private
     # Only allow a trusted parameter "white list" through.
     def user_details_params
-      params.require(:resource).permit(:citizenship, :destination)
+      params.require(:resource).permit(:citizenship, :destination, :latest_entry)
     end
 
 end
