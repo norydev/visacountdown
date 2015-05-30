@@ -26,6 +26,7 @@
         </p>
     <% end %>
 
+    <!-- citizen -->
     <div class="row">
       <div class="col-xs-12 col-sm-5 table-padded">
         <p>
@@ -43,9 +44,28 @@
         <% end %>
       </div>
     </div>
+    <!-- citizen -->
+
+    <!-- Latest entry -->
+    <div class="row">
+      <div class="col-xs-12 col-sm-5 table-padded">
+        <p>
+          Latest or planned entry:
+        </p>
+      </div>
+      <div class="col-xs-12 col-sm-5 table-padded">
+        <p>
+          <strong><%= @user.latest_entry.strftime("%B %d, %Y") %></strong>
+        </p>
+      </div>
+    </div>
+    <!-- Latest entry -->
 
     <% unless @situation == "error" %>
-      <div id="all_stays">
+
+      <!-- All stays -->
+      <div id="all_stays" class="mini-padded">
+        <p class="mini-padded">Add all your stays since <%= (Time.zone.now.to_date - 179).strftime("%B %d, %Y") %> included:</p>
         <%= form_tag(controller: "welcome", action: "user_details") do %>
 
           <% @user.periods.each do |p| %>
@@ -93,6 +113,7 @@
 
         <% end %>
       </div>
+      <!-- All stays -->
     <% end %>
 
     </div>
