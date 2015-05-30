@@ -69,20 +69,20 @@
         <%= form_tag(controller: "welcome", action: "user_details") do %>
 
           <% @user.periods.each do |p| %>
-            <div class="row">
+            <div id="<%= p.id %>" class="row">
               <div class="col-xs-5 table-padded">
                 <div class="form-group">
-                  <%= text_field :resource, "period-#{p.id}-first-day", options = {id: "period-#{p.id}-first-day", class: "form-control first_day input-sm", placeholder: "Entry Date", value: p.first_day.strftime("%B %d, %Y"), required: "required"} %>
+                  <%= text_field_tag "resource[first_day][#{p.id}]", p.first_day.strftime("%B %d, %Y"), options = {id: "period-#{p.id}-first-day", class: "form-control first_day input-sm", placeholder: "Entry Date", required: "required"} %>
                 </div>
               </div>
               <div class="col-xs-5 table-padded">
                 <div class="form-group">
-                  <%= text_field :resource,  "period-#{p.id}-last-day", options = {id: "period-#{p.id}-last-day", class: "form-control last_day input-sm", placeholder: "Exit Date", value: p.last_day.strftime("%B %d, %Y"), required: "required"} %>
+                  <%= text_field_tag "resource[last_day][#{p.id}]", p.last_day.strftime("%B %d, %Y"), options = {id: "period-#{p.id}-last-day", class: "form-control last_day input-sm", placeholder: "Exit Date", required: "required"} %>
                 </div>
               </div>
 
               <div class="col-xs-2 table-padded">
-                <%= link_to "#", class: "btn btn-danger btn-block btn-sm delete-row" do %>
+                <%= link_to "#", class: "btn btn-danger btn-block btn-sm delete-row", data: {id: p.id} do %>
                   <i class="fa fa-trash"></i>
                 <% end %>
               </div>
@@ -92,12 +92,12 @@
           <div class="row">
             <div class="col-xs-5 col-sm-5 table-padded">
               <div class="form-group">
-                <%= text_field :resource, "period-first-day", options = {id: "period-first-day", class: "form-control first_day input-sm", placeholder: "Entry Date", required: "required"} %>
+                <%= text_field_tag "resource[first_day][]", nil, options = {id: "period-first-day", class: "form-control first_day input-sm", placeholder: "Entry Date", required: "required"} %>
               </div>
             </div>
             <div class="col-xs-5 col-sm-5 table-padded">
               <div class="form-group">
-                <%= text_field :resource,  "period-last-day", options = {id: "period-last-day", class: "form-control last_day input-sm", placeholder: "Exit Date", required: "required"} %>
+                <%= text_field_tag "resource[last_day][]", nil, options = {id: "period-last-day", class: "form-control last_day input-sm", placeholder: "Exit Date", required: "required"} %>
               </div>
             </div>
 
@@ -107,7 +107,6 @@
               <% end %>
             </div>
           </div>
-
 
           <button id="calculate" type="submit" class="btn btn-block btn-success" disabled="disabled"><i class="fa fa-calculator"></i> Calculate</button>
 
