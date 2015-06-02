@@ -81,6 +81,14 @@ class WelcomeController < ApplicationController
 
   end
 
+  def add_empty
+    @next_id = params[:id].to_i + 1
+    respond_to do |format|
+      format.html { redirect_to root_path } #change
+      format.js
+    end
+  end
+
   private
     # Only allow a trusted parameter "white list" through.
     def user_details_params
