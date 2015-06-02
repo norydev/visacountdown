@@ -1,4 +1,4 @@
-$(document).ready(function () {
+// $(document).ready(function () {
 
   //Calendar dates for booking
   var date_picker = function(){
@@ -105,4 +105,4 @@ $(document).ready(function () {
 
   // Validates submit btn
 
-});
+// });
