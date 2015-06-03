@@ -63,8 +63,19 @@
 
     <% unless @situation == "error" %>
 
+      <div class="row mini-padded">
+        <div class="col-xs-5">
+          <label for="latest_entry">Latest or planned entry:</label>
+        </div>
+        <div class="col-xs-5">
+          <div class="form-group">
+            <%= text_field :resource, :latest_entry, options = {id: "user_last_entry", class: "form-control latest_planned input-sm", placeholder: "Click to Select", value: @latest_entry, required: "required"} %>
+          </div>
+        </div>
+      </div>
+
       <!-- All stays -->
-      <div id="all_periods" class="mini-padded">
+      <div id="all_periods">
         <p class="mini-padded">All your stays since <strong><%= (Time.zone.now.to_date - 179).strftime("%d %b %Y") %></strong> included:</p>
         <%= form_tag(controller: "welcome", action: "calculation") do %>
 

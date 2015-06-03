@@ -1,16 +1,16 @@
-<div id="new-<%= id %>" data-emptyid="<%= id %>" class="row">
-  <div class="col-xs-5 col-sm-5 table-padded">
+<div id="new-<%= id %>" data-emptyid="<%= id %>" class="row form-inputs">
+  <div class="col-xs-5 table-padded">
     <div class="form-group">
       <%= text_field_tag "resource[first_day][]", nil, options = {id: "period-empty-#{id}-first-day", class: "form-control first_day input-sm", placeholder: "Entry Date", value: first_day, required: "required"} %>
     </div>
   </div>
-  <div class="col-xs-5 col-sm-5 table-padded">
+  <div class="col-xs-5 table-padded">
     <div class="form-group">
       <%= text_field_tag "resource[last_day][]", nil, options = {id: "period-empty-#{id}-last-day", class: "form-control last_day input-sm", placeholder: "Exit Date", value: last_day, required: "required"} %>
     </div>
   </div>
 
-  <div class="col-xs-2 col-sm-2 table-padded">
+  <div class="col-xs-2 table-padded">
     <%= link_to "#", class: "btn btn-success btn-block btn-sm add-row" do %>
       <i class="fa fa-plus"></i>
     <% end %>

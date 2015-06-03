@@ -6,7 +6,7 @@ class WelcomeController < ApplicationController
 
     if user_signed_in?
       welcome_results_path
-    elsif @user.citizenship && @user.destination && @user.latest_entry
+    elsif @user.citizenship && @user.destination
       redirect_to welcome_calculator_path
     else
       redirect_to welcome_empty_user_path
@@ -17,7 +17,7 @@ class WelcomeController < ApplicationController
     @user = current_or_guest_user
     @countries = COUNTRIES.map{ |key, val| key }.sort
 
-    @latest_entry = @user.latest_entry.strftime("%d %b %Y") if @user.latest_entry
+    # @latest_entry = @user.latest_entry.strftime("%d %b %Y") if @user.latest_entry
 
     render 'index'
   end
@@ -30,7 +30,7 @@ class WelcomeController < ApplicationController
 
     @user.citizenship = @details["citizenship"]
     @user.destination = @details["destination"]
-    @user.latest_entry = @details["latest_entry"]
+    # @user.latest_entry = @details["latest_entry"]
     @user.save
 
     redirect_to welcome_calculator_path
@@ -42,7 +42,7 @@ class WelcomeController < ApplicationController
     @first_day = @user.periods.where(zone: @user.destination).last.first_day.strftime("%d %b %Y") unless @user.periods.where(zone: @user.destination).empty?
     @last_day = @user.periods.where(zone: @user.destination).last.last_day.strftime("%d %b %Y") unless @user.periods.where(zone: @user.destination).empty?
 
-    unless @user.citizenship && @user.destination && @user.latest_entry
+    unless @user.citizenship && @user.destination
       redirect_to root_path
     end
 
@@ -61,6 +61,9 @@ class WelcomeController < ApplicationController
   def calculation
     @user = current_or_guest_user
     @params = periods_params
+
+    @user.latest_entry = @params[:latest_entry]
+    @user.save
 
     # brutal but simpler than edit...
     @user.periods.where(zone: @user.destination).destroy_all
@@ -137,11 +140,11 @@ class WelcomeController < ApplicationController
   private
     # Only allow a trusted parameter "white list" through.
     def user_details_params
-      params.require(:resource).permit(:citizenship, :destination, :latest_entry)
+      params.require(:resource).permit(:citizenship, :destination)
     end
 
     def periods_params
-      params.require(:resource).permit(first_day: [], last_day: [])
+      params.require(:resource).permit(:latest_entry, first_day: [], last_day: [])
     end
 
 end

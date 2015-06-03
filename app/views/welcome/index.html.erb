@@ -19,10 +19,10 @@
           <label for="destination">Destination:</label>
           <%= select("resource", "destination", ["Schengen area", "Turkey"], {:include_blank => false, selected: @user.destination}, class: "form-control") %>
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label for="latest_entry">Latest or planned entry:</label>
-          <%= text_field :resource, :latest_entry, options = {id: "user_last_entry", class: "form-control latest_planned", placeholder: "Click to Select", value: @latest_entry, required: "required"} %>
-        </div>
+          <%#= text_field :resource, :latest_entry, options = {id: "user_last_entry", class: "form-control latest_planned", placeholder: "Click to Select", value: @latest_entry, required: "required"} %>
+        </div> -->
         <button type="submit" class="btn btn-success btn-block text-uppercase"><small>Continue</small></button>
       <% end %>
 
