@@ -39,6 +39,9 @@ class WelcomeController < ApplicationController
   def calculator
     @user = current_or_guest_user
 
+    @first_day = @user.periods.where(zone: @user.destination).last.first_day.strftime("%d %b %Y") unless @user.periods.where(zone: @user.destination).empty?
+    @last_day = @user.periods.where(zone: @user.destination).last.last_day.strftime("%d %b %Y") unless @user.periods.where(zone: @user.destination).empty?
+
     unless @user.citizenship && @user.destination && @user.latest_entry
       redirect_to root_path
     end
@@ -58,6 +61,9 @@ class WelcomeController < ApplicationController
   def calculation
     @user = current_or_guest_user
     @params = periods_params
+
+    # brutal but simpler than edit...
+    @user.periods.where(zone: @user.destination).destroy_all
 
     (0...@params[:first_day].size).each do |i|
       p = Period.new(user: @user, first_day: periods_params[:first_day][i], last_day: periods_params[:last_day][i], zone: @user.destination)
@@ -115,7 +121,9 @@ class WelcomeController < ApplicationController
       end
     end
 
-    render 'dashboard'
+    if user_signed_in?
+      render 'dashboard'
+    end
   end
 
   def add_empty

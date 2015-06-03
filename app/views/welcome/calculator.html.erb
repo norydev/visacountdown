@@ -68,16 +68,16 @@
         <p class="mini-padded">All your stays since <strong><%= (Time.zone.now.to_date - 179).strftime("%d %b %Y") %></strong> included:</p>
         <%= form_tag(controller: "welcome", action: "calculation") do %>
 
-          <% @user.periods.each do |p| %>
+          <% @user.periods.where(zone: @user.destination)[0...-1].each do |p| %>
             <div id="<%= p.id %>" class="row form-inputs">
               <div class="col-xs-5 table-padded">
                 <div class="form-group">
-                  <%= text_field_tag "resource[first_day][#{p.id}]", p.first_day.strftime("%d %b %Y"), options = {id: "period-#{p.id}-first-day", class: "form-control first_day input-sm", placeholder: "Entry Date", required: "required"} %>
+                  <%= text_field_tag "resource[first_day][]", p.first_day.strftime("%d %b %Y"), options = {id: "period-#{p.id}-first-day", class: "form-control first_day input-sm", placeholder: "Entry Date", required: "required"} %>
                 </div>
               </div>
               <div class="col-xs-5 table-padded">
                 <div class="form-group">
-                  <%= text_field_tag "resource[last_day][#{p.id}]", p.last_day.strftime("%d %b %Y"), options = {id: "period-#{p.id}-last-day", class: "form-control last_day input-sm", placeholder: "Exit Date", required: "required"} %>
+                  <%= text_field_tag "resource[last_day][]", p.last_day.strftime("%d %b %Y"), options = {id: "period-#{p.id}-last-day", class: "form-control last_day input-sm", placeholder: "Exit Date", required: "required"} %>
                 </div>
               </div>
 
@@ -90,7 +90,7 @@
           <% end %>
 
           <div id="new_stays">
-            <%= render 'stay', id: '0' %>
+            <%= render 'stay', id: '0', first_day: @first_day, last_day: @last_day %>
           </div>
 
           <button id="calculate" type="submit" class="btn btn-block btn-success" disabled="disabled"><i class="fa fa-calculator"></i> Calculate</button>

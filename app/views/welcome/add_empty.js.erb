@@ -1,4 +1,4 @@
-var new_form = $("<%= j render 'welcome/stay', id: @next_id %>").hide();
+var new_form = $("<%= j render 'welcome/stay', id: @next_id, first_day: '', last_day: '' %>").hide();
 $('#new_stays').append(new_form);
 new_form.slideDown();
 

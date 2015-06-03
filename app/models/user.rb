@@ -61,7 +61,7 @@ class User < ActiveRecord::Base
   def time_spent(day, future = false)
     nb_days = 0
     oldest_date = day - 179
-    user_periods = self.periods
+    user_periods = self.periods.where(zone: self.destination)
 
     user_periods = remove_too_old(user_periods, oldest_date)
 
