@@ -1,26 +1,3 @@
-var delete_row = function(){
-  $('.delete-row').click(function(e){
-    e.preventDefault();
-    $(this).closest('.row').html('');
-  });
-};
-
-var add_row = function(){
-  $('.add-row').on('click', function(e){
-    e.preventDefault();
-
-    $.ajax({
-      async: false,
-      type: "GET",
-      data: {'id': $(this).closest('.row').data('emptyid')},
-      url: 'add_empty.js'
-    });
-
-    $(this).removeClass('btn-success add-row').addClass('btn-danger delete-row').html('<i class="fa fa-trash"></i>').off('click');
-    delete_row();
-  });
-};
-
 var new_form = $("<%= j render 'welcome/stay', id: @next_id %>").hide();
 $('#new_stays').append(new_form);
 new_form.slideDown();

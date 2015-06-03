@@ -79,21 +79,7 @@
 
               <p>Visa Countdown helps you calculate your remaining visa days for areas that have a "90 days in any 180 days period" policy (Schengen Area, Turkey). Citizens of the following countries are concerned by this policy:</p>
               <h5>To Enter the Schengen Area:</h5>
-              <p class="line-height-medium">
-                <% COUNTRIES['Schengen'].each do |country| %>
-                  <span class="label label-default"><%= country %></span>
-                <% end %>
-              </p>
-              <h5>To Enter Turkey:</h5>
-              <p class="line-height-medium">
-                <% COUNTRIES['Turkey'].first['no_visa'].each do |country| %>
-                  <span class="label label-default"><%= country %></span>
-                <% end %>
 
-                <% COUNTRIES['Turkey'].last['visa'].each do |country| %>
-                  <span class="label label-info" title="e-visa required"><%= country %></span>
-                <% end %>
-              </p>
             </div>
           </div>
         </div>
