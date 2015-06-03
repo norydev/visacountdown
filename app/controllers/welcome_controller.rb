@@ -2,7 +2,6 @@ class WelcomeController < ApplicationController
   skip_before_action :authenticate_user!
 
   def index
-
     @time_now = Time.zone.now.strftime("%B %d, %Y - %H:%M")
     @today = Time.zone.now.to_date
     @oldest_date = (Time.zone.now.to_date - 179).strftime("%B %d, %Y")
@@ -51,12 +50,32 @@ class WelcomeController < ApplicationController
 
     if user_signed_in?
       render 'dashboard'
+    elsif @user.citizenship && @user.destination && @user.latest_entry
+      redirect_to welcome_calculator_path
     else
-      render 'index'
+      redirect_to welcome_empty_user_path
     end
-
   end
 
+  def empty_user
+    @user = current_or_guest_user
+    @countries = COUNTRIES.map{ |key, val| key }.sort
+
+    render 'index'
+  end
+
+  def new_index
+    @user = current_or_guest_user
+    if user_signed_in?
+      redirect_to dashboard_path
+    elsif @user.citizenship && @user.destination && @user.latest_entry
+      redirect_to welcome_calculator_path
+    else
+      redirect_to user_details_path
+    end
+  end
+
+  #POST method, comes from index
   def user_details
     @details = user_details_params
 
@@ -66,6 +85,17 @@ class WelcomeController < ApplicationController
     @user.destination = @details["destination"]
     @user.latest_entry = @details["latest_entry"]
     @user.save
+
+    redirect_to welcome_calculator_path
+  end
+
+  def calculator
+
+    @user = current_or_guest_user
+
+    unless @user.citizenship && @user.destination && @user.latest_entry
+      redirect_to root_path
+    end
 
     @countries = COUNTRIES.map{ |key, val| key }.sort
 
@@ -77,8 +107,7 @@ class WelcomeController < ApplicationController
       @situation = "error"
     end
 
-    render 'add_periods'
-
+    # render 'add_periods'
   end
 
   def add_empty

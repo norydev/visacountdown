@@ -13,7 +13,7 @@ var add_row = function(){
 
     $.ajax({
       async: false,
-      type: "GET",
+      type: "POST",
       data: {'id': $(this).closest('.row').data('emptyid')},
       url: 'add_empty.js'
     });

@@ -3,9 +3,11 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   get 'welcome/index'
-  post 'welcome/user_details'
+  get 'welcome/empty_user'
+  get 'welcome/calculator'
 
-  get 'welcome/add_empty'
+  post 'welcome/user_details'
+  post 'welcome/add_empty'
 
   post 'users/latest_entry'
 

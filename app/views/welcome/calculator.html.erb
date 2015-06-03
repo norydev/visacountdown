@@ -39,7 +39,7 @@
         </p>
       </div>
       <div class="col-xs-12 col-sm-2 table-padded">
-        <%= link_to root_path, class: "btn btn-info btn-block btn-xs text-uppercase" do %>
+        <%= link_to welcome_empty_user_path, class: "btn btn-info btn-block btn-xs text-uppercase" do %>
           <small>Edit</small>
         <% end %>
       </div>
@@ -64,12 +64,12 @@
     <% unless @situation == "error" %>
 
       <!-- All stays -->
-      <div id="all_stays" class="mini-padded">
+      <div id="all_periods" class="mini-padded">
         <p class="mini-padded">Add all your stays since <%= (Time.zone.now.to_date - 179).strftime("%B %d, %Y") %> included:</p>
         <%= form_tag(controller: "welcome", action: "user_details") do %>
 
           <% @user.periods.each do |p| %>
-            <div id="<%= p.id %>" class="row">
+            <div id="<%= p.id %>" class="row form-inputs">
               <div class="col-xs-5 table-padded">
                 <div class="form-group">
                   <%= text_field_tag "resource[first_day][#{p.id}]", p.first_day.strftime("%B %d, %Y"), options = {id: "period-#{p.id}-first-day", class: "form-control first_day input-sm", placeholder: "Entry Date", required: "required"} %>
