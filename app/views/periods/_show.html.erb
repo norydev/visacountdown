@@ -1,6 +1,6 @@
 <tr data-id="<%= period.id %>">
-  <td><%= period.first_day.strftime("%B %d, %Y") %></td>
-  <td><%= period.last_day.strftime("%B %d, %Y") %></td>
+  <td><%= period.first_day.strftime("%d %b %Y") %></td>
+  <td><%= period.last_day.strftime("%d %b %Y") %></td>
   <td><%= (period.last_day - period.first_day).to_i + 1 %></td>
   <td><%= link_to edit_period_path(period), class: "btn btn-primary" do %><i class="fa fa-pencil"></i><% end %> <%= link_to period, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", remote: true do %><i class="fa fa-trash"></i><% end %></td>
 </tr>

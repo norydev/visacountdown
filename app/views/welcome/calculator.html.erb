@@ -55,7 +55,7 @@
       </div>
       <div class="col-xs-12 col-sm-5 table-padded">
         <p>
-          <strong><%= @user.latest_entry.strftime("%B %d, %Y") %></strong>
+          <strong><%= @user.latest_entry.strftime("%d %b %Y") %></strong>
         </p>
       </div>
     </div>
@@ -65,19 +65,19 @@
 
       <!-- All stays -->
       <div id="all_periods" class="mini-padded">
-        <p class="mini-padded">Add all your stays since <%= (Time.zone.now.to_date - 179).strftime("%B %d, %Y") %> included:</p>
+        <p class="mini-padded">All your stays since <strong><%= (Time.zone.now.to_date - 179).strftime("%d %b %Y") %></strong> included:</p>
         <%= form_tag(controller: "welcome", action: "user_details") do %>
 
           <% @user.periods.each do |p| %>
             <div id="<%= p.id %>" class="row form-inputs">
               <div class="col-xs-5 table-padded">
                 <div class="form-group">
-                  <%= text_field_tag "resource[first_day][#{p.id}]", p.first_day.strftime("%B %d, %Y"), options = {id: "period-#{p.id}-first-day", class: "form-control first_day input-sm", placeholder: "Entry Date", required: "required"} %>
+                  <%= text_field_tag "resource[first_day][#{p.id}]", p.first_day.strftime("%d %b %Y"), options = {id: "period-#{p.id}-first-day", class: "form-control first_day input-sm", placeholder: "Entry Date", required: "required"} %>
                 </div>
               </div>
               <div class="col-xs-5 table-padded">
                 <div class="form-group">
-                  <%= text_field_tag "resource[last_day][#{p.id}]", p.last_day.strftime("%B %d, %Y"), options = {id: "period-#{p.id}-last-day", class: "form-control last_day input-sm", placeholder: "Exit Date", required: "required"} %>
+                  <%= text_field_tag "resource[last_day][#{p.id}]", p.last_day.strftime("%d %b %Y"), options = {id: "period-#{p.id}-last-day", class: "form-control last_day input-sm", placeholder: "Exit Date", required: "required"} %>
                 </div>
               </div>
 

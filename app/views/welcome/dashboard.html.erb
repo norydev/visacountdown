@@ -31,7 +31,7 @@
           <%   when "overstay" %>
             <p class="marged bg-red text-large"><i class="fa fa-exclamation-triangle fa-2x pull-left"></i><strong> You are in overstay! Get out of here as soon as you can to avoid paying more penalty!</strong></p>
           <%   when "quota_used" %>
-            <p>You used your quota of days. Next time you can enter is on <strong><span><%= @next_entry.strftime("%B %d, %Y") %></span></strong>.
+            <p>You used your quota of days. Next time you can enter is on <strong><span><%= @next_entry.strftime("%d %b %Y") %></span></strong>.
 
               <% if !@can_enter %>
                 You would be able to stay <strong><%= @remaining_time %></strong> days and would have to leave on <strong><%= @leave_on %></strong> or before.

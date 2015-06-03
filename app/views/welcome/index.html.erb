@@ -21,7 +21,7 @@
         </div>
         <div class="form-group">
           <label for="latest_entry">Latest or planned entry:</label>
-          <%= text_field :resource, :latest_entry, options = {id: "user_last_entry", class: "form-control latest_planned", placeholder: "Click to Select", value: @user.latest_entry, required: "required"} %>
+          <%= text_field :resource, :latest_entry, options = {id: "user_last_entry", class: "form-control latest_planned", placeholder: "Click to Select", value: @latest_entry, required: "required"} %>
         </div>
         <button type="submit" class="btn btn-success btn-block text-uppercase"><small>Continue</small></button>
       <% end %>
