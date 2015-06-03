@@ -5,7 +5,7 @@ class WelcomeController < ApplicationController
     @user = current_or_guest_user
 
     if user_signed_in?
-      welcome_results_path
+      redirect_to welcome_results_path
     elsif @user.citizenship && @user.destination
       redirect_to welcome_calculator_path
     else
@@ -16,8 +16,6 @@ class WelcomeController < ApplicationController
   def empty_user
     @user = current_or_guest_user
     @countries = COUNTRIES.map{ |key, val| key }.sort
-
-    # @latest_entry = @user.latest_entry.strftime("%d %b %Y") if @user.latest_entry
 
     render 'index'
   end
@@ -39,9 +37,6 @@ class WelcomeController < ApplicationController
   def calculator
     @user = current_or_guest_user
 
-    @first_day = @user.periods.where(zone: @user.destination).last.first_day.strftime("%d %b %Y") unless @user.periods.where(zone: @user.destination).empty?
-    @last_day = @user.periods.where(zone: @user.destination).last.last_day.strftime("%d %b %Y") unless @user.periods.where(zone: @user.destination).empty?
-
     unless @user.citizenship && @user.destination
       redirect_to root_path
     end
@@ -55,6 +50,12 @@ class WelcomeController < ApplicationController
     else
       @situation = "error"
     end
+
+    @latest_entry = @user.latest_entry.strftime("%d %b %Y") if @user.latest_entry
+
+    @first_day = @user.periods.where(zone: @user.destination).last.first_day.strftime("%d %b %Y") unless @user.periods.where(zone: @user.destination).empty?
+    @last_day = @user.periods.where(zone: @user.destination).last.last_day.strftime("%d %b %Y") unless @user.periods.where(zone: @user.destination).empty?
+
   end
 
   #POST calculation
@@ -132,7 +133,7 @@ class WelcomeController < ApplicationController
   def add_empty
     @next_id = params[:id].to_i + 1
     respond_to do |format|
-      format.html { redirect_to root_path } #change
+      format.html { redirect_to welcome_calculator_path }
       format.js
     end
   end
