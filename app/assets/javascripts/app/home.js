@@ -8,7 +8,7 @@ var date_picker = function(){
   }
 
   $(".latest_planned").datepicker({
-    dateFormat: "MM dd, yy",
+    dateFormat: "dd M yy",
     defaultDate: 0,
     defaultDate: 0,
     changeMonth: false,
@@ -21,7 +21,7 @@ var date_picker = function(){
   });
 
   $( ".first_day" ).datepicker({
-    dateFormat: "MM dd, yy",
+    dateFormat: "dd M yy",
     defaultDate: 0,
     // maxDate: 0,
     maxDate: max_date,
@@ -36,7 +36,7 @@ var date_picker = function(){
     }
   });
   $( ".last_day" ).datepicker({
-    dateFormat: "MM dd, yy",
+    dateFormat: "dd M yy",
     defaultDate: +1,
     // maxDate: 0,
     maxDate: max_date,

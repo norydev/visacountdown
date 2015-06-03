@@ -5,9 +5,11 @@ Rails.application.routes.draw do
   get 'welcome/index'
   get 'welcome/empty_user'
   get 'welcome/calculator'
+  get 'welcome/results'
 
   post 'welcome/user_details'
   post 'welcome/add_empty'
+  post 'welcome/calculation'
 
   post 'users/latest_entry'
 

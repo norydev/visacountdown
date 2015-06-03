@@ -2,6 +2,73 @@ class WelcomeController < ApplicationController
   skip_before_action :authenticate_user!
 
   def index
+    @user = current_or_guest_user
+
+    if user_signed_in?
+      welcome_results_path
+    elsif @user.citizenship && @user.destination && @user.latest_entry
+      redirect_to welcome_calculator_path
+    else
+      redirect_to welcome_empty_user_path
+    end
+  end
+
+  def empty_user
+    @user = current_or_guest_user
+    @countries = COUNTRIES.map{ |key, val| key }.sort
+
+    @latest_entry = @user.latest_entry.strftime("%d %b %Y") if @user.latest_entry
+
+    render 'index'
+  end
+
+  #POST method, comes from index
+  def user_details
+    @details = user_details_params
+
+    @user = current_or_guest_user
+
+    @user.citizenship = @details["citizenship"]
+    @user.destination = @details["destination"]
+    @user.latest_entry = @details["latest_entry"]
+    @user.save
+
+    redirect_to welcome_calculator_path
+  end
+
+  def calculator
+    @user = current_or_guest_user
+
+    unless @user.citizenship && @user.destination && @user.latest_entry
+      redirect_to root_path
+    end
+
+    @countries = COUNTRIES.map{ |key, val| key }.sort
+
+    if COUNTRIES[@user.citizenship][@user.destination]["visa"] == "evisa_90_180"
+      @situation = "e-visa"
+    elsif COUNTRIES[@user.citizenship][@user.destination]["visa"] == "no_visa_90_180"
+      @situation = "no_visa"
+    else
+      @situation = "error"
+    end
+  end
+
+  #POST calculation
+  def calculation
+    @user = current_or_guest_user
+    @params = periods_params
+
+    (0...@params[:first_day].size).each do |i|
+      p = Period.new(user: @user, first_day: periods_params[:first_day][i], last_day: periods_params[:last_day][i], zone: @user.destination)
+      p.save
+    end
+
+    redirect_to welcome_results_path
+  end
+
+  # show results
+  def results
     @time_now = Time.zone.now.strftime("%B %d, %Y - %H:%M")
     @today = Time.zone.now.to_date
     @oldest_date = (Time.zone.now.to_date - 179).strftime("%d %b %Y")
@@ -48,57 +115,7 @@ class WelcomeController < ApplicationController
       end
     end
 
-    if user_signed_in?
-      render 'dashboard'
-    elsif @user.citizenship && @user.destination && @user.latest_entry
-      redirect_to welcome_calculator_path
-    else
-      redirect_to welcome_empty_user_path
-    end
-  end
-
-  def empty_user
-    @user = current_or_guest_user
-    @countries = COUNTRIES.map{ |key, val| key }.sort
-
-    @latest_entry = @user.latest_entry.strftime("%d %b %Y") if @user.latest_entry
-
-    render 'index'
-  end
-
-  #POST method, comes from index
-  def user_details
-    @details = user_details_params
-
-    @user = current_or_guest_user
-
-    @user.citizenship = @details["citizenship"]
-    @user.destination = @details["destination"]
-    @user.latest_entry = @details["latest_entry"]
-    @user.save
-
-    redirect_to welcome_calculator_path
-  end
-
-  def calculator
-
-    @user = current_or_guest_user
-
-    unless @user.citizenship && @user.destination && @user.latest_entry
-      redirect_to root_path
-    end
-
-    @countries = COUNTRIES.map{ |key, val| key }.sort
-
-    if COUNTRIES[@user.citizenship][@user.destination]["visa"] == "evisa_90_180"
-      @situation = "e-visa"
-    elsif COUNTRIES[@user.citizenship][@user.destination]["visa"] == "no_visa_90_180"
-      @situation = "no_visa"
-    else
-      @situation = "error"
-    end
-
-    # render 'add_periods'
+    render 'dashboard'
   end
 
   def add_empty
@@ -113,6 +130,10 @@ class WelcomeController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def user_details_params
       params.require(:resource).permit(:citizenship, :destination, :latest_entry)
+    end
+
+    def periods_params
+      params.require(:resource).permit(first_day: [], last_day: [])
     end
 
 end
