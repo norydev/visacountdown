@@ -89,7 +89,7 @@ class WelcomeController < ApplicationController
       @latest_entry = @user.latest_entry.strftime("%d %b %Y")
       case @time_spent_today
         when 0..89
-          if @user.is_in_turkey?
+          if @user.is_in_zone?
             # calc days remaining from now to know when to leave
             @situation = "inside_ok"
             @remaining_time = @user.remaining_time
@@ -101,7 +101,7 @@ class WelcomeController < ApplicationController
             @leave_on = @user.latest_exit.strftime("%d %b %Y")
           end
         when 90..180
-          if @user.is_in_turkey?
+          if @user.is_in_zone?
             # overstay: get out
             @situation = "overstay"
           else
