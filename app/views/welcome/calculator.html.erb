@@ -1,0 +1,118 @@
+<%= content_for(:title) do %>
+  Visa Countdown
+<% end %>
+
+<%= content_for(:description) do %>
+  The Schengen area and Turkey are among the countries in which many foreigners can stay with a tourist visa for 90 days in ANY 180 days period. Calculate when you must leave or when you can re-enter.
+<% end %>
+
+<div class="container">
+  <div class="row xs-marged">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+
+    <!-- citizen -->
+    <div class="row">
+      <div class="col-xs-12 col-sm-5 table-padded">
+        <p>
+          Citizenship: <strong><%= @user.citizenship %></strong>
+        </p>
+      </div>
+      <div class="col-xs-12 col-sm-5 table-padded">
+        <p>
+          Destination: <strong><%= @user.destination %></strong>
+        </p>
+      </div>
+      <div class="col-xs-12 col-sm-2 table-padded">
+        <%= link_to welcome_empty_user_path, class: "btn btn-info btn-block btn-xs text-uppercase" do %>
+          <small>Edit</small>
+        <% end %>
+      </div>
+    </div>
+    <!-- citizen -->
+
+    <!-- situation -->
+    <% case @situation %>
+      <% when "no_visa" %>
+        <p class="alert-success marged">
+          You don't need a visa to enter <%= @user.destination == "Turkey" ? "" : "the " %><%= @user.destination %>. You can stay 90 days in ANY 180 days period.
+        </p>
+      <% when "e-visa" %>
+        <p class="alert-info marged">
+          You need an e-visa to enter <%= @user.destination == "Turkey" ? "" : "the " %><%= @user.destination %>. You can stay 90 days in ANY 180 days period.
+        </p>
+      <% when "error" %>
+        <p class="alert-danger marged">
+          Sorry, our calculator does not take your situation into account.
+        </p>
+    <% end %>
+    <!-- situation -->
+
+    <% unless @situation == "error" %>
+
+      <!-- All stays -->
+      <div class="padded">
+        <%= form_tag(controller: "welcome", action: "calculation") do %>
+
+          <div class="row">
+            <div class="col-xs-5 table-padded">
+              <label for="latest_entry">Latest or planned entry:</label>
+            </div>
+            <div class="col-xs-5 table-padded">
+              <div class="form-group">
+                <%= text_field :resource, :latest_entry, options = {id: "user_last_entry", class: "form-control latest_planned input-sm", placeholder: "Click to Select", value: @latest_entry, required: "required"} %>
+              </div>
+            </div>
+            <div class="col-xs-2 table-padded">
+            </div>
+          </div>
+
+          <div id="all_periods" class="mini-padded">
+            <p class="mini-padded">All your stays since <strong><%= (Time.zone.now.to_date - 179).strftime("%d %b %Y") %></strong> included:</p>
+
+            <div class="row">
+              <div class="col-xs-5 table-padded">
+                <strong>Entry Date:</strong>
+              </div>
+              <div class="col-xs-5 table-padded">
+                <strong>Exit Date:</strong>
+              </div>
+              <div class="col-xs-2 table-padded">
+              </div>
+            </div>
+
+            <% @user.periods.where(zone: @user.destination)[0...-1].each do |p| %>
+              <div id="<%= p.id %>" class="row form-inputs">
+                <div class="col-xs-5 table-padded">
+                  <div class="form-group">
+                    <%= text_field_tag "resource[first_day][]", p.first_day.strftime("%d %b %Y"), options = {id: "period-#{p.id}-first-day", class: "form-control first_day input-sm", placeholder: "Entry Date", required: "required"} %>
+                  </div>
+                </div>
+                <div class="col-xs-5 table-padded">
+                  <div class="form-group">
+                    <%= text_field_tag "resource[last_day][]", p.last_day.strftime("%d %b %Y"), options = {id: "period-#{p.id}-last-day", class: "form-control last_day input-sm", placeholder: "Exit Date", required: "required"} %>
+                  </div>
+                </div>
+
+                <div class="col-xs-2 table-padded">
+                  <%= link_to "#", class: "btn btn-danger btn-block btn-sm delete-row", data: {id: p.id} do %>
+                    <i class="fa fa-trash"></i>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+
+            <div id="new_stays">
+              <%= render 'stay', id: '0', first_day: @first_day, last_day: @last_day %>
+            </div>
+          </div>
+
+          <button id="calculate" type="submit" class="btn btn-block btn-success" disabled="disabled"><i class="fa fa-calculator"></i> Calculate</button>
+
+        <% end %>
+      </div>
+      <!-- All stays -->
+    <% end %>
+
+    </div>
+  </div>
+</div>

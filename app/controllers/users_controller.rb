@@ -5,14 +5,14 @@ class UsersController < ApplicationController
 
     @time_now = Time.zone.now.strftime("%B %d, %Y - %H:%M")
     @today = Time.zone.now.to_date
-    @oldest_date = (Time.zone.now.to_date - 179).strftime("%B %d, %Y")
+    @oldest_date = (Time.zone.now.to_date - 179).strftime("%d %b %Y")
 
     @user = current_or_guest_user
 
     @user.latest_entry = latest_params[:latest_entry]
 
     @periods = @user.periods.order(:last_day)
-    @latest_entry = @user.latest_entry.strftime("%B %d, %Y") if @user.latest_entry
+    @latest_entry = @user.latest_entry.strftime("%d %b %Y") if @user.latest_entry
 
     if @user.save
       respond_to do |format|

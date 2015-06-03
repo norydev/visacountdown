@@ -1,7 +1,15 @@
 Rails.application.routes.draw do
 
   ActiveAdmin.routes(self)
+
   get 'welcome/index'
+  get 'welcome/empty_user'
+  get 'welcome/calculator'
+  get 'welcome/results'
+
+  post 'welcome/user_details'
+  post 'welcome/add_empty'
+  post 'welcome/calculation'
 
   post 'users/latest_entry'
 
@@ -13,4 +21,5 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
 
   root 'welcome#index'
+
 end

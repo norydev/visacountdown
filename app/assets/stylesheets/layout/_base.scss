@@ -25,6 +25,16 @@ table {
   margin: 0
 }
 
+.table-padded {
+  padding: 0 0.5em;
+  &:first-child {
+    padding: 0
+  }
+  &:last-child {
+    padding: 0
+  }
+}
+
 .text-large {
   font-size: 2em;
   padding: 1.5em 5%;

@@ -1,7 +1,7 @@
 <% periods.each do |p| %>
   <tr data-id="<%= p.id %>">
-    <td><%= p.first_day.strftime("%B %d, %Y") %></td>
-    <td><%= p.last_day.strftime("%B %d, %Y") %></td>
+    <td><%= p.first_day.strftime("%d %b %Y") %></td>
+    <td><%= p.last_day.strftime("%d %b %Y") %></td>
     <td><%= (p.last_day - p.first_day).to_i + 1 %></td>
     <td><%= link_to edit_period_path(p), class: "btn-xs btn-primary", remote: true do %><i class="fa fa-pencil"></i><% end %> <%= link_to p, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-xs btn-danger", remote: true do %><i class="fa fa-trash"></i><% end %></td>
   </tr>

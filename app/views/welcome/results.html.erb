@@ -16,7 +16,7 @@
         <div id="results" class="mini-padded text-center">
 
           <p>
-            In the last 180 days, you spent <strong><%= @time_spent_today %></strong> days inside the area (Schengen or Turkey)
+            In the last 180 days, you spent <strong><%= @time_spent_today %></strong> days inside <%= @user.destination == "Turkey" ? "" : "the " %><%= @user.destination %>
           </p>
 
           <% case @situation %>
@@ -52,99 +52,22 @@
           <% end %>
         </div>
         <% unless user_signed_in? %>
-          <div class="text-center">
-            <%= link_to t(".save", default: "Save your countdown"), new_user_registration_path, class: "btn btn-lg btn-danger" %>
-          </div>
+
         <% end %>
       </div>
     </div>
   <% end %>
   <!-- Results -->
 
-  <!-- For me? -->
-  <!-- <div class="row xs-marged">
+  <div class="row">
     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
-
-      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-        <div class="panel panel-default">
-          <div class="panel-heading" role="tab" id="headingOne">
-            <h4 class="panel-title">
-              <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                Is it for me?
-              </a>
-            </h4>
-          </div>
-          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-            <div class="panel-body">
-
-              <p>Visa Countdown helps you calculate your remaining visa days for areas that have a "90 days in any 180 days period" policy (Schengen Area, Turkey). Citizens of the following countries are concerned by this policy:</p>
-              <h5>To Enter the Schengen Area:</h5>
-
-            </div>
-          </div>
-        </div>
+      <div class="text-center">
+        <%= link_to t(".save", default: "Save your countdown"), new_user_registration_path, class: "btn btn-danger" %>
+        <%= link_to t(".back_calculator", default: "Back to calculator"), welcome_calculator_path, class: "btn btn-success" %>
       </div>
-    </div>
-  </div> -->
-  <!-- For me? -->
-
-  <div class="row padded">
-    <div class="col-xs-12 col-sm-5 col-sm-offset-1 col-lg-4 col-lg-offset-2">
-      <!-- All previous stays -->
-      <div id="all_stays" class="xs-marged">
-
-        <h2>1. Your past stays</h2>
-
-        <p>Please enter all your stays in the area you want to calculate for (Schengen, Turkey) between <strong><%= @oldest_date %></strong> (included) and your latest or planned entry (not included)</p>
-
-        <div id="new_period_form" class="mini-padded">
-          <label>Add a stay</label>
-          <%= render "periods/form", period: Period.new() %>
-        </div>
-
-        <div class="mini-padded">
-          <table class="table tablebordered table-condensed">
-            <thead>
-              <tr>
-                <th>Entry Date</th>
-                <th>Exit Date</th>
-                <th>Days</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% if @periods.empty? %>
-                <tr id="no_periods"><td class="active" colspan="4">You did not enter any stay yet</td></tr>
-              <% end %>
-              <%= render "periods/all_periods", periods: @periods %>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <!-- All previous stays -->
-    </div>
-    <div class="col-xs-12 col-sm-4 col-sm-offset-1 col-lg-3 col-lg-offset-1">
-
-      <!-- User is in? -->
-      <div id="calc_form" class="xs-marged">
-
-        <h2>2. Your latest entry</h2>
-
-        <p>Tell us when you entered last or when you plan to enter and calculate how long you can stay</p>
-
-        <%= form_for(@user, url: users_latest_entry_path) do |f| %>
-          <div class="form-group" id="inside_last_entry">
-            <label for="last_entry">Latest or planned Entry</label>
-            <%= f.text_field :latest_entry, id: "user_last_entry", class: "form-control latest_planned", placeholder: "Click to Select", value: @latest_entry, required: "required" %>
-          </div>
-
-          <button id="calculate" type="submit" class="btn btn-block btn-success" disabled="disabled"><i class="fa fa-calculator"></i> Calculate</button>
-        <% end %>
-      </div>
-      <!-- User is in? -->
-
     </div>
   </div>
+
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
 

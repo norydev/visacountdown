@@ -1,4 +1,617 @@
-Schengen: [Albania, Antigua and Barbuda, Andorra, Argentina, Australia, Bahamas, Barbados, Bosnia and Herzegovina, Brunei, Brazil, Canada, Chile, Costa Rica, El Salvador, Guatemala, Honduras, Hong Kong, Israel, Japan, Macau, Macedonia, Malaysia, Mauritius, Mexico, Moldova, Monaco, Montenegro, New Zealand, Nicaragua, Panama, Paraguay, Saint Kitts and Nevis, San Marino, Serbia, Seychelles, Singapore, South Korea, Taiwan, United Arab Emirates, United States, Uruguay, Vatican City, Venezuela]
-Turkey:
-  - no_visa: [Albania, Andorra, Argentina, Belize, Bolivia, Brazil, Brunei, Bulgaria, Chile, Colombia, Czech Republic, Denmark, Ecuador, El Salvador, Estonia, Finland, France, Georgia, Germany, Greece, Guatemala, Honduras, Hong Kong, Hungary, Iceland, Iran, Israel, Italy, Japan, Jordan, Kosovo, Kyrgyzstan, Lebanon, Libya, Liechtenstein, Lithuania, Luxembourg, Macedonia, Malaysia, Monaco, Montenegro, Morocco, Moldova, New Zealand, Nicaragua, Panama, Paraguay, Peru, Romania, Saint Kitts and Nevis, San Marino, Serbia, Seychelles, Singapore, Slovakia, Slovenia, South Korea, Sweden, Switzerland, Syria, Trinidad and Tobago, Tunisia, Uruguay, Vatican, Venezuela]
-  - visa: [Antigua and Barbuda, Australia, Austria, Bahamas, Bahrain, Barbados, Belgium, Canada, Croatia, Dominica, Dominican Republic, Grenada, Haiti, Hong Kong, Ireland, Jamaica, Kuwait, Maldives, Malta, Netherlands, Norway, Oman, Poland, Portugal, Qatar, Saint Lucia, Saint Vincent and the Grenadines, Saudi Arabia, South Africa, Spain, United Arab Emirates, United Kingdom, United States]
+Albania:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Antigua and Barbuda:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "error"
+
+Andorra:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Argentina:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Australia:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "evisa_90_180"
+
+Bahamas:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "evisa_90_180"
+
+Barbados:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "evisa_90_180"
+
+Bosnia and Herzegovina:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "error"
+
+Brunei:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Brazil:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Canada:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "evisa_90_180"
+
+Chile:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Costa Rica:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "error"
+
+El Salvador:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Guatemala:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Honduras:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Hong Kong:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Israel:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Japan:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Macau:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "error"
+
+Macedonia:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Malaysia:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Mauritius:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "error"
+
+Mexico:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "error"
+
+Moldova:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Monaco:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Montenegro:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+New Zealand:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Nicaragua:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Panama:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Paraguay:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Saint Kitts and Nevis:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+San Marino:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Serbia:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Seychelles:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Singapore:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+South Korea:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Taiwan:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "error"
+
+United Arab Emirates:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "evisa_90_180"
+
+United States:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "evisa_90_180"
+
+Uruguay:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Vatican:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Venezuela:
+  Schengen area:
+    visa: "no_visa_90_180"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Belize:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Bolivia:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Bulgaria:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Colombia:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Czech Republic:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Denmark:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Ecuador:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Estonia:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Finland:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+France:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Georgia:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Germany:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Greece:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Hungary:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Iceland:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Iran:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Italy:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Jordan:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Kosovo:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Kyrgyzstan:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Lebanon:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Libya:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Liechtenstein:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Lithuania:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Luxembourg:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Morocco:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Peru:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Romania:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Slovakia:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Slovenia:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Sweden:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Switzerland:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Syria:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Trinidad and Tobago:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Tunisia:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "no_visa_90_180"
+
+Austria:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+Bahrain:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+Belgium:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+Croatia:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+Dominica:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+Dominican Republic:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+Grenada:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+Haiti:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+Ireland:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+Jamaica:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+Kuwait:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+Maldives:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+Malta:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+Netherlands:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+Norway:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+Oman:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+Poland:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+Portugal:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+Qatar:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+Saint Lucia:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+Saint Vincent and the Grenadines:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+Saudi Arabia:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+South Africa:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+Spain:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
+
+United Kingdom:
+  Schengen area:
+    visa: "error"
+  Turkey:
+    visa: "evisa_90_180"
