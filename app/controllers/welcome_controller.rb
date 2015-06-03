@@ -28,7 +28,6 @@ class WelcomeController < ApplicationController
 
     @user.citizenship = @details["citizenship"]
     @user.destination = @details["destination"]
-    # @user.latest_entry = @details["latest_entry"]
     @user.save
 
     redirect_to welcome_calculator_path
@@ -125,9 +124,9 @@ class WelcomeController < ApplicationController
       end
     end
 
-    if user_signed_in?
-      render 'dashboard'
-    end
+    # if user_signed_in?
+    #   render 'dashboard'
+    # end
   end
 
   def add_empty
