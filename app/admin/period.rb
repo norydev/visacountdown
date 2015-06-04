@@ -19,9 +19,10 @@ ActiveAdmin.register Period do
     selectable_column
     column :id
     column :user_id
+    column :zone
     column :first_day
     column :last_day
-    column :created_at
+    # column :created_at
     column :updated_at
     actions
   end
@@ -31,7 +32,8 @@ ActiveAdmin.register Period do
       # f.input :name
       f.input :user_id
     end
-    f.inputs "Dates" do
+    f.inputs "Attributes" do
+      f.input :zone
       f.input :first_day
       f.input :last_day
     end
