@@ -1,15 +1,15 @@
 /* -------------------------------------
  * Colors & Fonts
  * ------------------------------------- */
-$navbar-color: $red;//$gray-light;
-$navbar-hover-color: white; //$yellow;
+$navbar-color: white;//$gray-light;
+$navbar-hover-color: $red; //$yellow;
 $navbar-font-family: $navbar-font;
 $navbar-font-size: 14px;
 $navbar-text-transform: none; //capitalize;
 $navbar-font-weight: 300;
 $navbar-letter-spacing: 1.5px;
 $navbar-font-family: $navbar-font;
-$navbar-bg: $red;//white;
+$navbar-bg: white;//white;
 
 /* -------------------------------------
  * Box model
@@ -24,8 +24,8 @@ $navbar-border-bottom-color: transparent;//$gray-lighter;
  * Navbar button
  * ------------------------------------- */
 $navbar-btn-height: 38px;
-$navbar-btn-bg: white;//lightgrey;
-$navbar-btn-color: $red;//white;
+$navbar-btn-bg: $red;//lightgrey;
+$navbar-btn-color: white;//white;
 $navbar-btn-horizontal-padding: 10px;
 $navbar-btn-radius: 2px;
 
@@ -41,7 +41,7 @@ $navbar-profile-border-width: 0px;
  * ------------------------------------- */
 .navbar-wagon {
   background: $navbar-bg;
-  color: white;
+  color: $red;
   font-family: $navbar-font-family;
   border: none;
   border-radius: 0;
@@ -62,7 +62,7 @@ $navbar-profile-border-width: 0px;
   .navbar-nav > li > a,
   .navbar-nav > li > a:focus {
     outline: none;
-    color: white;
+    color: $red;
     line-height: $navbar-height;
     padding-top: $navbar-vertical-padding;
     padding-bottom: $navbar-vertical-padding;
@@ -72,7 +72,8 @@ $navbar-profile-border-width: 0px;
   }
 
   .navbar-nav > li > a:hover,
-  .navbar-nav > .open > a:hover {
+  .navbar-nav > .open > a:hover,
+  .navbar-nav > .open > a:focus {
     color: $navbar-hover-color;
     background-color: transparent;
   }
@@ -98,8 +99,8 @@ $navbar-profile-border-width: 0px;
     background-color: $navbar-btn-bg;
     font-size: 12px;
     &:hover{
-      color: white;
-      background-color: $red;//darken($navbar-btn-bg, 30%);
+      color: $red;
+      background-color: $navbar-btn-color;//darken($navbar-btn-bg, 30%);
     }
   }
 
@@ -157,7 +158,7 @@ $navbar-profile-border-width: 0px;
     }
 
     .dropdown-menu > li > a {
-      color: white !important;
+      color: $red !important;
     }
 
     .navbar-right {
