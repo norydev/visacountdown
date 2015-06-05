@@ -64,6 +64,7 @@ class User < ActiveRecord::Base
     user_periods = self.periods.where(zone: self.destination)
 
     user_periods = remove_too_old(user_periods, oldest_date)
+    user_periods = remove_future(user_periods, day)
 
     if self.latest_entry && !future
       user_periods = remove_overlaps(user_periods)
@@ -121,12 +122,24 @@ class User < ActiveRecord::Base
   private
 
     def remove_too_old(periods, oldest_date)
+      # remove if period is before oldest date
       periods = periods.reject do |p|
         (p.last_day - oldest_date).to_i < 0
       end
 
       periods.map do |p|
         p.first_day = oldest_date if (p.first_day - oldest_date).to_i < 0
+        p
+      end
+    end
+
+    def remove_future(periods, day)
+      periods.reject do |p|
+        (p.first_day - day).to_i > 0
+      end
+
+      periods.map do |p|
+        p.last_day = day if (p.last_day - day).to_i > 0
         p
       end
     end
