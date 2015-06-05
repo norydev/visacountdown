@@ -80,7 +80,7 @@
               </div>
             </div>
 
-            <% @user.periods.where(zone: @user.destination)[0...-1].each do |p| %>
+            <% @user.periods.where(zone: @user.destination).each do |p| %>
               <div id="<%= p.id %>" class="row form-inputs">
                 <div class="col-xs-5 table-padded">
                   <div class="form-group">
@@ -102,7 +102,7 @@
             <% end %>
 
             <div id="new_stays">
-              <%= render 'stay', id: '0', first_day: @first_day, last_day: @last_day %>
+              <%= render 'stay', id: '0', first_day: "", last_day: "" %>
             </div>
           </div>
 
