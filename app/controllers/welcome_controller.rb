@@ -92,11 +92,34 @@ class WelcomeController < ApplicationController
       @latest_entry = @user.latest_entry.strftime("%d %b %Y")
       case @time_spent_today
         when 0..89
-          if @user.is_in_zone?
+          if @user.entry_has_happened?
             # calc days remaining from now to know when to leave
             @situation = "inside_ok"
             @remaining_time = @user.remaining_time
             @leave_on = @user.latest_exit.strftime("%d %b %Y")
+          elsif @user.is_in_period?
+            # @situation = "in_period"
+            # @remaining_time = @user.remaining_time(@user.latest_entry)
+            # @leave_on = @user.latest_exit.strftime("%d %b %Y")
+
+            if @user.time_spent(@user.current_period.last_day) >= 90
+              @situation = "inside_ok"
+              @remaining_time = @user.remaining_time
+              @leave_on = (@today + @remaining_time).strftime("%d %b %Y")
+            else
+              @user.periods.where(zone: @user.destination).each do |p|
+                if @user.time_spent(p.last_day) >= 90
+                  @situation = "outside_ok"
+                  @remaining_time = @user.remaining_time(p.first_day, true)
+                  @leave_on = (p.first_day + @remaining_time).strftime("%d %b %Y")
+                  break
+                end
+                @situation = "outside_ok"
+                @remaining_time = @user.remaining_time(@user.latest_entry)
+                @leave_on = @user.latest_exit.strftime("%d %b %Y")
+              end
+            end
+
           else
             # exit day with latest exit given
             @situation = "outside_ok"

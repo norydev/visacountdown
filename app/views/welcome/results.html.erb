@@ -28,6 +28,10 @@
             <p>You plan to enter on <strong><%= @latest_entry %></strong></p>
             <p>You will be able to stay: <strong><%= @remaining_time %></strong> days</p>
             <p class="text-large bg-green">You will have to leave on <strong><%= @leave_on %></strong> or before</p>
+          <%   when "in_period" %>
+            <p>You plan to enter on <strong><%= @latest_entry %></strong></p>
+            <p>You will be able to stay: <strong><%= @remaining_time %></strong> days</p>
+            <p class="text-large bg-green">You will have to leave on <strong><%= @leave_on %></strong> or before</p>
           <%   when "overstay" %>
             <p class="marged bg-red text-large"><i class="fa fa-exclamation-triangle fa-2x pull-left"></i><strong> You are in overstay! Get out of here as soon as you can to avoid paying more penalty!</strong></p>
           <%   when "quota_used" %>
@@ -51,9 +55,6 @@
             </p>
           <% end %>
         </div>
-        <% unless user_signed_in? %>
-
-        <% end %>
       </div>
     </div>
   <% end %>
@@ -62,7 +63,9 @@
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
       <div class="text-center">
-        <%= link_to t(".save", default: "Save your countdown"), new_user_registration_path, class: "btn btn-danger" %>
+        <% unless user_signed_in? %>
+          <%= link_to t(".save", default: "Save your countdown"), new_user_registration_path, class: "btn btn-danger" %>
+        <% end %>
         <%= link_to t(".back_calculator", default: "Back to calculator"), welcome_calculator_path, class: "btn btn-success" %>
       </div>
     </div>
