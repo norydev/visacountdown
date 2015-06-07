@@ -104,10 +104,10 @@ class WelcomeController < ApplicationController
 
             if @user.time_spent(@user.current_period.last_day) >= 90
               @situation = "inside_ok"
-              @remaining_time = @user.remaining_time
+              @remaining_time = @user.remaining_time(@today, true)
               @leave_on = (@today + @remaining_time).strftime("%d %b %Y")
             else
-              @user.periods.where(zone: @user.destination).each do |p|
+              @user.periods.where(zone: @user.destination).order(:first_day).each do |p|
                 if @user.time_spent(p.last_day) >= 90
                   @situation = "outside_ok"
                   @remaining_time = @user.remaining_time(p.first_day, true)
@@ -115,7 +115,7 @@ class WelcomeController < ApplicationController
                   break
                 end
                 @situation = "outside_ok"
-                @remaining_time = @user.remaining_time(@user.latest_entry)
+                @remaining_time = @user.remaining_time(@user.latest_entry, true)
                 @leave_on = @user.latest_exit.strftime("%d %b %Y")
               end
             end
