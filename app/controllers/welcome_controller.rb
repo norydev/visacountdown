@@ -98,22 +98,28 @@ class WelcomeController < ApplicationController
             @remaining_time = @user.remaining_time
             @leave_on = @user.latest_exit.strftime("%d %b %Y")
           elsif @user.is_in_period?
-            # @situation = "in_period"
-            # @remaining_time = @user.remaining_time(@user.latest_entry)
-            # @leave_on = @user.latest_exit.strftime("%d %b %Y")
-
+            # plan for the future to check:
             if @user.time_spent(@user.current_period.last_day) >= 90
-              @situation = "inside_ok"
-              @remaining_time = @user.remaining_time(@today, true)
+              #plans won't work, current period is too long
+              @situation = "current_too_long"
+              @remaining_time = @user.remaining_time
               @leave_on = (@today + @remaining_time).strftime("%d %b %Y")
             else
+              period_found = false
               @user.periods.where(zone: @user.destination).order(:first_day).each do |p|
+                next if (p.first_day - @today).to_i < 0
                 if @user.time_spent(p.last_day) >= 90
+                  #plans won't work, one further period will overstay
                   @situation = "outside_ok"
-                  @remaining_time = @user.remaining_time(p.first_day, true)
+                  @remaining_time = @user.remaining_time(p.first_day)
                   @leave_on = (p.first_day + @remaining_time).strftime("%d %b %Y")
+
+                  period_found = true
                   break
                 end
+              end
+              unless period_found
+                #plan will work
                 @situation = "outside_ok"
                 @remaining_time = @user.remaining_time(@user.latest_entry, true)
                 @leave_on = @user.latest_exit.strftime("%d %b %Y")

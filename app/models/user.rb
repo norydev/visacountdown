@@ -50,9 +50,9 @@ class User < ActiveRecord::Base
     email
   end
 
-  def entry_has_happened?
+  def entry_has_happened?(date = Time.zone.now.to_date)
     if self.latest_entry
-      (Time.zone.now.to_date - self.latest_entry).to_i >= 0
+      (date - self.latest_entry).to_i >= 0
     else
       false
     end
@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
     end
     nb_days += user_periods.reduce(:+) unless user_periods.empty?
 
-    if self.entry_has_happened? && !future
+    if self.entry_has_happened?(day) && !future
       nb_days += (day - self.latest_entry).to_i + 1
     end
 
@@ -111,16 +111,23 @@ class User < ActiveRecord::Base
     latest = self.latest_entry
 
     if future
+      # start after entry, who is in the future?
       (date..(date + 89)).each do |day|
-        rt += 1 if time_spent(day, future) + rt < 90
+        rt += 1 if self.time_spent(day, future) + rt < 90
       end
-    elsif self.entry_has_happened?
+    elsif self.entry_has_happened?(date)
+      # start after entry, who is in the past
       (date..(latest + 89)).each do |day|
-        rt += 1 if time_spent(day) < 90
+        rt += 1 if self.time_spent(day) < 90
       end
     else
-      (latest..(latest + 89)).each do |day|
-        rt += 1 if time_spent(day) + rt < 90
+      #start before entry
+      (date..(date + 89)).each do |day|
+        if self.entry_has_happened?(day) || self.is_in_period?
+          rt += 1 if self.time_spent(day) < 90
+        else
+          rt += 1 if self.time_spent(day) + rt < 90
+        end
       end
     end
     rt
