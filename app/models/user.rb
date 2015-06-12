@@ -132,13 +132,12 @@ class User < ActiveRecord::Base
     rt
   end
 
-  def next_entry
-    today = Time.zone.now.to_date
+  def next_entry(date = Time.zone.now.to_date)
     wt = 0
-    (today..(today + 90)).each do |day|
+    (date..(date + 90)).each do |day|
       wt += 1 if self.time_spent(day, true) >= 90
     end
-    today + wt
+    date + wt + 1
   end
 
   private

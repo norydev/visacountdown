@@ -99,16 +99,29 @@ class WelcomeController < ApplicationController
             @leave_on = (@today + @remaining_time).strftime("%d %b %Y")
 
           # plan for the future to check:
-          elsif @user.is_in_period? && @user.time_spent(@user.current_period.last_day) >= 90
+          elsif @user.is_in_period? && @user.time_spent(@user.current_period.last_day) > 90
             #plans won't work, current period is too long
             @situation = "current_too_long"
             @remaining_time = @user.remaining_time(@today, false, @user.current_period.first_day)
             @leave_on = (@today + @remaining_time).strftime("%d %b %Y")
+          elsif @user.is_in_period? && @user.time_spent(@user.current_period.last_day) == 90
+            @situation = "quota_will_be_used"
+            @period = @user.current_period
+            @next_entry = @user.next_entry(@user.current_period.last_day + 1)
+            @can_enter = (@user.latest_entry - @next_entry).to_i >= 0
+
+            if @can_enter
+              @remaining_time = @user.remaining_time(@user.latest_entry)
+              @leave_on = (@user.latest_entry + @remaining_time - 1).strftime("%d %b %Y")
+            else
+              @remaining_time = @user.remaining_time(@next_entry, true)
+              @leave_on = (@next_entry + @remaining_time - 1).strftime("%d %b %Y")
+            end
           else
             period_found = false
             @user.periods.where(zone: @user.destination).order(:first_day).each do |p|
               next if (p.first_day - @today).to_i < 0
-              if @user.time_spent(p.last_day) >= 90
+              if @user.time_spent(p.last_day) > 90
                 #plans won't work, one further period will overstay
                 @situation = "one_next_too_long"
                 @remaining_time = @user.remaining_time(p.first_day, false, p.first_day)
@@ -117,6 +130,20 @@ class WelcomeController < ApplicationController
 
                 period_found = true
                 break
+              elsif @user.time_spent(p.last_day) == 90
+                period_found = true
+                @situation = "quota_will_be_used"
+                @period = p
+                @next_entry = @user.next_entry(p.last_day + 1)
+                @can_enter = (@user.latest_entry - @next_entry).to_i >= 0
+
+                if @can_enter
+                  @remaining_time = @user.remaining_time(@user.latest_entry)
+                  @leave_on = (@user.latest_entry + @remaining_time - 1).strftime("%d %b %Y")
+                else
+                  @remaining_time = @user.remaining_time(@next_entry, true)
+                  @leave_on = (@next_entry + @remaining_time - 1).strftime("%d %b %Y")
+                end
               end
             end
             unless period_found
