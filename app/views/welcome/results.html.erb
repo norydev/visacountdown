@@ -36,7 +36,10 @@
             <p>You want to enter on <strong><%= @latest_entry %></strong></p>
             <p>Your plans won't work. You are currently inside <%= @user.destination == "Turkey" ? "" : "the " %><%= @user.destination %> and plan to leave on <%= @user.current_period.last_day.strftime("%d %b %Y") %>, this is too long, you will be in overstay. You can only stay <strong><%= @remaining_time %></strong> more days</p>
             <p class="text-large bg-green">You must leave on <strong><%= @leave_on %></strong> or before</p>
-
+          <%   when "one_next_too_long" %>
+            <p>You want to enter on <strong><%= @latest_entry %></strong></p>
+            <p>Your plans won't work. You plan a stay from <strong><%= @problem_period.first_day.strftime("%d %b %Y") %></strong> to <strong><%= @problem_period.last_day.strftime("%d %b %Y") %></strong>: this is too long, you will be in overstay. You can only stay <strong><%= @remaining_time %></strong> more days.</p>
+            <p class="text-large bg-green">You must leave on <strong><%= @leave_on %></strong> or before</p>
           <%   when "overstay" %>
             <p class="marged bg-red text-large"><i class="fa fa-exclamation-triangle fa-2x pull-left"></i><strong> You are in overstay! Get out of here as soon as you can to avoid paying more penalty!</strong></p>
           <%   when "quota_used" %>

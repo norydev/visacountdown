@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
     user_periods = remove_future(user_periods, date)
 
     if latest && !future
-      user_periods = remove_overlaps(user_periods)
+      user_periods = remove_overlaps(user_periods, latest)
     end
 
     user_periods = user_periods.map do |period|
@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
     end
     nb_days += user_periods.reduce(:+) unless user_periods.empty?
 
-    if self.entry_has_happened?(date) && !future
+    if self.entry_has_happened?(date, latest) && !future
       nb_days += (date - latest).to_i + 1
     end
 
@@ -112,32 +112,24 @@ class User < ActiveRecord::Base
     if future
       # start after entry, who is in the future?
       (date..(date + 89)).each do |day|
-        rt += 1 if self.time_spent(day, future) + rt < 90
+        rt += 1 if self.time_spent(day, future, latest) + rt < 90
       end
-    elsif self.entry_has_happened?(date)
+    else # elsif self.entry_has_happened?(date, latest)
       # start after entry, who is in the past
       (date..(latest + 89)).each do |day|
-        rt += 1 if self.time_spent(day) < 90
+        rt += 1 if self.time_spent(day, future, latest) < 90
       end
-    else
-      #start before entry, who is in the past
-      (date..(date + 89)).each do |day|
-        if self.entry_has_happened?(day) || self.is_in_period?
-          rt += 1 if self.time_spent(day) < 90
-        else
-          rt += 1 if self.time_spent(day, true) + rt < 90
-        end
-      end
+    # else
+    #   #start before entry, who is in the past
+    #   (date..(date + 89)).each do |day|
+    #     if self.entry_has_happened?(day, latest) || self.is_in_period?(day)
+    #       rt += 1 if self.time_spent(day, false, latest) < 90
+    #     else
+    #       rt += 1 if self.time_spent(day, true, latest) + rt < 90
+    #     end
+    #   end
     end
     rt
-  end
-
-  def latest_exit
-    if self.entry_has_happened?
-      (Time.zone.now.to_date + remaining_time)
-    else
-      (self.latest_entry + remaining_time - 1)
-    end
   end
 
   def next_entry
