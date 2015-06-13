@@ -139,7 +139,7 @@ class WelcomeController < ApplicationController
 
                 if @can_enter
                   @remaining_time = @user.remaining_time(@user.latest_entry)
-                  @leave_on = (@user.latest_entry + @remaining_time - 1).strftime("%d %b %Y")
+                  @leave_on = (@user.latest_entry + @remaining_time).strftime("%d %b %Y")
                 else
                   @remaining_time = @user.remaining_time(@next_entry, true)
                   @leave_on = (@next_entry + @remaining_time - 1).strftime("%d %b %Y")

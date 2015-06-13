@@ -119,15 +119,6 @@ class User < ActiveRecord::Base
       (date..(latest + 89)).each do |day|
         rt += 1 if self.time_spent(day, future, latest) < 90
       end
-    # else
-    #   #start before entry, who is in the past
-    #   (date..(date + 89)).each do |day|
-    #     if self.entry_has_happened?(day, latest) || self.is_in_period?(day)
-    #       rt += 1 if self.time_spent(day, false, latest) < 90
-    #     else
-    #       rt += 1 if self.time_spent(day, true, latest) + rt < 90
-    #     end
-    #   end
     end
     rt
   end
@@ -138,6 +129,9 @@ class User < ActiveRecord::Base
       wt += 1 if self.time_spent(day, true) >= 90
     end
     date + wt + 1
+    # this +1 is not satisfying but wonder about the law:
+    # what if the day you enter, you have 90 days in including the entering day? Do they let you in?
+    # as I am not sure, I pretend that they don't (security first)
   end
 
   private
