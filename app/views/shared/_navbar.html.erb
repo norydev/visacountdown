@@ -9,7 +9,12 @@
         <span class="icon-bar"></span>
       </button> -->
       <a class="navbar-brand" href="/">
-        <%= image_tag "logo.svg", alt: "Logo", title: "Visa Countdown" %>
+        <div class="visible-xs">
+          <%= image_tag "logo_no_text.svg", alt: "Logo", title: "Visa Countdown" %>
+        </div>
+        <div class="hidden-xs">
+          <%= image_tag "logo.svg", alt: "Logo", title: "Visa Countdown" %>
+        </div>
       </a>
     </div>
 

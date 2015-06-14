@@ -28,6 +28,18 @@
             <p>You plan to enter on <strong><%= @latest_entry %></strong></p>
             <p>You will be able to stay: <strong><%= @remaining_time %></strong> days</p>
             <p class="text-large bg-green">You will have to leave on <strong><%= @leave_on %></strong> or before</p>
+          <%   when "in_period" %>
+            <p>You plan to enter on <strong><%= @latest_entry %></strong></p>
+            <p>You will be able to stay: <strong><%= @remaining_time %></strong> days</p>
+            <p class="text-large bg-green">You will have to leave on <strong><%= @leave_on %></strong> or before</p>
+          <%   when "current_too_long" %>
+            <p>You want to enter on <strong><%= @latest_entry %></strong></p>
+            <p>Your plans won't work. You are currently inside <%= @user.destination == "Turkey" ? "" : "the " %><%= @user.destination %> and plan to leave on <%= @user.current_period.last_day.strftime("%d %b %Y") %>, this is too long, you will be in overstay. You can only stay <strong><%= @remaining_time %></strong> more days</p>
+            <p class="text-large bg-green">You must leave on <strong><%= @leave_on %></strong> or before</p>
+          <%   when "one_next_too_long" %>
+            <p>You want to enter on <strong><%= @latest_entry %></strong></p>
+            <p>Your plans won't work. You plan a stay from <strong><%= @problem_period.first_day.strftime("%d %b %Y") %></strong> to <strong><%= @problem_period.last_day.strftime("%d %b %Y") %></strong>: this is too long, you will be in overstay. You can only stay <strong><%= @remaining_time %></strong> more days.</p>
+            <p class="text-large bg-green">You must leave on <strong><%= @leave_on %></strong> or before</p>
           <%   when "overstay" %>
             <p class="marged bg-red text-large"><i class="fa fa-exclamation-triangle fa-2x pull-left"></i><strong> You are in overstay! Get out of here as soon as you can to avoid paying more penalty!</strong></p>
           <%   when "quota_used" %>
@@ -49,11 +61,27 @@
                 <p class="text-large bg-red">You will be denied entry</p>
               <% end %>
             </p>
+          <%   when "quota_will_be_used" %>
+            <p>You plan a stay from <strong><%= @period.first_day.strftime("%d %b %Y") %></strong> to <strong><%= @period.last_day.strftime("%d %b %Y") %></strong>. After this one, your quota of 90 days will be used. Next time you can enter is on <strong><span><%= @next_entry.strftime("%d %b %Y") %></span></strong>.
+
+              <% if !@can_enter %>
+                You would be able to stay <strong><%= @remaining_time %></strong> days and would have to leave on <strong><%= @leave_on %></strong> or before.
+              <% end %>
+            </p>
+
+            <p>You plan to enter on <strong><%= @latest_entry %></strong> which is
+              <% if @can_enter %>
+                <span class="label label-success">OK</span>
+                </p>
+                <p>You will be able to stay <strong><%= @remaining_time %></strong> days.</p>
+                <p class="text-large bg-green">You will have to leave on <strong><%= @leave_on %></strong> or before</p>
+              <% else %>
+                <span class="label label-danger">NOT OK</span>
+                <p class="text-large bg-red">You will be denied entry</p>
+              <% end %>
+            </p>
           <% end %>
         </div>
-        <% unless user_signed_in? %>
-
-        <% end %>
       </div>
     </div>
   <% end %>
@@ -62,11 +90,20 @@
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
       <div class="text-center">
-        <%= link_to t(".save", default: "Save your countdown"), new_user_registration_path, class: "btn btn-danger" %>
-        <%= link_to t(".back_calculator", default: "Back to calculator"), welcome_calculator_path, class: "btn btn-success" %>
+        <strong><%= link_to t(".back_calculator", default: "Back to calculator"), welcome_calculator_path %></strong>
       </div>
     </div>
   </div>
+
+  <% unless user_signed_in? %>
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+        <div class="text-center mini-padded">
+          <%= link_to t(".save", default: "Save your countdown"), new_user_registration_path, class: "btn btn-danger btn-lg" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
