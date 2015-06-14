@@ -46,6 +46,8 @@ class WelcomeController < ApplicationController
       @situation = "e-visa"
     elsif COUNTRIES[@user.citizenship][@user.destination]["visa"] == "no_visa_90_180"
       @situation = "no_visa"
+    elsif COUNTRIES[@user.citizenship][@user.destination]["visa"] == "freedom"
+      @situation = "freedom"
     else
       @situation = "error"
     end
