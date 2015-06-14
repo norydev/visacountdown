@@ -282,13 +282,13 @@ Colombia:
 
 Czech Republic:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "no_visa_90_180"
 
 Denmark:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "no_visa_90_180"
 
@@ -300,19 +300,19 @@ Ecuador:
 
 Estonia:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "no_visa_90_180"
 
 Finland:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "no_visa_90_180"
 
 France:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "no_visa_90_180"
 
@@ -324,25 +324,25 @@ Georgia:
 
 Germany:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "no_visa_90_180"
 
 Greece:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "no_visa_90_180"
 
 Hungary:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "no_visa_90_180"
 
 Iceland:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "no_visa_90_180"
 
@@ -354,7 +354,7 @@ Iran:
 
 Italy:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "no_visa_90_180"
 
@@ -390,19 +390,19 @@ Libya:
 
 Liechtenstein:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "no_visa_90_180"
 
 Lithuania:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "no_visa_90_180"
 
 Luxembourg:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "no_visa_90_180"
 
@@ -426,25 +426,25 @@ Romania:
 
 Slovakia:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "no_visa_90_180"
 
 Slovenia:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "no_visa_90_180"
 
 Sweden:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "no_visa_90_180"
 
 Switzerland:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "no_visa_90_180"
 
@@ -468,7 +468,7 @@ Tunisia:
 
 Austria:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "evisa_90_180"
 
@@ -480,7 +480,7 @@ Bahrain:
 
 Belgium:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "evisa_90_180"
 
@@ -540,19 +540,19 @@ Maldives:
 
 Malta:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "evisa_90_180"
 
 Netherlands:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "evisa_90_180"
 
 Norway:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "evisa_90_180"
 
@@ -564,13 +564,13 @@ Oman:
 
 Poland:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "evisa_90_180"
 
 Portugal:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "evisa_90_180"
 
@@ -606,7 +606,7 @@ South Africa:
 
 Spain:
   Schengen area:
-    visa: "error"
+    visa: "freedom"
   Turkey:
     visa: "evisa_90_180"
 

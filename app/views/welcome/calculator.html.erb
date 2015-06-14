@@ -40,6 +40,10 @@
         <p class="alert-info marged">
           You need an e-visa to enter <%= @user.destination == "Turkey" ? "" : "the " %><%= @user.destination %>. You can stay 90 days in ANY 180 days period.
         </p>
+      <% when "freedom" %>
+        <p class="alert-success marged">
+          You can freely move inside <%= @user.destination == "Turkey" ? "" : "the " %><%= @user.destination %> without any limitation. You can travel with your ID card.
+        </p>
       <% when "error" %>
         <p class="alert-danger marged">
           Sorry, our calculator does not take your situation into account.
@@ -47,7 +51,7 @@
     <% end %>
     <!-- situation -->
 
-    <% unless @situation == "error" %>
+    <% if @situation == "e-visa" || @situation == "no-visa" %>
 
       <!-- All stays -->
       <div class="padded">
