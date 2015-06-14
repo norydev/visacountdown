@@ -114,6 +114,7 @@ class User < ActiveRecord::Base
       (date..(date + 89)).each do |day|
         rt += 1 if self.time_spent(day + 1, future, latest) + rt <= 90
       end
+      rt -= 1
     else # elsif self.entry_has_happened?(date, latest)
       # start after entry, who is in the past
       (date..(latest + 89)).each do |day|
@@ -148,7 +149,7 @@ class User < ActiveRecord::Base
 
     def remove_future(periods, day)
       # remove period if it is totally in the future
-      periods.reject do |p|
+      periods = periods.reject do |p|
         (p.first_day - day).to_i > 0
       end
 
