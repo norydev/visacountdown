@@ -4,7 +4,7 @@ class WelcomeController < ApplicationController
   def index
     @user = current_or_guest_user
 
-    if user_signed_in?
+    if @user.citizenship && @user.destination && @user.latest_entry
       redirect_to welcome_results_path
     elsif @user.citizenship && @user.destination
       redirect_to welcome_calculator_path
