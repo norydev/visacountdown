@@ -1,0 +1,47 @@
+<%= content_for(:title) do %>
+  About
+<% end %>
+
+<%= content_for(:description) do %>
+  <%# TODO %>
+<% end %>
+
+<div class="container-fluid">
+  <div class="row xs-marged">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+      <h1>About</h1>
+      <p>
+        Visa Countdown helps you calculate your visa days in areas that have a "90 days in any 180 days" policy such as the Schengen Area and Turkey.
+      </p>
+
+      <h3>How is "90 days within any 180 days period" applied</h3>
+      <p>
+        <ol>
+          <li>
+            When you enter the area/country, the boarder controll will check it this way: they will go back 180 days, and check how many days you stayed inside. If it is less than 90 days, they will let you enter. If it is 90 days or more, they won't let you enter.
+          </li>
+
+          <li>
+            When you leave the area/country, the boarder controll will check it this way: they will go back 180 days, and check how many days you stayed inside. If it is 90 days or less, you are fine and can leave the country without any problems. If it is more than 90 days, you may be fined or banned depending on the country's regulations.
+          </li>
+        </ol>
+      </p>
+
+      <p>
+        I did not find a clear and official explanation of how the 90 days are counted, especially if the entry day and exit days are both counted or not. For precaution, Visa Countdown assumes that both the entry day and the exit day are counted in the 90 days period whatever time you entered. For example, if you enter on June 10 at 9:00 and leave on June 11 at 18:00, 2 days are counted.
+      </p>
+      <p>
+        From experience in Turkey, it seems that the exit day is not counted. But until an official information is provided about this fact, the calculator will assume it is counted.
+      </p>
+
+      <h3>Who is behind Visa Countdown?</h3>
+
+      <p>
+        I'm <%= link_to "norydev", "http://www.norydev.com"%>, I'm doing this alone right now. However, VisaCountdown is open source, and you can contribute to it. To do so, have a look at the <%= link_to "github repo", "https://github.com/NoryDev/visacountdown"%>, fork it, clone it, add features, correct bugs, and do a pull request.
+      </p>
+      <p>
+        You can also contact me with <%= link_to "this form", "http://www.norydev.com/#contact" %>, on <%= link_to "github", "https://github.com/NoryDev" %> and on <%= link_to "twitter", "https://www.twitter.com/norydev" %>.
+      </p>
+    </div>
+  </div>
+</div>
