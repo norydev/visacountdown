@@ -58,15 +58,15 @@
         <%= form_tag(controller: "welcome", action: "calculation") do %>
 
           <div class="row">
-            <div class="col-xs-5 table-padded">
+            <div class="col-xs-12 col-md-5">
               <label for="latest_entry">Latest or planned entry:</label>
             </div>
-            <div class="col-xs-5 table-padded">
+            <div class="col-xs-12 col-md-5">
               <div class="form-group">
                 <%= text_field :resource, :latest_entry, options = {id: "user_last_entry", class: "form-control latest_planned input-sm", placeholder: "Click to Select", value: @latest_entry, required: "required"} %>
               </div>
             </div>
-            <div class="col-xs-2 table-padded">
+            <div class="col-xs-2">
             </div>
           </div>
 
