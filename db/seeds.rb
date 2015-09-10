@@ -25,7 +25,7 @@ end
 User.all.each do |u|
   d = Destination.new
   d.user = u
-  d.country = ["Turkey", "Italy", "Switzerland"].sample
+  d.zone = ["Turkey", "Schengen area"].sample
   d.save
 end
 
@@ -35,6 +35,7 @@ Destination.all.each do |d|
     start = Faker::Date.backward(220)
     p.first_day = start
     p.last_day = start + 20
+    p.country = ["Turkey", "Switzerland", "Belgium"].sample
     p.destination = d
     p.save
   end

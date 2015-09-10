@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   # PATCH
   def set_citizenship
+    # update for FE-FW
     if @user.update(citizenship_params)
       respond_to do |format|
         format.html { redirect_to root_path, notice: 'Your citizenship has been updated.' }
@@ -17,11 +18,12 @@ class UsersController < ApplicationController
     end
   end
 
-  # UPDATE
+  # PATCH
   def set_latest_location
+    # update for FE-FW
     if @user.update(latest_location_params)
       respond_to do |format|
-        format.html { redirect_to root_path, notice: 'Your citizenship has been updated.' }
+        format.html { redirect_to root_path, notice: 'Your latest_location has been updated.' }
         format.js
       end
     else
