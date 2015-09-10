@@ -11,10 +11,14 @@ Rails.application.routes.draw do
   post 'welcome/add_empty'
   post 'welcome/calculation'
 
-  patch 'users/set_latest_location'
-  put 'users/set_latest_location'
-  patch 'users/set_citizenship'
-  put 'users/set_citizenship'
+  resources :users, only: [] do
+    member do
+      patch 'set_latest_location'
+      put 'set_latest_location'
+      patch 'set_citizenship'
+      put 'set_citizenship'
+    end
+  end
 
   resources :periods
 
