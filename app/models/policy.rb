@@ -3,18 +3,25 @@ class Policy
   attr_reader :destination, :countries
 
   def initialize(citizenship, destination)
-    @policies_table = POLICIES
-    countries = @policies_table.map{ |val| val }.sort
-    @destination = destination.capitalize
-    @citizenship = citizenship.capitalize
+    @destination = destination
+    @citizenship = citizenship
+    @rules = POLICIES[@destination][@citizenship]
   end
 
-  def to_s
-    @destination
+  def freedom?
+    @rules["freedom"]
   end
 
   def need_visa?
-    @policies_table[@destination][@citizenship]
+    @rules["need_visa"]
+  end
+
+  def length
+    @rules["length"]
+  end
+
+  def window
+    @rules["window"]
   end
 
   def self.write_new
@@ -33,11 +40,11 @@ class Policy
 
   def self.write_destination(file, destination)
     file.write( "#{destination}:" + "\n")
-    COUNTRIES.each do |a|
+    COUNTRY_LIST.each do |a|
 
       citizenship = a.first
 
-      policy = COUNTRIES[citizenship]["#{destination}"]["visa"]
+      policy = COUNTRY_LIST[citizenship]["#{destination}"]["visa"]
 
       case policy
       when "no_visa_90_180"
