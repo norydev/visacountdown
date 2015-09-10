@@ -54,8 +54,8 @@ class WelcomeController < ApplicationController
 
     @latest_entry = @user.latest_entry.strftime("%d %b %Y") if @user.latest_entry
 
-    @first_day = @user.periods.where(zone: @user.destination).last.first_day.strftime("%d %b %Y") unless @user.periods.where(zone: @user.destination).empty?
-    @last_day = @user.periods.where(zone: @user.destination).last.last_day.strftime("%d %b %Y") unless @user.periods.where(zone: @user.destination).empty?
+    # @first_day = @user.periods.where(zone: @user.destination).last.first_day.strftime("%d %b %Y") unless @user.periods.where(zone: @user.destination).empty?
+    # @last_day = @user.periods.where(zone: @user.destination).last.last_day.strftime("%d %b %Y") unless @user.periods.where(zone: @user.destination).empty?
 
   end
 
@@ -70,8 +70,16 @@ class WelcomeController < ApplicationController
     # brutal but simpler than edit...
     @user.periods.where(zone: @user.destination).destroy_all
 
-    (0...@params[:first_day].size).each do |i|
-      p = Period.new(user: @user, first_day: periods_params[:first_day][i], last_day: periods_params[:last_day][i], zone: @user.destination)
+    (0...@params[:range].size).each do |i|
+
+
+      first_day = @params[:range][i].split(' - ').first
+      last_day = @params[:range][i].split(' - ').last
+
+      p first_day
+      p last_day
+
+      p = Period.new(user: @user, first_day: first_day, last_day: last_day, zone: @user.destination)
       p.save
     end
 
@@ -196,7 +204,7 @@ class WelcomeController < ApplicationController
     end
 
     def periods_params
-      params.require(:resource).permit(:latest_entry, first_day: [], last_day: [])
+      params.require(:resource).permit(:latest_entry, range: [], first_day: [], last_day: [])
     end
 
 end

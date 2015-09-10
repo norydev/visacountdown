@@ -86,7 +86,7 @@
 
             <% @user.periods.where(zone: @user.destination).each do |p| %>
               <div id="<%= p.id %>" class="row form-inputs">
-                <div class="col-xs-5 table-padded">
+                <!-- <div class="col-xs-5 table-padded">
                   <div class="form-group">
                     <%= text_field_tag "resource[first_day][]", p.first_day.strftime("%d %b %Y"), options = {id: "period-#{p.id}-first-day", class: "form-control first_day input-sm", placeholder: "Entry Date", required: "required"} %>
                   </div>
@@ -101,6 +101,16 @@
                   <%= link_to "#", class: "btn btn-danger btn-block btn-sm delete-row", data: {id: p.id} do %>
                     <i class="fa fa-trash"></i>
                   <% end %>
+                </div> -->
+
+                <div class="col-xs-12 table-padded">
+                  <div class="input-group input-group-sm form-group">
+                    <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                    <%= text_field_tag "resource[range][]", "#{p.first_day.strftime("%D")} - #{p.last_day.strftime("%D")}", options = {id: "period-#{p.id}-range", class: "form-control date_range input-sm", placeholder: "MM/DD/YY - MM/DD/YY", required: "required"} %>
+                    <span class="input-group-btn">
+                      <button class="btn btn-danger btn-sm delete-row" type="button"><i class="fa fa-trash"></i></button>
+                    </span>
+                  </div><!-- /input-group -->
                 </div>
               </div>
             <% end %>
