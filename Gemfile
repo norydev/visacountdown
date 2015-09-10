@@ -30,6 +30,9 @@ gem 'omniauth-facebook'
 
 gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin.git'
 
+# API
+gem "jbuilder"
+
 group :development, :test do
   gem "spring"
   gem "annotate"

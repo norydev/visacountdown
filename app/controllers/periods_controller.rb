@@ -1,6 +1,7 @@
 class PeriodsController < ApplicationController
   skip_before_action :authenticate_user!
   before_action :set_period, only: [:show, :edit, :update, :destroy]
+  before_action :get_destination, only: [:create, :update]
 
   # skip_before_filter :verify_authenticity_token, only: [:update]
 
@@ -16,7 +17,6 @@ class PeriodsController < ApplicationController
   # GET /periods/new
   def new
     @period = Period.new
-    @period.user = current_or_guest_user
   end
 
   # GET /periods/1/edit
@@ -30,16 +30,18 @@ class PeriodsController < ApplicationController
   # POST /periods
   def create
     @period = Period.new(period_params)
-    @period.user = current_or_guest_user
+    @period.destination = @destination
 
     if @period.save
       respond_to do |format|
         format.html { redirect_to @period, notice: 'Period was successfully created.' }
+        format.json
         format.js
       end
     else
       respond_to do |format|
         format.html { render :new }
+        format.json
         format.js
       end
     end
@@ -47,6 +49,7 @@ class PeriodsController < ApplicationController
 
   # PATCH/PUT /periods/1
   def update
+    @period.destination = @destination
     if @period.update(period_params)
       respond_to do |format|
         format.html { redirect_to @period, notice: 'Period was successfully updated.' }
@@ -62,7 +65,6 @@ class PeriodsController < ApplicationController
 
   # DELETE /periods/1
   def destroy
-    @id = @period.id
     @period.destroy
 
     respond_to do |format|
@@ -74,11 +76,17 @@ class PeriodsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_period
+      # might need to change to period_params[:id] and pass it in the form (SPA)
       @period = Period.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def period_params
-      params.require(:period).permit(:first_day, :last_day)
+      params.require(:period).permit(:first_day, :last_day, :country)
+    end
+
+    def get_destination
+      zone = SCHENGEN.include?(period_params[:country]) ? "Schengen area" : period_params[:country]
+      @destination = Destination.where(user: current_or_guest_user, zone: zone).first_or_create
     end
 end
