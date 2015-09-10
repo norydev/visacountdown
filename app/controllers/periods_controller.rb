@@ -35,13 +35,11 @@ class PeriodsController < ApplicationController
     if @period.save
       respond_to do |format|
         format.html { redirect_to @period, notice: 'Period was successfully created.' }
-        format.json
         format.js
       end
     else
       respond_to do |format|
         format.html { render :new }
-        format.json
         format.js
       end
     end
