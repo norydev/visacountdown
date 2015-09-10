@@ -8,7 +8,7 @@ class Period < ActiveRecord::Base
   private
 
     def solve_overlaps
-      self.user.periods.each do |p|
+      self.destination.periods.each do |p|
         next if self == p
 
         overlaps_with_previous = (p.first_day..p.last_day).overlaps?(self.first_day..self.last_day)

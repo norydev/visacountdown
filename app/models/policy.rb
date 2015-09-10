@@ -4,7 +4,7 @@ class Policy
 
   def initialize(citizenship, destination)
     @policies_table = POLICIES
-    @countries = @policies_table.map{ |val| val }.sort
+    countries = @policies_table.map{ |val| val }.sort
     @destination = destination.capitalize
     @citizenship = citizenship.capitalize
   end
@@ -14,7 +14,7 @@ class Policy
   end
 
   def need_visa?
-    @countries_table[@citizenship][@destination]
+    @policies_table[@destination][@citizenship]
   end
 
   def self.write_new
