@@ -1,5 +1,5 @@
 class Period < ActiveRecord::Base
-  belongs_to :destination
+  belongs_to :destination, required: true
 
   validates :first_day, :last_day, presence: true
 
@@ -7,10 +7,14 @@ class Period < ActiveRecord::Base
 
   private
 
-    def solve_overlaps
-      self.destination.periods.each do |p|
-        next if self == p
+    def all_periods_but_me
+      self.destination.periods.where(country: self.country).where.not(id: id)
+    end
 
+    def solve_overlaps
+      # Solve overlaps of periods in the same country.
+      # For Schengen, see Destination method to solve overlaps within a destination
+      all_periods_but_me.each do |p|
         overlaps_with_previous = (p.first_day..p.last_day).overlaps?(self.first_day..self.last_day)
 
         if overlaps_with_previous
