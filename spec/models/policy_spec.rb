@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Policy, type: :model do
   describe 'a Schengen citizen goes to another Schengen country' do
-
     subject { Policy.new("Italy", "Schengen area") }
 
     it 'has freedom of movement' do
@@ -23,7 +22,6 @@ RSpec.describe Policy, type: :model do
   end
 
   describe 'a citizen from United States goes to Schengen' do
-
     subject { Policy.new("United States", "Schengen area") }
 
     it 'dows not have freedom of movement' do
@@ -44,7 +42,6 @@ RSpec.describe Policy, type: :model do
   end
 
   describe 'a citizen from Bolivia goes to Schengen' do
-
     subject { Policy.new("Bolivia", "Schengen area") }
 
     it 'dows not have freedom of movement' do
@@ -65,7 +62,6 @@ RSpec.describe Policy, type: :model do
   end
 
   describe 'a Swiss citizen goes to Turkey' do
-
     subject { Policy.new("Switzerland", "Turkey") }
 
     it 'dows not have freedom of movement' do
@@ -86,7 +82,6 @@ RSpec.describe Policy, type: :model do
   end
 
   describe 'a citizen from United States goes to Turkey' do
-
     subject { Policy.new("United States", "Turkey") }
 
     it 'dows not have freedom of movement' do
@@ -107,7 +102,6 @@ RSpec.describe Policy, type: :model do
   end
 
   describe 'a citizen from Taiwan goes to Turkey' do
-
     subject { Policy.new("Taiwan", "Turkey") }
 
     it 'dows not have freedom of movement' do
