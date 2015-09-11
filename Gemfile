@@ -43,6 +43,7 @@ group :development, :test do
   gem "pry-rails"
   gem "letter_opener"
   gem "faker"
+  gem "rspec-rails"
 end
 
 group :production do
