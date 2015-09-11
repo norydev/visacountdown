@@ -10,4 +10,5 @@ RSpec.describe Destination, type: :model do
     expect(subject).to respond_to(:policy)
   end
 
+  it 'responds to policy with the correct Policy'
 end
