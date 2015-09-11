@@ -1,6 +1,6 @@
 class Policy
 
-  attr_reader :destination, :countries
+  attr_reader :destination, :citizenship
 
   def initialize(citizenship, destination)
     @destination = destination
