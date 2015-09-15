@@ -1,7 +1,8 @@
 FactoryGirl.define do
+  d = rand(180)
   factory :period do
-    first_day   40.days.ago
-    last_day    20.days.ago
+    first_day   d.days.ago
+    last_day    (d+10).days.ago
     country     "Germany"
     association :destination
   end
