@@ -5,6 +5,7 @@ class Destination < ActiveRecord::Base
   validates_presence_of :zone
 
   def policy
-    Policy.new(user.citizenship, zone)
+    Policy.new(citizenship: user.citizenship, destination: zone)
   end
+
 end

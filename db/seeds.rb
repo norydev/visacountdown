@@ -25,7 +25,7 @@ end
 User.all.each do |u|
   d = Destination.new
   d.user = u
-  d.zone = ["Turkey", "Schengen area"].sample
+  d.zone = ZONES.sample
   d.save
 end
 

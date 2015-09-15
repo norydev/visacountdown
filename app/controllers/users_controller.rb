@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     # update for FE-FW
     if @user.update(latest_location_params)
       respond_to do |format|
-        format.html { redirect_to root_path, notice: 'Your latest_location has been updated.' }
+        format.html { redirect_to root_path, notice: 'Your latest location has been updated.' }
         format.js
       end
     else
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = current_or_guest_user
+      @user = User.find(params[:id]) # was current_or_guest_user
     end
 
     # Only allow a trusted parameter "white list" through.

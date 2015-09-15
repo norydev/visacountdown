@@ -43,6 +43,12 @@ group :development, :test do
   gem "pry-rails"
   gem "letter_opener"
   gem "faker"
+  gem "rspec-rails"
+  gem "factory_girl_rails"
+end
+
+group :test do
+  gem "shoulda-matchers"
 end
 
 group :production do
