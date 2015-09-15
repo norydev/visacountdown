@@ -7,4 +7,10 @@ class Destination < ActiveRecord::Base
   def policy
     Policy.new(citizenship: user.citizenship, destination: zone)
   end
+
+  private
+
+    # solve overlaps in same zone (only usefull for Schengen actually)
+    def solve_overlaps
+    end
 end

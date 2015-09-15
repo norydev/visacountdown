@@ -15,7 +15,6 @@ RSpec.describe Destination, type: :model do
   it 'responds to policy with the correct Policy' do
     u = FactoryGirl.build :user, citizenship: "Switzerland"
     d = FactoryGirl.build :destination, user: u, zone: "Turkey"
-    expect(d.policy.destination).to match("Turkey")
-    expect(d.policy.citizenship).to match("Switzerland")
+    expect(d.policy).to have_attributes(destination: "Turkey", citizenship: "Switzerland")
   end
 end
