@@ -3,8 +3,8 @@ FactoryGirl.define do
     email                 { Faker::Internet.email }
     password              "12345678"
     password_confirmation "12345678"
-    citizenship           "United States"
-    location              "Schengen area"
+    citizenship           { COUNTRIES.sample }
+    location              { ["Schengen area", "Turkey"].sample }
     latest_entry          10.days.ago
   end
 end
