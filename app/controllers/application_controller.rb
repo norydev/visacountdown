@@ -57,9 +57,9 @@ class ApplicationController < ActionController::Base
   def logging_in
     guest_user.periods.update_all(user_id: current_user.id)
 
-    current_user.citizenship = guest_user.citizenship if guest_user.citizenship
-    current_user.destination = guest_user.destination if guest_user.destination
-    current_user.latest_entry = guest_user.latest_entry if guest_user.latest_entry
+    current_user.citizenship = guest_user.citizenship unless current_user.citizenship
+    current_user.location = guest_user.location unless current_user.location
+    current_user.latest_entry = guest_user.latest_entry unless current_user.latest_entry
     current_user.save
   end
 
