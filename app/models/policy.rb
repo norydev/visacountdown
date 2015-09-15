@@ -1,11 +1,20 @@
 class Policy
 
-  attr_reader :destination, :citizenship
+  attr_reader :destination, :citizenship, :rules
 
-  def initialize(citizenship, destination)
-    @destination = destination
-    @citizenship = citizenship
-    @rules = POLICIES[@destination][@citizenship]
+  def initialize(citizenship: nil, destination: nil)
+    @destination = destination || nil
+    @citizenship = citizenship || nil
+    begin
+      @rules = POLICIES[@destination][@citizenship]
+    rescue
+      @rules = {
+        "freedom" => "Argument error: nothing found in DB",
+        "need_visa" => "Argument error: nothing found in DB",
+        "length" => "Argument error: nothing found in DB",
+        "window" => "Argument error: nothing found in DB"
+      }
+    end
   end
 
   def freedom?

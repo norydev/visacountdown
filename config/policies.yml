@@ -216,24 +216,24 @@ Schengen area:
     window: 180
   Belize:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Bolivia:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Bulgaria:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Colombia:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Czech Republic:
     freedom: true
     need_visa: false
@@ -246,9 +246,9 @@ Schengen area:
     window: 0
   Ecuador:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Estonia:
     freedom: true
     need_visa: false
@@ -266,9 +266,9 @@ Schengen area:
     window: 0
   Georgia:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Germany:
     freedom: true
     need_visa: false
@@ -291,9 +291,9 @@ Schengen area:
     window: 0
   Iran:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Italy:
     freedom: true
     need_visa: false
@@ -301,29 +301,29 @@ Schengen area:
     window: 0
   Jordan:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Kosovo:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Kyrgyzstan:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Lebanon:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Libya:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Liechtenstein:
     freedom: true
     need_visa: false
@@ -341,19 +341,19 @@ Schengen area:
     window: 0
   Morocco:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Peru:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Romania:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Slovakia:
     freedom: true
     need_visa: false
@@ -376,19 +376,19 @@ Schengen area:
     window: 0
   Syria:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Trinidad and Tobago:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Tunisia:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Austria:
     freedom: true
     need_visa: false
@@ -396,9 +396,9 @@ Schengen area:
     window: 0
   Bahrain:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Belgium:
     freedom: true
     need_visa: false
@@ -406,49 +406,49 @@ Schengen area:
     window: 0
   Croatia:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Dominica:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Dominican Republic:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Grenada:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Haiti:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Ireland:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Jamaica:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Kuwait:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Maldives:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Malta:
     freedom: true
     need_visa: false
@@ -466,9 +466,9 @@ Schengen area:
     window: 0
   Oman:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Poland:
     freedom: true
     need_visa: false
@@ -481,29 +481,29 @@ Schengen area:
     window: 0
   Qatar:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Saint Lucia:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Saint Vincent and the Grenadines:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Saudi Arabia:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   South Africa:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Spain:
     freedom: true
     need_visa: false
@@ -511,9 +511,9 @@ Schengen area:
     window: 0
   United Kingdom:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
 Turkey:
   Albania:
     freedom: false
@@ -522,9 +522,9 @@ Turkey:
     window: 180
   Antigua and Barbuda:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Andorra:
     freedom: false
     need_visa: false
@@ -552,9 +552,9 @@ Turkey:
     window: 180
   Bosnia and Herzegovina:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Brunei:
     freedom: false
     need_visa: false
@@ -577,9 +577,9 @@ Turkey:
     window: 180
   Costa Rica:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   El Salvador:
     freedom: false
     need_visa: false
@@ -612,9 +612,9 @@ Turkey:
     window: 180
   Macau:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Macedonia:
     freedom: false
     need_visa: false
@@ -627,14 +627,14 @@ Turkey:
     window: 180
   Mauritius:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Mexico:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   Moldova:
     freedom: false
     need_visa: false
@@ -702,9 +702,9 @@ Turkey:
     window: 180
   Taiwan:
     freedom: false
-    need_visa: error
-    length: error
-    window: error
+    need_visa: no info
+    length: no info
+    window: no info
   United Arab Emirates:
     freedom: false
     need_visa: true
