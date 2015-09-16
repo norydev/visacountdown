@@ -5,15 +5,19 @@ class Countdown
   end
 
   def time_spent
-    result = get_time_spent(Date.current, false, @destination.latest_entry)
-    @destination.reload
-    result
+    # @destination.reload
+    get_time_spent(Date.current, @destination.latest_entry)
   end
 
   def remaining_time
-    result = get_remaining_time(Date.current, false, @destination.latest_entry)
-    @destination.reload
-    result
+    # @destination.reload
+    get_remaining_time(Date.current, @destination.latest_entry)
+  end
+
+  def exit_day
+  end
+
+  def next_entry
   end
 
   # def next_entry(date = Date.current)
@@ -26,11 +30,10 @@ class Countdown
 
   private
 
-    def latest_period
-      (Date.current - @destination.latest_entry).to_i
+    def can_enter
     end
 
-    def entry_has_happened?(date = Date.current, latest_entry = @destination.latest_entry)
+    def entry_has_happened?(date = Date.current, latest_entry = nil)
       if latest_entry
         latest_entry < date
       else
@@ -38,43 +41,43 @@ class Countdown
       end
     end
 
-    def get_time_spent(date = Date.current, future = false, latest_entry = @destination.latest_entry)
+    def get_time_spent(date = Date.current, latest_entry = nil)
       nb_days = 0
+
       oldest_date = date - 179
-      user_periods = @destination.periods
+      user_periods = @destination.periods.clone
 
       user_periods = remove_too_old(user_periods, oldest_date)
       user_periods = remove_future(user_periods, date)
 
-      if latest_entry && !future
-        user_periods = remove_overlaps(user_periods, latest_entry)
+      user_periods = remove_overlaps(user_periods, latest_entry) if latest_entry
+
+      if user_periods.present?
+        user_periods = user_periods.map do |period|
+          (period.last_day - period.first_day).to_i + 1
+        end
+        nb_days += user_periods.reduce(:+)
       end
 
-      user_periods = user_periods.map do |period|
-        (period.last_day - period.first_day).to_i + 1
-      end
-      nb_days += user_periods.reduce(:+) if user_periods.present?
-
-      if entry_has_happened?(date, latest_entry) && !future
+      if latest_entry && entry_has_happened?(date, latest_entry)
         nb_days += (date - latest_entry).to_i + 1
       end
       nb_days
     end
 
-    def get_remaining_time(date = Date.current, future = false, latest_entry = @destination.latest_entry)
+    def get_remaining_time(date = Date.current, latest_entry = nil)
       rt = 0
 
-      if future || !latest_entry
-        # start after entry, who is in the future?
-        (date..(date + 89)).each do |day|
-          rt += 1 if get_time_spent(day + 1, future, latest_entry) + rt <= 90
-        end
-        rt -= 1
-      else # elsif self.entry_has_happened?(date, latest)
+      if latest_entry
         # start after entry, who is in the past
         (date..(latest_entry + 89)).each do |day|
-          rt += 1 if get_time_spent(day + 1, future, latest_entry) <= 90
+          rt += 1 if get_time_spent(day + 1, latest_entry) <= 90
         end
+      else
+        (date..(date + 89)).each do |day|
+          rt += 1 if get_time_spent(day + 1) + rt <= 90
+        end
+        rt -= 1
       end
       rt
     end
@@ -105,7 +108,7 @@ class Countdown
       end
     end
 
-    def remove_overlaps(periods, latest_entry = @destination.latest_entry)
+    def remove_overlaps(periods, latest_entry)
       # remove period if started after latest entry
       periods = periods.reject do |p|
         (latest_entry - p.first_day).to_i <= 0
