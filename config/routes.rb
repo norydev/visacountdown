@@ -13,10 +13,15 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show, :edit] do
     member do
-      patch 'set_latest_location'
-      put 'set_latest_location'
       patch 'set_citizenship'
       put 'set_citizenship'
+    end
+  end
+
+  resources :destinations, only: [] do
+    member do
+      patch 'set_latest_entry'
+      put 'set_latest_entry'
     end
   end
 
