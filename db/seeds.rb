@@ -36,7 +36,7 @@ Destination.all.each do |d|
     start = Faker::Date.backward(220)
     p.first_day = start
     p.last_day = start + 20
-    p.country = ["Turkey", "Switzerland", "Belgium"].sample
+    p.country = d.zone == "Turkey" ? "Turkey" : SCHENGEN.sample
     p.destination = d
     p.save
   end
