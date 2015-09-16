@@ -26,6 +26,7 @@ User.all.each do |u|
   d = Destination.new
   d.user = u
   d.zone = ZONES.sample
+  d.latest_entry = [rand(20).days.ago, nil].sample
   d.save
 end
 
