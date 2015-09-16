@@ -6,7 +6,6 @@ class User < ActiveRecord::Base
          :omniauthable, :omniauth_providers => [ :twitter, :facebook ]
 
   validates_inclusion_of :citizenship, :in => COUNTRIES, :allow_blank => true
-  validates_inclusion_of :location, :in => ZONES, :allow_blank => true
 
   has_many :destinations, dependent: :destroy
 

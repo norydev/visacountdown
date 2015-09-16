@@ -55,11 +55,9 @@ class ApplicationController < ActionController::Base
   # called (once) when the user logs in, insert any code your application needs
   # to hand off from guest_user to current_user.
   def logging_in
-    guest_user.periods.update_all(user_id: current_user.id)
+    guest_user.destinations.update_all(user_id: current_user.id) unless current_user.destinations.present?
 
     current_user.citizenship = guest_user.citizenship unless current_user.citizenship
-    current_user.location = guest_user.location unless current_user.location
-    current_user.latest_entry = guest_user.latest_entry unless current_user.latest_entry
     current_user.save
   end
 
