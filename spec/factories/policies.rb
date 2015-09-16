@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :policy do
-    citizenship   "United States"
-    destination   "Schengen area"
+    citizenship   { COUNTRIES.sample }
+    destination   { ZONES.sample }
   end
 
 end

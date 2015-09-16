@@ -1,13 +1,13 @@
-class UsersController < ApplicationController
+class DestinationsController < ApplicationController
   skip_before_action :authenticate_user!
-  before_action :set_user
+  before_action :set_destination
 
   # PATCH
-  def set_citizenship
+  def set_latest_entry
     # update for FE-FW
-    if @user.update(citizenship_params)
+    if @destination.update(latest_entry_params)
       respond_to do |format|
-        format.html { redirect_to root_path, notice: 'Your citizenship has been updated.' }
+        format.html { redirect_to root_path, notice: 'Your latest location has been updated.' }
         format.js
       end
     else
@@ -20,12 +20,12 @@ class UsersController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id]) # was current_or_guest_user
+    def set_destination
+      @destination = Destination.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
-    def citizenship_params
-      params.require(:user).permit(:citizenship)
+    def latest_entry_params
+      params.require(:destination).permit(:latest_entry)
     end
 end
