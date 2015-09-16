@@ -5,11 +5,15 @@ class Countdown
   end
 
   def time_spent
-    get_time_spent(Date.current, false, @destination.user.latest_entry)
+    result = get_time_spent(Date.current, false, @destination.latest_entry)
+    @destination.reload
+    result
   end
 
   def remaining_time
-    get_remaining_time(Date.current, false, @destination.user.latest_entry)
+    result = get_remaining_time(Date.current, false, @destination.latest_entry)
+    @destination.reload
+    result
   end
 
   # def next_entry(date = Date.current)
@@ -22,11 +26,19 @@ class Countdown
 
   private
 
-    def entry_has_happened?
-      @destination.user.latest_entry.try(:past?)
+    def latest_period
+      (Date.current - @destination.latest_entry).to_i
     end
 
-    def get_time_spent(date = Date.current, future = false, latest_entry = @destination.user.latest_entry)
+    def entry_has_happened?(date = Date.current, latest_entry = @destination.latest_entry)
+      if latest_entry
+        latest_entry < date
+      else
+        nil
+      end
+    end
+
+    def get_time_spent(date = Date.current, future = false, latest_entry = @destination.latest_entry)
       nb_days = 0
       oldest_date = date - 179
       user_periods = @destination.periods
@@ -46,14 +58,13 @@ class Countdown
       if entry_has_happened?(date, latest_entry) && !future
         nb_days += (date - latest_entry).to_i + 1
       end
-
       nb_days
     end
 
-    def get_remaining_time(date = Date.current, future = false, latest_entry = @destination.user.latest_entry)
+    def get_remaining_time(date = Date.current, future = false, latest_entry = @destination.latest_entry)
       rt = 0
 
-      if future
+      if future || !latest_entry
         # start after entry, who is in the future?
         (date..(date + 89)).each do |day|
           rt += 1 if get_time_spent(day + 1, future, latest_entry) + rt <= 90
@@ -94,7 +105,7 @@ class Countdown
       end
     end
 
-    def remove_overlaps(periods, latest_entry = @destination.user.latest_entry)
+    def remove_overlaps(periods, latest_entry = @destination.latest_entry)
       # remove period if started after latest entry
       periods = periods.reject do |p|
         (latest_entry - p.first_day).to_i <= 0
