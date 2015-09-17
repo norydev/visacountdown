@@ -10,7 +10,7 @@ RSpec.describe PeriodsController, type: :controller do
   }
 
   let(:invalid_attributes) {
-    {first_day: "4 july 1776", last_day: nil, country: "Cyprus"}
+    {first_day: "4 july 1776", last_day: nil, zone: "Cyprus"}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -95,14 +95,14 @@ RSpec.describe PeriodsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        {country: "Italy", first_day: 5.days.ago, last_day: 2.days.ago}
+        {zone: "Schengen area", first_day: 5.days.ago, last_day: 2.days.ago}
       }
 
       it "updates the requested period" do
         period = FactoryGirl.create :period, destination: @destination
         put :update, {:id => period.to_param, :period => new_attributes}, valid_session
         period.reload
-        expect(assigns(:period)).to have_attributes(country: "Italy", first_day: Date.parse(5.days.ago.to_s), last_day: Date.parse(2.days.ago.to_s))
+        expect(assigns(:period)).to have_attributes(zone: "Schengen area", first_day: Date.parse(5.days.ago.to_s), last_day: Date.parse(2.days.ago.to_s))
       end
 
       it "assigns the requested period as @period" do

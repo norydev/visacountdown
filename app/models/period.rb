@@ -8,11 +8,11 @@ class Period < ActiveRecord::Base
   private
 
     def all_periods_but_me
-      self.destination.periods.where(country: self.country).where.not(id: id)
+      self.destination.periods.where(zone: self.zone).where.not(id: id)
     end
 
     def solve_overlaps
-      # Solve overlaps of periods in the same country.
+      # Solve overlaps of periods in the same zone.
       # For Schengen, see Destination method to solve overlaps within a destination
       all_periods_but_me.each do |p|
         overlaps_with_previous = (p.first_day..p.last_day).overlaps?(self.first_day..self.last_day)
