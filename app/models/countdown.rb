@@ -5,16 +5,15 @@ class Countdown
   end
 
   def time_spent
-    # @destination.reload
     get_time_spent(Date.current, @destination.latest_entry)
   end
 
   def remaining_time
-    # @destination.reload
     get_remaining_time(Date.current, @destination.latest_entry)
   end
 
   def exit_day
+    Date.current + remaining_time
   end
 
   def next_entry

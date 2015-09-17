@@ -6,6 +6,8 @@ RSpec.describe Period, type: :model do
   it { should validate_presence_of(:destination) }
   it { should validate_presence_of(:first_day) }
   it { should validate_presence_of(:last_day) }
+  it { should validate_inclusion_of(:country).in_array(COUNTRIES).allow_blank }
+  it { should validate_inclusion_of(:zone).in_array(ZONES) }
 
   it 'solves overlaping periods from same user and same country' do
     u = FactoryGirl.create :user, citizenship: "United States"
