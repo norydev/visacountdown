@@ -5,34 +5,98 @@ class Countdown
   end
 
   def time_spent
-    get_time_spent(Date.current, @destination.latest_entry)
+    get_time_spent(latest_entry:  @destination.latest_entry)
   end
 
   def remaining_time
-    get_remaining_time(Date.current, @destination.latest_entry)
+    get_remaining_time(latest_entry:  @destination.latest_entry)
   end
 
   def exit_day
     Date.current + remaining_time
   end
 
-  def next_entry
+  def next_entry(date: Date.current)
+    wt = 0
+    (date..(date + 90)).each do |day|
+      wt += 1 if get_time_spent(day) >= 90
+    end
+    date + wt
   end
-
-  # def next_entry(date = Date.current)
-  #   wt = 0
-  #   (date..(date + 90)).each do |day|
-  #     wt += 1 if get_time_spent(day, true) >= 90
-  #   end
-  #   date + wt
-  # end
 
   private
 
-    def can_enter
+    def status
+      if get_time_spent(latest_entry: @destination.latest_entry) < 90
+        if entry_has_happened?(latest_entry: @destination.latest_entry)
+          situation = "inside_ok"
+        elsif user_in_period? && get_time_spent(date: user_current_period.last_day) > 90
+          situation = "current_too_long"
+        elsif user_in_period? && get_time_spent(date: user_current_period.last_day) == 90
+          situation = "quota_will_be_used"
+        else
+          period_found = false
+          @destination.periods.order(:first_day).each do |p|
+            next if p.first_day < Date.current
+            if get_time_spent(date: p.last_day) > 90
+              #plans won't work, one further period will overstay
+              period_found = true
+              situation = "one_next_too_long"
+
+              break
+            elsif get_time_spent(date: p.last_day) == 90
+              period_found = true
+
+              if @destination.latest_entry
+                if @destination.latest_entry >= next_entry(user_current_period.last_day + 1)
+                  situation = "quota_will_be_used_can_enter"
+                else
+                  situation = "quota_will_be_used_cannot_enter"
+                end
+              else
+                situation = "quota_will_be_used_no_entry"
+              end
+            end
+          end
+          unless period_found
+            #plan will work
+            situation = "outside_ok"
+          end
+        end
+      else
+        if entry_has_happened?(latest_entry: @destination.latest_entry)
+          situation = "overstay"
+        else
+          situation = "quota_used"
+        end
+      end
     end
 
-    def entry_has_happened?(date = Date.current, latest_entry = nil)
+    def user_in_period?(date: Date.current)
+      user_periods = @destination.periods.clone
+
+      is_in = false
+
+      user_periods.each do |p|
+        is_in = is_in || (p.first_day..p.last_day).include?(date)
+      end
+      is_in
+    end
+
+    def user_current_period(date: Date.current)
+      user_periods = @destination.periods.clone
+      period = nil
+      user_periods.each do |p|
+        period = p if (p.first_day..p.last_day).include?(date)
+      end
+      period
+    end
+
+    def is_in_zone?(date: Date.current, latest_entry: nil)
+      entry_has_happened?(date, latest_entry) || user_in_period?(date)
+    end
+
+    def entry_has_happened?(date: Date.current, latest_entry: nil)
       if latest_entry
         latest_entry < date
       else
@@ -40,7 +104,7 @@ class Countdown
       end
     end
 
-    def get_time_spent(date = Date.current, latest_entry = nil)
+    def get_time_spent(date: Date.current, latest_entry: nil)
       nb_days = 0
 
       oldest_date = date - 179
@@ -64,7 +128,7 @@ class Countdown
       nb_days
     end
 
-    def get_remaining_time(date = Date.current, latest_entry = nil)
+    def get_remaining_time(date: Date.current, latest_entry: nil)
       rt = 0
 
       if latest_entry
