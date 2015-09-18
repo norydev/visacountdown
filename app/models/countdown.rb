@@ -42,10 +42,10 @@ class Countdown
             if @destination.latest_entry >= next_entry(user_current_period.last_day + 1)
               return { situation: "quota_will_be_used_can_enter", ne_date: user_current_period.last_day + 1, rt_date: @destination.latest_entry, rt_latest: @destination.latest_entry, exit_date: @destination.latest_entry }
             else
-              return { situation: "quota_will_be_used_cannot_enter", ne_date: user_current_period.last_day + 1, rt_date: next_entry(user_current_period.last_day), exit_date: next_entry(user_current_period.last_day) }
+              return { situation: "quota_will_be_used_cannot_enter", ne_date: user_current_period.last_day + 1, rt_date: next_entry(user_current_period.last_day + 1), exit_date: next_entry(user_current_period.last_day + 1) }
             end
           else
-            return { situation: "quota_will_be_used_no_entry", ne_date: user_current_period.last_day + 1, rt_date:, rt_latest:, exit_date:  }
+            return { situation: "quota_will_be_used_no_entry", ne_date: user_current_period.last_day + 1, rt_date: next_entry(user_current_period.last_day + 1), exit_date: next_entry(user_current_period.last_day + 1) }
           end
         else
           @destination.periods.order(:first_day).each do |p|
@@ -62,7 +62,7 @@ class Countdown
                   return { situation: "quota_will_be_used_cannot_enter", ne_date: p.last_day + 1, rt_date: next_entry(p.last_day + 1), exit_date: next_entry(p.last_day + 1) }
                 end
               else
-                return { situation: "quota_will_be_used_no_entry", ne_date: p.last_day + 1, rt_date:, rt_latest:, exit_date:  }
+                return { situation: "quota_will_be_used_no_entry", ne_date: p.last_day + 1, rt_date: next_entry(p.last_day + 1), exit_date: next_entry(p.last_day + 1) }
               end
             end
           end
@@ -79,7 +79,7 @@ class Countdown
               return { situation: "quota_used_cannot_enter", ne_date: Date.current, rt_date: next_entry(Date.current), exit_date: next_entry(Date.current) }
             end
           else
-            return { situation: "quota_used_no_entry", ne_date: Date.current, rt_date:, rt_latest:, exit_date:  }
+            return { situation: "quota_used_no_entry", ne_date: Date.current, rt_date: next_entry(Date.current), exit_date: next_entry(Date.current) }
           end
         end
       end
