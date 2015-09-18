@@ -27,63 +27,61 @@ class Countdown
   private
 
     def get_exit_day(date: Date.current)
+      date + remaining_time
     end
 
     def status
       if get_time_spent(latest_entry: @destination.latest_entry) < 90
         if entry_has_happened?(latest_entry: @destination.latest_entry)
-          return "inside_ok"
+          return { situation: "inside_ok", rt_date: Date.current, rt_latest: @destination.latest_entry, exit_date: Date.current}
         elsif user_in_period? && get_time_spent(date: user_current_period.last_day) > 90
-          return "current_too_long"
+          return { situation: "current_too_long", rt_date: Date.current, rt_latest: user_current_period.first_day, exit_date: Date.current}
         elsif user_in_period? && get_time_spent(date: user_current_period.last_day) == 90
-          # fix here
-          return "quota_will_be_used"
+          # fix: DRY
+          if @destination.latest_entry
+            if @destination.latest_entry >= next_entry(user_current_period.last_day + 1)
+              return { situation: "quota_will_be_used_can_enter", ne_date: user_current_period.last_day + 1, rt_date: @destination.latest_entry, rt_latest: @destination.latest_entry, exit_date: @destination.latest_entry }
+            else
+              return { situation: "quota_will_be_used_cannot_enter", ne_date: user_current_period.last_day + 1, rt_date: next_entry(user_current_period.last_day), exit_date: next_entry(user_current_period.last_day) }
+            end
+          else
+            return { situation: "quota_will_be_used_no_entry", ne_date: user_current_period.last_day + 1, rt_date:, rt_latest:, exit_date:  }
+          end
         else
           @destination.periods.order(:first_day).each do |p|
             next if p.first_day < Date.current
             if get_time_spent(date: p.last_day) > 90
               #plans won't work, one further period will overstay
-              return "one_next_too_long"
+              return { situation: "one_next_too_long", rt_date: p.first_day, rt_latest: p.first_day, exit_date: p.first_day }
             elsif get_time_spent(date: p.last_day) == 90
+              # fix: DRY
               if @destination.latest_entry
-                if @destination.latest_entry >= next_entry(user_current_period.last_day + 1)
-                  return "quota_will_be_used_can_enter"
+                if @destination.latest_entry >= next_entry(p.last_day + 1)
+                  return { situation: "quota_will_be_used_can_enter", ne_date: p.last_day + 1, rt_date: @destination.latest_entry, rt_latest: @destination.latest_entry, exit_date: @destination.latest_entry }
                 else
-                  return "quota_will_be_used_cannot_enter"
+                  return { situation: "quota_will_be_used_cannot_enter", ne_date: p.last_day + 1, rt_date: next_entry(p.last_day + 1), exit_date: next_entry(p.last_day + 1) }
                 end
               else
-                return "quota_will_be_used_no_entry"
+                return { situation: "quota_will_be_used_no_entry", ne_date: p.last_day + 1, rt_date:, rt_latest:, exit_date:  }
               end
             end
           end
-          return "outside_ok"
+          return { situation: "outside_ok", rt_date: @destination.latest_entry, rt_latest: @destination.latest_entry, exit_date: @destination.latest_entry }
         end
       else
         if entry_has_happened?(latest_entry: @destination.latest_entry)
-          return "overstay"
+          return { situation: "overstay" }
         else
-          return "quota_used"
+          if @destination.latest_entry
+            if @destination.latest_entry >= next_entry(Date.current)
+              return { situation: "quota_used_can_enter", ne_date: Date.current, rt_date: @destination.latest_entry, rt_latest: @destination.latest_entry, exit_date: @destination.latest_entry }
+            else
+              return { situation: "quota_used_cannot_enter", ne_date: Date.current, rt_date: next_entry(Date.current), exit_date: next_entry(Date.current) }
+            end
+          else
+            return { situation: "quota_used_no_entry", ne_date: Date.current, rt_date:, rt_latest:, exit_date:  }
+          end
         end
-      end
-    end
-
-    def params
-      case status
-      when "inside_ok"
-        @remaining_time = @user.remaining_time
-        @leave_on = (@today + @remaining_time).strftime("%d %b %Y")
-      when "current_too_long"
-            @remaining_time = @user.remaining_time(@today, false, @user.current_period.first_day)
-            @leave_on = (@today + @remaining_time).strftime("%d %b %Y")
-      when "quota_will_be_used"
-            @next_entry = @user.next_entry(@user.current_period.last_day + 1)
-      when "one_next_too_long"
-      when "quota_will_be_used_can_enter"
-      when "quota_will_be_used_cannot_enter"
-      when "quota_will_be_used_no_entry"
-      when "outside_ok"
-      when "overstay"
-      when "quota_used"
       end
     end
 
