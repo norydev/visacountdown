@@ -66,6 +66,64 @@ RSpec.describe Countdown, type: :model do
         expect(@countdown.exit_day).to eq(79.days.from_now.to_date)
       end
     end
+
+    context 'inside a period, latest entry after this period' do
+      before(:context) do
+        @d.latest_entry = 20.days.from_now
+        p1 = FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 39.days.ago, last_day: 10.days.from_now
+        @countdown = @d.countdown
+      end
+
+      after(:context) do
+        @d.periods.destroy_all
+        @d.reload
+      end
+
+      it 'returns the correct situation' do
+        expect(@countdown.situation).to eq("inside_ok")
+      end
+
+      it 'returns the correct time spent' do
+        expect(@countdown.time_spent).to be(40)
+      end
+
+      it 'returns the correct remaining time' do
+        expect(@countdown.remaining_time).to be(39)
+      end
+
+      it 'returns the correct exit day' do
+        expect(@countdown.exit_day).to eq(59.days.from_now.to_date)
+      end
+    end
+
+    context 'inside a period, no latest entry' do
+      before(:context) do
+        @d.latest_entry = nil
+        p1 = FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 39.days.ago, last_day: 10.days.from_now
+        @countdown = @d.countdown
+      end
+
+      after(:context) do
+        @d.periods.destroy_all
+        @d.reload
+      end
+
+      it 'returns the correct situation' do
+        expect(@countdown.situation).to eq("inside_ok")
+      end
+
+      it 'returns the correct time spent' do
+        expect(@countdown.time_spent).to be(40)
+      end
+
+      it 'returns the correct remaining time' do
+        expect(@countdown.remaining_time).to be(39)
+      end
+
+      it 'returns the correct exit day' do
+        expect(@countdown.exit_day).to eq(50.days.from_now.to_date)
+      end
+    end
   end
 
   describe 'Situation: outside_ok' do
@@ -129,23 +187,45 @@ RSpec.describe Countdown, type: :model do
   end
 
   describe 'Situation: overstay' do
-    before(:context) do
-      @d.latest_entry = 90.days.ago
-      p1 = FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 120.days.ago, last_day: 100.days.ago
-      @countdown = @d.countdown
-    end
+    context 'latest entry earlier than 90 days ago' do
+      before(:context) do
+        @d.latest_entry = 90.days.ago
+        p1 = FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 120.days.ago, last_day: 100.days.ago
+        @countdown = @d.countdown
+      end
 
-    after(:context) do
-      @d.periods.destroy_all
-      @d.reload
-    end
+      after(:context) do
+        @d.periods.destroy_all
+        @d.reload
+      end
 
-    it 'returns the correct situation' do
-      expect(@countdown.situation).to eq("overstay")
-    end
+      it 'returns the correct situation' do
+        expect(@countdown.situation).to eq("overstay")
+      end
 
-    it 'returns the correct time spent' do
-      expect(@countdown.time_spent).to be(112)
+      it 'returns the correct time spent' do
+        expect(@countdown.time_spent).to be(112)
+      end
+    end
+    context 'in the middle of a period longer than 90 days' do
+      before(:context) do
+        @d.latest_entry = nil
+        p1 = FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 95.days.ago, last_day: 5.days.from_now
+        @countdown = @d.countdown
+      end
+
+      after(:context) do
+        @d.periods.destroy_all
+        @d.reload
+      end
+
+      it 'returns the correct situation' do
+        expect(@countdown.situation).to eq("overstay")
+      end
+
+      it 'returns the correct time spent' do
+        expect(@countdown.time_spent).to be(96)
+      end
     end
   end
 
