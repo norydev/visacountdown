@@ -156,23 +156,11 @@ class Countdown
     end
 
     def user_in_period?(date: Date.current)
-      user_periods = @destination.periods.clone
-
-      is_in = false
-
-      user_periods.each do |p|
-        is_in = is_in || (p.first_day..p.last_day).include?(date)
-      end
-      is_in
+      @destination.periods.clone.select { |p| (p.first_day..p.last_day).include?(date) }.present?
     end
 
     def user_current_period(date: Date.current)
-      user_periods = @destination.periods.clone
-      period = nil
-      user_periods.each do |p|
-        period = p if (p.first_day..p.last_day).include?(date)
-      end
-      period
+      @destination.periods.clone.select { |p| (p.first_day..p.last_day).include?(date) }.first
     end
 
     def user_in_zone?(date: Date.current, latest_entry: nil)
