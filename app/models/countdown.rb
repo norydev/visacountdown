@@ -45,6 +45,7 @@ class Countdown
               return { situation: "quota_will_be_used_no_entry", ne_date: user_current_period.last_day + 1, rt_date: get_next_entry(date: user_current_period.last_day + 1), rt_latest: get_next_entry(date: user_current_period.last_day + 1), exit_date: get_next_entry(date: user_current_period.last_day + 1) }
             end
           else
+            # fix: DRY
             # check if one next is too long
             @destination.periods.order(:first_day).each do |p|
               next if p.first_day < Date.current
@@ -68,6 +69,8 @@ class Countdown
             return { situation: "inside_ok", rt_date: @destination.latest_entry || user_current_period.last_day + 1, rt_latest: @destination.latest_entry || user_current_period.last_day + 1, exit_date: @destination.latest_entry || user_current_period.last_day + 1}
           end
         else
+          # fix: DRY
+          # check if one next is too long
           @destination.periods.order(:first_day).each do |p|
             next if p.first_day < Date.current
             if get_time_spent(date: p.last_day) > 90
@@ -86,10 +89,11 @@ class Countdown
               end
             end
           end
+          # otherwise outisde ok
           return { situation: "outside_ok", rt_date: @destination.latest_entry || Date.current + 1, rt_latest: @destination.latest_entry, exit_date: @destination.latest_entry || Date.current + 1 }
         end
       else
-        if entry_has_happened?(latest_entry: @destination.latest_entry) || user_in_period?
+        if user_in_zone?(latest_entry: @destination.latest_entry)
           return { situation: "overstay" }
         else
           if @destination.latest_entry
@@ -178,16 +182,12 @@ class Countdown
       period
     end
 
-    def is_in_zone?(date: Date.current, latest_entry: nil)
+    def user_in_zone?(date: Date.current, latest_entry: nil)
       entry_has_happened?(date: date, latest_entry: latest_entry) || user_in_period?(date: date)
     end
 
     def entry_has_happened?(date: Date.current, latest_entry: nil)
-      if latest_entry
-        latest_entry < date
-      else
-        nil
-      end
+      latest_entry && latest_entry < date
     end
 
     def remove_too_old(periods, oldest_date)
