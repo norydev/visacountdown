@@ -177,11 +177,11 @@ RSpec.describe Countdown, type: :model do
       end
 
       it 'returns the correct remaining time' do
-        expect(@countdown.remaining_time).to be(50)
+        expect(@countdown.remaining_time).to be(49)
       end
 
       it 'returns the correct exit day' do
-        expect(@countdown.exit_day).to eq(51.days.from_now.to_date)
+        expect(@countdown.exit_day).to eq(50.days.from_now.to_date)
       end
     end
   end
