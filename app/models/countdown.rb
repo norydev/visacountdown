@@ -1,11 +1,12 @@
 class Countdown
 
-  def initialize(destination: nil)
-    @destination = destination
+  def initialize(periods: [], latest_entry: nil)
+    @latest_entry = latest_entry
+    @periods = periods
   end
 
   def time_spent
-    get_time_spent(latest_entry: @destination.latest_entry)
+    get_time_spent(latest_entry: @latest_entry)
   end
 
   def remaining_time
@@ -28,9 +29,9 @@ class Countdown
 
     # DEFINE STATUS
     def status
-      if get_time_spent(latest_entry: @destination.latest_entry) < 90
-        if entry_has_happened?(latest_entry: @destination.latest_entry)
-          return { situation: "inside_ok", rt_date: Date.current, rt_latest: @destination.latest_entry, exit_date: Date.current}
+      if get_time_spent(latest_entry: @latest_entry) < 90
+        if entry_has_happened?(latest_entry: @latest_entry)
+          return { situation: "inside_ok", rt_date: Date.current, rt_latest: @latest_entry, exit_date: Date.current}
         elsif user_in_period?
           if get_time_spent(date: user_current_period.last_day) > 90
             return { situation: "current_too_long", rt_date: Date.current, rt_latest: user_current_period.first_day, exit_date: Date.current}
@@ -38,14 +39,14 @@ class Countdown
             return quota_used(date: user_current_period.last_day + 1, future: "will_be_")
           else
             # check if one next is too long otherwise inside ok
-            return one_period_too_long || { situation: "inside_ok", rt_date: @destination.latest_entry || user_current_period.last_day + 1, exit_date: @destination.latest_entry || user_current_period.last_day + 1}
+            return one_period_too_long || { situation: "inside_ok", rt_date: @latest_entry || user_current_period.last_day + 1, exit_date: @latest_entry || user_current_period.last_day + 1}
           end
         else
           # check if one next is too long otherwise outisde ok
-          return one_period_too_long || { situation: "outside_ok", rt_date: @destination.latest_entry || Date.current + 1, exit_date: @destination.latest_entry || Date.current + 1 }
+          return one_period_too_long || { situation: "outside_ok", rt_date: @latest_entry || Date.current + 1, exit_date: @latest_entry || Date.current + 1 }
         end
       else
-        if user_in_zone?(latest_entry: @destination.latest_entry)
+        if user_in_zone?(latest_entry: @latest_entry)
           return { situation: "overstay" }
         else
           return quota_used
@@ -54,7 +55,7 @@ class Countdown
     end
 
     def one_period_too_long
-      @destination.periods.order(:first_day).each do |p|
+      @periods.order(:first_day).each do |p|
         next if p.first_day < Date.current
         if get_time_spent(date: p.last_day) > 90
           #plans won't work, one further period will overstay
@@ -67,9 +68,9 @@ class Countdown
     end
 
     def quota_used(date: Date.current, future: nil)
-      if @destination.latest_entry
-        if @destination.latest_entry >= get_next_entry(date: date)
-          return { situation: "quota_#{future}used_can_enter", ne_date: date, rt_date: @destination.latest_entry, exit_date: @destination.latest_entry }
+      if @latest_entry
+        if @latest_entry >= get_next_entry(date: date)
+          return { situation: "quota_#{future}used_can_enter", ne_date: date, rt_date: @latest_entry, exit_date: @latest_entry }
         else
           return { situation: "quota_#{future}used_cannot_enter", ne_date: date, rt_date: get_next_entry(date: date), exit_date: get_next_entry(date: date) }
         end
@@ -83,7 +84,7 @@ class Countdown
       nb_days = 0
 
       oldest_date = date - 179
-      user_periods = @destination.periods.clone
+      user_periods = @periods.clone
 
       user_periods = remove_too_old(user_periods, oldest_date)
       user_periods = remove_future(user_periods, date)
@@ -126,11 +127,11 @@ class Countdown
     end
 
     def user_in_period?(date: Date.current)
-      @destination.periods.clone.select { |p| (p.first_day..p.last_day).include?(date) }.present?
+      @periods.clone.select { |p| (p.first_day..p.last_day).include?(date) }.present?
     end
 
     def user_current_period(date: Date.current)
-      @destination.periods.clone.select { |p| (p.first_day..p.last_day).include?(date) }.first
+      @periods.clone.select { |p| (p.first_day..p.last_day).include?(date) }.first
     end
 
     def user_in_zone?(date: Date.current, latest_entry: nil)

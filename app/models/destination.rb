@@ -9,7 +9,7 @@ class Destination < ActiveRecord::Base
   end
 
   def countdown
-    Countdown.new(destination: self)
+    Countdown.new(periods: periods, latest_entry: latest_entry)
   end
 
 end
