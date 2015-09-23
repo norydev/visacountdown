@@ -76,11 +76,10 @@ class PeriodsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def period_params
-      params.require(:period).permit(:first_day, :last_day, :country)
+      params.require(:period).permit(:first_day, :last_day, :zone)
     end
 
     def get_destination
-      zone = SCHENGEN.include?(period_params[:country]) ? "Schengen area" : period_params[:country]
-      @destination = Destination.where(user: current_or_guest_user, zone: zone).first_or_create
+      @destination = Destination.where(user: current_or_guest_user, zone: period_params[:zone]).first_or_create
     end
 end

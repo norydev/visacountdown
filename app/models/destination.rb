@@ -8,4 +8,10 @@ class Destination < ActiveRecord::Base
     Policy.new(citizenship: user.citizenship, destination: zone)
   end
 
+  def countdown
+    if policy.length != policy.window
+      Countdown.new(destination: self)
+    end
+  end
+
 end
