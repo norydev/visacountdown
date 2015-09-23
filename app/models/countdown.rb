@@ -1,8 +1,10 @@
 class Countdown
 
-  def initialize(periods: [], latest_entry: nil)
-    @latest_entry = latest_entry
-    @periods = periods
+  def initialize(destination: nil)
+    @latest_entry = destination.latest_entry
+    @periods = destination.periods
+    @length = destination.policy.length
+    @window = destination.policy.window
   end
 
   def time_spent
@@ -29,13 +31,13 @@ class Countdown
 
     # DEFINE STATUS
     def status
-      if get_time_spent(latest_entry: @latest_entry) < 90
+      if get_time_spent(latest_entry: @latest_entry) < @length
         if entry_has_happened?(latest_entry: @latest_entry)
           return { situation: "inside_ok", rt_date: Date.current, rt_latest: @latest_entry, exit_date: Date.current}
         elsif user_in_period?
-          if get_time_spent(date: user_current_period.last_day) > 90
+          if get_time_spent(date: user_current_period.last_day) > @length
             return { situation: "current_too_long", rt_date: Date.current, rt_latest: user_current_period.first_day, exit_date: Date.current}
-          elsif get_time_spent(date: user_current_period.last_day) == 90
+          elsif get_time_spent(date: user_current_period.last_day) == @length
             return quota_used(date: user_current_period.last_day + 1, future: "will_be_")
           else
             # check if one next is too long otherwise inside ok
@@ -55,12 +57,11 @@ class Countdown
     end
 
     def one_period_too_long
-      @periods.order(:first_day).each do |p|
-        next if p.first_day < Date.current
-        if get_time_spent(date: p.last_day) > 90
+      @periods.order(:first_day).reject{ |p| p.first_day < Date.current }.each do |p|
+        if get_time_spent(date: p.last_day) > @length
           #plans won't work, one further period will overstay
           return { situation: "one_next_too_long", rt_date: p.first_day, exit_date: p.first_day }
-        elsif get_time_spent(date: p.last_day) == 90
+        elsif get_time_spent(date: p.last_day) == @length
           return quota_used(date: p.last_day + 1, future: "will_be_")
         end
       end
@@ -83,7 +84,7 @@ class Countdown
     def get_time_spent(date: Date.current, latest_entry: nil)
       nb_days = 0
 
-      oldest_date = date - 179
+      oldest_date = date - (@window - 1)
       user_periods = @periods.clone
 
       user_periods = remove_too_old(user_periods, oldest_date)
@@ -108,8 +109,8 @@ class Countdown
       rt = 0
       entry = latest_entry || date
 
-      (date..(entry + 89)).each do |day|
-        rt += 1 if get_time_spent(date: day + 1, latest_entry: entry) <= 90
+      (date..(entry + (@length - 1))).each do |day|
+        rt += 1 if get_time_spent(date: day + 1, latest_entry: entry) <= @length
       end
       rt
     end
@@ -120,8 +121,8 @@ class Countdown
 
     def get_next_entry(date: Date.current)
       wt = 0
-      (date..(date + 90)).each do |day|
-        wt += 1 if get_time_spent(date: day) >= 90
+      (date..(date + @length)).each do |day|
+        wt += 1 if get_time_spent(date: day) >= @length
       end
       date + wt
     end
@@ -145,12 +146,12 @@ class Countdown
     def remove_too_old(periods, oldest_date)
       # remove if period is entirely before oldest date
       periods = periods.reject do |p|
-        (p.last_day - oldest_date).to_i < 0
+        p.last_day < oldest_date
       end
 
       # remove all the days that are before the oldest day
       periods.map do |p|
-        p.first_day = oldest_date if (p.first_day - oldest_date).to_i < 0
+        p.first_day = oldest_date if p.first_day < oldest_date
         p
       end
     end
@@ -158,12 +159,12 @@ class Countdown
     def remove_future(periods, day)
       # remove period if it is totally in the future
       periods = periods.reject do |p|
-        (p.first_day - day).to_i > 0
+        p.first_day > day
       end
 
       # remove days of the period that are in the future
       periods.map do |p|
-        p.last_day = day if (p.last_day - day).to_i > 0
+        p.last_day = day if p.last_day > day
         p
       end
     end
@@ -171,12 +172,12 @@ class Countdown
     def remove_overlaps(periods, latest_entry)
       # remove period if started after latest entry
       periods = periods.reject do |p|
-        (latest_entry - p.first_day).to_i <= 0
+        latest_entry <= p.first_day
       end
 
       # remove days that are after latest entry
       periods.map do |p|
-        p.last_day = (latest_entry - 1) if (latest_entry - p.last_day).to_i <= 0
+        p.last_day = (latest_entry - 1) if latest_entry <= p.last_day
         p
       end
     end

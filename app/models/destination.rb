@@ -9,7 +9,9 @@ class Destination < ActiveRecord::Base
   end
 
   def countdown
-    Countdown.new(periods: periods, latest_entry: latest_entry)
+    if policy.length != policy.window
+      Countdown.new(destination: self)
+    end
   end
 
 end

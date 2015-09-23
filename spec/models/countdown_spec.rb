@@ -605,4 +605,68 @@ RSpec.describe Countdown, type: :model do
     end
   end
 
+  describe 'Dumb User' do
+    context 'latest entry in the middle of a period' do
+      before(:context) do
+        @d.latest_entry = 9.days.ago
+        p1 = FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 84.days.ago, last_day: 25.days.ago
+        p1 = FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 14.days.ago, last_day: 5.days.ago
+        @countdown = @d.countdown
+      end
+
+      after(:context) do
+        @d.periods.destroy_all
+        @d.reload
+      end
+
+
+      it 'returns the correct situation' do
+        expect(@countdown.situation).to eq("inside_ok")
+      end
+
+      it 'returns the correct time spent' do
+        expect(@countdown.time_spent).to be(75)
+      end
+
+      it 'returns the correct remaining time' do
+        expect(@countdown.remaining_time).to be(15)
+      end
+
+      it 'returns the correct exit day' do
+        expect(@countdown.exit_day).to eq(15.days.from_now.to_date)
+      end
+    end
+
+    context 'latest entry before a full period' do
+      before(:context) do
+        @d.latest_entry = 9.days.ago
+        p1 = FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 84.days.ago, last_day: 25.days.ago
+        p1 = FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 4.days.ago, last_day: 50.days.from_now
+        @countdown = @d.countdown
+      end
+
+      after(:context) do
+        @d.periods.destroy_all
+        @d.reload
+      end
+
+
+      it 'returns the correct situation' do
+        expect(@countdown.situation).to eq("inside_ok")
+      end
+
+      it 'returns the correct time spent' do
+        expect(@countdown.time_spent).to be(70)
+      end
+
+      it 'returns the correct remaining time' do
+        expect(@countdown.remaining_time).to be(20)
+      end
+
+      it 'returns the correct exit day' do
+        expect(@countdown.exit_day).to eq(20.days.from_now.to_date)
+      end
+    end
+  end
+
 end
