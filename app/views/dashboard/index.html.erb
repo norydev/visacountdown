@@ -1,0 +1,63 @@
+<%= content_for(:title) do %>
+  Visa Countdown
+<% end %>
+
+<%= content_for(:description) do %>
+  The Schengen area and Turkey are among the countries in which many foreigners can stay with a tourist visa for 90 days in ANY 180 days period. Calculate when you must leave or when you can re-enter.
+<% end %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3">
+      <h4>Guest User</h4>
+      <p>
+        <strong>citizenship:</strong> <%= @user.citizenship %>
+        <%= link_to edit_user_path(@user) do %>
+          <i class="fa fa-pencil"></i>
+        <% end %>
+      </p>
+    </div>
+    <div class="col-lg-6">
+      <%= link_to "Add period", new_period_path %>
+      <% @user.destinations.each do |destination| %>
+        <h2><%= destination %></h2>
+
+        <table class="table tablebordered table-condensed">
+          <thead>
+            <tr>
+              <th>Entry date</th>
+              <th>Exit date</th>
+              <th>Nb of days</th>
+              <th colspan="3"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% destination.periods.each do |period| %>
+              <tr>
+                <td><%= date_format(period.first_day) %></td>
+                <td><%= date_format(period.last_day) %></td>
+                <td><%= (period.last_day - period.first_day).to_i + 1 %></td>
+                <td><%= link_to 'Show', period %></td>
+                <td><%= link_to 'Edit', edit_period_path(period) %></td>
+                <td><%= link_to 'Destroy', period, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+    <div class="col-lg-3">
+      <% @user.destinations.each do |destination| %>
+        <h4><%= destination %></h4>
+        <%= user_policy_for(destination) %>
+
+        <% if destination.countdown %>
+          <p>Time spent: <%= destination.countdown.time_spent %> days</p>
+          <p>Remaining time: <%= destination.countdown.remaining_time %> days</p>
+          <p>Latest exit day: <%= date_format(destination.countdown.exit_day) %></p>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

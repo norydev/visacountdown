@@ -14,4 +14,8 @@ class Destination < ActiveRecord::Base
     end
   end
 
+  def to_s
+    zone
+  end
+
 end

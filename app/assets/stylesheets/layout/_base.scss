@@ -45,6 +45,10 @@ table {
   line-height: 175%;
 }
 
+.border {
+  border: 1px solid $gray-lighter;
+}
+
 @media (max-width:767px){
   .xs-marged {
     margin-left: 1%;
