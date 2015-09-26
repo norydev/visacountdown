@@ -1,17 +1,36 @@
 <li class="list-group-item">
-  <div class="row">
+  <div class="row vertical-align">
+    <div class="top-right">
+      <% if period %>
+        <%= link_to period, method: :delete do %>
+          <i class="fa fa-times"></i>
+        <% end %>
+      <% elsif destination %>
+        <%= simple_form_for(destination, url: set_latest_entry_destination_path(destination)) do |f| %>
+            <%= f.input :latest_entry, as: :hidden, input_html: { value: "" } %>
+            <button class="btn btn-ghost" type="submit"><i class="fa fa-times"></i></button>
+        <% end %>
+      <% end %>
+    </div>
     <div class="col-xs-4">
-      <small><%= date_format(period.first_day) %></small>
+      <span class="text-small"><%= start %></span>
     </div>
     <div class="col-xs-4 text-center">
-      <span style="font-size: 2em;"><%= (period.last_day - period.first_day).to_i + 1 %></span> <small style="font-size: 0.7em">days</small>
-      <p>
-        <small style="font-size: 0.7em"><%= link_to 'Edit', edit_period_path(period) %></small>
-        <small style="font-size: 0.7em"><%= link_to 'Destroy', period, method: :delete, data: { confirm: 'Are you sure?' } %></small>
-      </p>
+      <span class="text-large"><%= count %></span> <span class="text-small">days</span>
     </div>
     <div class="col-xs-4 text-right">
-      <small><%= date_format(period.last_day) %></small>
+      <span class="text-small"><%= stop %></span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <span class="text-small">
+        <% if period %>
+          <%= link_to 'Edit', edit_period_path(period) %>
+        <% else %>
+          <%= link_to 'Edit latest entry', edit_destination_path(destination) %>
+        <% end %>
+      </span>
     </div>
   </div>
 </li>
