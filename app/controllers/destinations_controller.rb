@@ -2,6 +2,9 @@ class DestinationsController < ApplicationController
   skip_before_action :authenticate_user!
   before_action :set_destination
 
+  def edit
+  end
+
   # PATCH
   def set_latest_entry
     # update for FE-FW

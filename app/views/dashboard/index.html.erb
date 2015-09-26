@@ -8,7 +8,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-lg-3">
+    <div class="col-lg-4">
       <h4>Guest User</h4>
       <p>
         <strong>citizenship:</strong> <%= @user.citizenship %>
@@ -16,48 +16,64 @@
           <i class="fa fa-pencil"></i>
         <% end %>
       </p>
-    </div>
-    <div class="col-lg-6">
       <%= link_to "Add period", new_period_path %>
-      <% @user.destinations.each do |destination| %>
+    </div>
+    <% @user.destinations.each do |destination| %>
+      <div class="col-lg-4">
         <h2><%= destination %></h2>
 
-        <table class="table tablebordered table-condensed">
-          <thead>
-            <tr>
-              <th>Entry date</th>
-              <th>Exit date</th>
-              <th>Nb of days</th>
-              <th colspan="3"></th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <% destination.periods.each do |period| %>
-              <tr>
-                <td><%= date_format(period.first_day) %></td>
-                <td><%= date_format(period.last_day) %></td>
-                <td><%= (period.last_day - period.first_day).to_i + 1 %></td>
-                <td><%= link_to 'Show', period %></td>
-                <td><%= link_to 'Edit', edit_period_path(period) %></td>
-                <td><%= link_to 'Destroy', period, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-              </tr>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <% if destination.latest_entry && destination.latest_entry <= Date.current %>
+              <div class="row">
+                <div class="col-xs-4">
+                  <small><%= date_format(destination.latest_entry) %></small>
+                </div>
+                <div class="col-xs-4 text-center">
+                  <span style="font-size: 2em;"><%= (Date.current - destination.latest_entry).to_i + 1 %></span> <small style="font-size: 0.7em">days</small>
+                  <p>
+                    <small style="font-size: 0.7em"><%= link_to 'Edit latest entry', edit_destination_path(destination) %></small>
+                  </p>
+                </div>
+                <div class="col-xs-4 text-right">
+                  <small>ongoing</small>
+                </div>
+              </div>
+            <% elsif destination.latest_entry && destination.latest_entry > Date.current %>
+              <div class="row">
+                <div class="col-xs-4">
+                  <small><%= date_format(destination.latest_entry) %></small>
+                </div>
+                <div class="col-xs-4 text-center">
+                  <span style="font-size: 2em;">Planned</span> <small style="font-size: 0.7em"></small>
+                  <p>
+                    <small style="font-size: 0.7em"><%= link_to 'Edit latest entry', edit_destination_path(destination) %></small>
+                  </p>
+                </div>
+              </div>
+            <% else %>
+              <div class="row text-center">
+                <small><%= link_to 'Add latest or planed entry', edit_destination_path(destination) %></small>
+              </div>
             <% end %>
-          </tbody>
-        </table>
-      <% end %>
-    </div>
-    <div class="col-lg-3">
-      <% @user.destinations.each do |destination| %>
-        <h4><%= destination %></h4>
+          </li>
+
+          <% destination.periods.each do |period| %>
+            <%= render 'periods/one_period', period: period %>
+          <% end %>
+          <li class="list-group-item">
+            <div class="row text-center">
+              <small><%= link_to 'Add a period', new_period_path %></small>
+            </div>
+          </li>
+        </ul>
+
         <%= user_policy_for(destination) %>
 
         <% if destination.countdown %>
-          <p>Time spent: <%= destination.countdown.time_spent %> days</p>
-          <p>Remaining time: <%= destination.countdown.remaining_time %> days</p>
-          <p>Latest exit day: <%= date_format(destination.countdown.exit_day) %></p>
+          <%= display_countdown(destination.countdown) %>
         <% end %>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
 </div>

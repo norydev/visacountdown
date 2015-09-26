@@ -1,0 +1,17 @@
+<li class="list-group-item">
+  <div class="row">
+    <div class="col-xs-4">
+      <small><%= date_format(period.first_day) %></small>
+    </div>
+    <div class="col-xs-4 text-center">
+      <span style="font-size: 2em;"><%= (period.last_day - period.first_day).to_i + 1 %></span> <small style="font-size: 0.7em">days</small>
+      <p>
+        <small style="font-size: 0.7em"><%= link_to 'Edit', edit_period_path(period) %></small>
+        <small style="font-size: 0.7em"><%= link_to 'Destroy', period, method: :delete, data: { confirm: 'Are you sure?' } %></small>
+      </p>
+    </div>
+    <div class="col-xs-4 text-right">
+      <small><%= date_format(period.last_day) %></small>
+    </div>
+  </div>
+</li>
