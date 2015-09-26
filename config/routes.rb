@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :periods
+  resources :periods, except: [:index, :show]
 
   devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
 

@@ -5,15 +5,6 @@ class PeriodsController < ApplicationController
 
   # skip_before_filter :verify_authenticity_token, only: [:update]
 
-  # GET /periods
-  def index
-    @periods = Period.all
-  end
-
-  # GET /periods/1
-  def show
-  end
-
   # GET /periods/new
   def new
     @period = Period.new
@@ -30,7 +21,7 @@ class PeriodsController < ApplicationController
 
     if @period.save
       respond_to do |format|
-        format.html { redirect_to @period, notice: 'Period was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Period was successfully created.' }
         format.js
       end
     else
@@ -46,7 +37,7 @@ class PeriodsController < ApplicationController
     @period.destination = @destination
     if @period.update(period_params)
       respond_to do |format|
-        format.html { redirect_to @period, notice: 'Period was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'Period was successfully updated.' }
         format.js
       end
     else

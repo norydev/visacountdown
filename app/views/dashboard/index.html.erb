@@ -9,16 +9,14 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-4">
-      <h4>Guest User</h4>
       <p>
-        <strong>citizenship:</strong> <%= @user.citizenship %>
+        <strong>your citizenship:</strong> <%= @user.citizenship %>
         <%= link_to edit_user_path(@user) do %>
           <i class="fa fa-pencil"></i>
         <% end %>
       </p>
-      <%= link_to "Add period", new_period_path %>
     </div>
-    <% @user.destinations.each do |destination| %>
+    <% @user.destinations.order(:zone).each do |destination| %>
       <div class="col-lg-4">
         <h2><%= destination %></h2>
 
@@ -53,12 +51,12 @@
               </div>
             <% else %>
               <div class="row text-center">
-                <small><%= link_to 'Add latest or planed entry', edit_destination_path(destination) %></small>
+                <small><%= link_to 'Add latest or planned entry', edit_destination_path(destination) %></small>
               </div>
             <% end %>
           </li>
 
-          <% destination.periods.each do |period| %>
+          <% destination.periods.order(last_day: :desc).each do |period| %>
             <%= render 'periods/one_period', period: period %>
           <% end %>
           <li class="list-group-item">
