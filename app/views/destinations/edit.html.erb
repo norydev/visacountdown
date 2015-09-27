@@ -10,15 +10,41 @@
   <!-- CITIZENSHIP SELECTION -->
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-      <%= simple_form_for(@destination, url: set_latest_entry_destination_path(@destination)) do |f| %>
-        <%= f.error_notification %>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <div class="row vertical-align">
+            <div class="top-right">
+                <%= link_to root_path do %>
+                  <i class="fa fa-times"></i>
+                <% end %>
+            </div>
+            <div class="col-xs-4">
+              <span class="text-small">Latest entry:</span>
+            </div>
+            <div class="col-xs-7">
 
-        <div class="form-inputs">
-          <%= f.input :latest_entry, as: :string, input_html: {class: "form-control latest_planned input-sm", value: date_format(@destination.latest_entry)}%>
+              <%= simple_form_for(@destination, url: set_latest_entry_destination_path(@destination)) do |f| %>
+                <%= f.error_notification %>
 
-          <button type="submit" class="btn btn-success btn-block text-uppercase"><small>Update</small></button>
-        </div>
-      <% end %>
+                <div class="input-group">
+                  <%= f.input :latest_entry, label_html: {class: "sr-only"}, as: :string, input_html: {class: "form-control input-sm latest_planned", value: date_format(@destination.latest_entry)}%>
+                  <span class="input-group-btn">
+                    <button type="submit" class="btn btn-success btn-sm"><small><i class="fa fa-check"></i></small></button>
+                  </span>
+                </div><!-- /input-group -->
+
+              <% end %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 text-center">
+              <span class="text-small">
+                  <%= link_to 'Cancel', root_path %>
+              </span>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
   <!-- END CITIZENSHIP SELECTION -->

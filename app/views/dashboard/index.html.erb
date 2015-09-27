@@ -30,7 +30,7 @@
           <% end %>
           <li class="list-group-item">
             <div class="row text-center">
-              <small><%= link_to 'Add a period', new_period_path %></small>
+              <small><%= link_to 'Add a period', {controller: "periods", action: "new", zone: destination.zone} %></small>
             </div>
           </li>
         </ul>

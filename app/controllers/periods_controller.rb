@@ -7,7 +7,7 @@ class PeriodsController < ApplicationController
 
   # GET /periods/new
   def new
-    @period = Period.new
+    @period = Period.new(zone: params[:zone])
   end
 
   # GET /periods/1/edit

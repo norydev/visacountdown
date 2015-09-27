@@ -20,11 +20,12 @@ table {
 .vertical-align {
   display: flex;
   align-items: center;
+  min-height: 60px;
 }
 
 .text {
   &-small {
-    font-size: 0.7em;
+    font-size: 0.8em;
   }
   &-large {
     font-size: 2em;
