@@ -9,12 +9,25 @@ module DestinationsHelper
 
     if ["current_too_long", "one_next_too_long", "quota_will_be_used_cannot_enter", "quota_used_cannot_enter"].include?(situation)
       "orange"
-    elsif ["quota_will_be_used_can_enter", "quota_will_be_used_no_entry", "quota_used_can_enter", "quota_used_no_entry", "no info" ].include?(situation)
+    elsif ["quota_will_be_used_no_entry", "quota_used_no_entry", "no info" ].include?(situation)
       "blue"
     elsif situation == "overstay"
       "red"
     else
       "green"
+    end
+  end
+
+  def status_icon(color)
+    case color
+    when "green"
+      "thumbs-o-up"
+    when "blue"
+      "info-circle"
+    when "red"
+      "times-circle"
+    when "orange"
+      "exclamation-triangle"
     end
   end
 

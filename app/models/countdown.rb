@@ -23,6 +23,10 @@ class Countdown
     get_next_entry(date: status[:ne_date])
   end
 
+  def quota_day
+    status[:quota_day]
+  end
+
   def situation
     status[:situation]
   end
@@ -38,7 +42,7 @@ class Countdown
           if get_time_spent(date: user_current_period.last_day) > @length
             return { situation: "current_too_long", rt_date: Date.current, rt_latest: user_current_period.first_day, exit_date: Date.current}
           elsif get_time_spent(date: user_current_period.last_day) == @length
-            return quota_used(date: user_current_period.last_day + 1, future: "will_be_")
+            return quota_used(date: user_current_period.last_day + 1, future: "will_be_", quota: user_current_period.last_day)
           else
             # check if one next is too long otherwise inside ok
             return one_period_too_long || { situation: "inside_ok", rt_date: @latest_entry || user_current_period.last_day + 1, exit_date: @latest_entry || user_current_period.last_day + 1}
@@ -51,7 +55,7 @@ class Countdown
         if user_in_zone?(latest_entry: @latest_entry)
           return { situation: "overstay" }
         else
-          return quota_used
+          return quota_used(quota: @periods.order(last_day: :desc).first.last_day)
         end
       end
     end
@@ -68,15 +72,15 @@ class Countdown
       return nil
     end
 
-    def quota_used(date: Date.current, future: nil)
+    def quota_used(date: Date.current, future: nil, quota: nil)
       if @latest_entry
         if @latest_entry >= get_next_entry(date: date)
           return { situation: "quota_#{future}used_can_enter", ne_date: date, rt_date: @latest_entry, exit_date: @latest_entry }
         else
-          return { situation: "quota_#{future}used_cannot_enter", ne_date: date, rt_date: get_next_entry(date: date), exit_date: get_next_entry(date: date) }
+          return { situation: "quota_#{future}used_cannot_enter", quota_day: quota, ne_date: date, rt_date: get_next_entry(date: date), exit_date: get_next_entry(date: date) }
         end
       else
-        return { situation: "quota_#{future}used_no_entry", ne_date: date, rt_date: get_next_entry(date: date), exit_date: get_next_entry(date: date) }
+        return { situation: "quota_#{future}used_no_entry", quota_day: quota, ne_date: date, rt_date: get_next_entry(date: date), exit_date: get_next_entry(date: date) }
       end
     end
     # END DEFINE STATUS

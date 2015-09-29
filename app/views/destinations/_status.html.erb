@@ -1,38 +1,49 @@
-<li class="list-group-item bg-<%= status_color(destination) %> text-uppercase padded-mini">
+<% color = status_color(destination) %>
+<li class="list-group-item bg-<%= color %> text-uppercase padded-mini">
   <div class="text-center padded-mini-bottom">
-    <span class="text-medium"><strong><%= destination %></strong></span>
+    <div class="text-medium"><strong><%= destination %></strong></div>
+    <div class="text-large">
+      <i class="fa fa-<%= status_icon(color) %>"></i>
+    </div>
   </div>
-  <div class="row">
-
 <% if destination.policy.freedom? %>
-      <div class="col-xs-12 text-center">
-        <span class="text-small">Freedom of movement</span>
-      </div>
-<% elsif destination.countdown
-  case destination.countdown.situation
-  when "inside_ok", "outside_ok" %>
-    <div class="col-xs-6">
-      <div class="text-mini">Remaining time</div>
-      <div class="text-average"><strong><%= destination.countdown.remaining_time %> days</strong></div>
-    </div>
-    <div class="col-xs-6 text-right">
-      <div class="text-mini">Latest exit</div>
-      <div class="text-average"><strong><%= date_format(destination.countdown.exit_day) %></strong></div>
-    </div>
-  <% when "overstay" %>
+  <div class="row">
     <div class="col-xs-12 text-center">
-      <div class="text-average"><strong><i class="fa fa-exclamation-triangle"></i> You are in overstay</strong></div>
+      <span class="text-small">Freedom of movement</span>
     </div>
-  <% when "current_too_long" %>
-  <% when "one_next_too_long" %>
-  <% when "quota_will_be_used_can_enter" %>
-  <% when "quota_will_be_used_cannot_enter" %>
-  <% when "quota_will_be_used_no_entry" %>
-  <% when "quota_used_can_enter" %>
-  <% when "quota_used_cannot_enter" %>
-  <% when "quota_used_no_entry" %>
+  </div>
+<% elsif destination.countdown %>
+  <% if destination.countdown.situation == "overstay" %>
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <div class="text-average"><strong>You are in overstay</strong></div>
+      </div>
+    </div>
+  <% else %>
+
+    <% if ["quota_will_be_used_cannot_enter", "quota_will_be_used_no_entry", "quota_used_cannot_enter", "quota_used_no_entry"].include?(destination.countdown.situation) %>
+      <div class="row padded-mini-bottom">
+        <div class="col-xs-6">
+          <div class="text-mini">Quota used on</div>
+          <div class="text-average"><strong><%= date_format(destination.countdown.quota_day) %></strong></div>
+        </div>
+        <div class="col-xs-6 text-right">
+          <div class="text-mini">Next possible entry</div>
+          <div class="text-average"><strong><%= date_format(destination.countdown.next_entry) %></strong></div>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-xs-6">
+        <div class="text-mini">Remaining time</div>
+        <div class="text-average"><strong><%= destination.countdown.remaining_time %> days</strong></div>
+      </div>
+      <div class="col-xs-6 text-right">
+        <div class="text-mini">Latest exit</div>
+        <div class="text-average"><strong><%= date_format(destination.countdown.exit_day) %></strong></div>
+      </div>
+    </div>
   <% end %>
 <% end %>
-
-  </div>
 </li>
