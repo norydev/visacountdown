@@ -352,6 +352,10 @@ RSpec.describe Countdown, type: :model do
         expect(@countdown.situation).to eq("quota_will_be_used_can_enter")
       end
 
+      it 'returns the correct day the quota is achieved' do
+        expect(@countdown.quota_day).to eq(9.days.from_now.to_date)
+      end
+
       it 'returns the correct next entry date' do
         expect(@countdown.next_entry).to eq(100.days.from_now.to_date)
       end
@@ -380,6 +384,10 @@ RSpec.describe Countdown, type: :model do
 
       it 'returns the correct situation' do
         expect(@countdown.situation).to eq("quota_will_be_used_can_enter")
+      end
+
+      it 'returns the correct day the quota is achieved' do
+        expect(@countdown.quota_day).to eq(24.days.from_now.to_date)
       end
 
       it 'returns the correct next entry date' do
@@ -413,6 +421,10 @@ RSpec.describe Countdown, type: :model do
         expect(@countdown.situation).to eq("quota_will_be_used_cannot_enter")
       end
 
+      it 'returns the correct day the quota is achieved' do
+        expect(@countdown.quota_day).to eq(9.days.from_now.to_date)
+      end
+
       it 'returns the correct next entry date' do
         expect(@countdown.next_entry).to eq(100.days.from_now.to_date)
       end
@@ -441,6 +453,10 @@ RSpec.describe Countdown, type: :model do
 
       it 'returns the correct situation' do
         expect(@countdown.situation).to eq("quota_will_be_used_cannot_enter")
+      end
+
+      it 'returns the correct day the quota is achieved' do
+        expect(@countdown.quota_day).to eq(24.days.from_now.to_date)
       end
 
       it 'returns the correct next entry date' do
@@ -474,6 +490,10 @@ RSpec.describe Countdown, type: :model do
         expect(@countdown.situation).to eq("quota_will_be_used_no_entry")
       end
 
+      it 'returns the correct day the quota is achieved' do
+        expect(@countdown.quota_day).to eq(9.days.from_now.to_date)
+      end
+
       it 'returns the correct next entry date' do
         expect(@countdown.next_entry).to eq(100.days.from_now.to_date)
       end
@@ -502,6 +522,10 @@ RSpec.describe Countdown, type: :model do
 
       it 'returns the correct situation' do
         expect(@countdown.situation).to eq("quota_will_be_used_no_entry")
+      end
+
+      it 'returns the correct day the quota is achieved' do
+        expect(@countdown.quota_day).to eq(24.days.from_now.to_date)
       end
 
       it 'returns the correct next entry date' do
@@ -534,6 +558,10 @@ RSpec.describe Countdown, type: :model do
       expect(@countdown.situation).to eq("quota_used_can_enter")
     end
 
+    it 'returns the correct day the quota is achieved' do
+      expect(@countdown.quota_day).to eq(20.days.ago.to_date)
+    end
+
     it 'returns the correct next entry date' do
       expect(@countdown.next_entry).to eq(71.days.from_now.to_date)
     end
@@ -561,6 +589,10 @@ RSpec.describe Countdown, type: :model do
 
     it 'returns the correct situation' do
       expect(@countdown.situation).to eq("quota_used_cannot_enter")
+    end
+
+    it 'returns the correct day the quota is achieved' do
+      expect(@countdown.quota_day).to eq(20.days.ago.to_date)
     end
 
     it 'returns the correct next entry date' do
@@ -592,6 +624,10 @@ RSpec.describe Countdown, type: :model do
       expect(@countdown.situation).to eq("quota_used_no_entry")
     end
 
+    it 'returns the correct day the quota is achieved' do
+      expect(@countdown.quota_day).to eq(20.days.ago.to_date)
+    end
+
     it 'returns the correct next entry date' do
       expect(@countdown.next_entry).to eq(71.days.from_now.to_date)
     end
@@ -618,7 +654,6 @@ RSpec.describe Countdown, type: :model do
         @d.periods.destroy_all
         @d.reload
       end
-
 
       it 'returns the correct situation' do
         expect(@countdown.situation).to eq("inside_ok")
@@ -649,7 +684,6 @@ RSpec.describe Countdown, type: :model do
         @d.periods.destroy_all
         @d.reload
       end
-
 
       it 'returns the correct situation' do
         expect(@countdown.situation).to eq("inside_ok")

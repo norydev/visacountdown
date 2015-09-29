@@ -66,7 +66,7 @@ class Countdown
           #plans won't work, one further period will overstay
           return { situation: "one_next_too_long", rt_date: p.first_day, exit_date: p.first_day }
         elsif get_time_spent(date: p.last_day) == @length
-          return quota_used(date: p.last_day + 1, future: "will_be_")
+          return quota_used(quota: p.last_day, date: p.last_day + 1, future: "will_be_")
         end
       end
       return nil
@@ -75,7 +75,7 @@ class Countdown
     def quota_used(date: Date.current, future: nil, quota: nil)
       if @latest_entry
         if @latest_entry >= get_next_entry(date: date)
-          return { situation: "quota_#{future}used_can_enter", ne_date: date, rt_date: @latest_entry, exit_date: @latest_entry }
+          return { situation: "quota_#{future}used_can_enter", quota_day: quota, ne_date: date, rt_date: @latest_entry, exit_date: @latest_entry }
         else
           return { situation: "quota_#{future}used_cannot_enter", quota_day: quota, ne_date: date, rt_date: get_next_entry(date: date), exit_date: get_next_entry(date: date) }
         end
