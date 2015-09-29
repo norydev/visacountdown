@@ -1,4 +1,23 @@
 module DestinationsHelper
+
+  def status_color(destination)
+    if destination.countdown
+      situation = destination.countdown.situation
+    else
+      situation = "no info"
+    end
+
+    if ["current_too_long", "one_next_too_long", "quota_will_be_used_cannot_enter", "quota_used_cannot_enter"].include?(situation)
+      "orange"
+    elsif ["quota_will_be_used_can_enter", "quota_will_be_used_no_entry", "quota_used_can_enter", "quota_used_no_entry", "no info" ].include?(situation)
+      "blue"
+    elsif situation == "overstay"
+      "red"
+    else
+      "green"
+    end
+  end
+
   def display_countdown_for(destination)
     countdown = destination.countdown
     case countdown.situation

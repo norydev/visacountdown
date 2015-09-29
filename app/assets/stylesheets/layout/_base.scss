@@ -18,7 +18,7 @@ table {
 }
 
 strong {
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .vertical-align {
@@ -28,8 +28,17 @@ strong {
 }
 
 .text {
+  &-mini {
+    font-size: 0.7em;
+  }
   &-small {
     font-size: 0.8em;
+  }
+  &-average {
+    font-size: 1.2em;
+  }
+  &-medium {
+    font-size: 1.4em
   }
   &-large {
     font-size: 2em;

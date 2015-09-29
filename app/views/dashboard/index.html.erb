@@ -11,34 +11,31 @@
     <div class="col-md-6">
       <% @user.destinations.order(:zone).each do |destination| %>
       <div class="col-md-6">
+        <ul class="list-group">
 
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h4 class="panel-title"><%= destination %></h4>
-          </div>
-          <ul class="list-group">
-            <% if destination.latest_entry && destination.latest_entry <= Date.current %>
-              <%= render 'periods/one_period', start: date_format(destination.latest_entry), stop: "ongoing", count: (Date.current - destination.latest_entry).to_i + 1, destination: destination, period: nil %>
-            <% elsif destination.latest_entry && destination.latest_entry > Date.current %>
-              <%= render 'periods/one_period', start: date_format(destination.latest_entry), stop: "", count: "X", destination: destination, period: nil %>
-            <% else %>
-              <li class="list-group-item">
-                <div class="row text-center">
-                  <small><%= link_to 'Add latest or planned entry', edit_destination_path(destination) %></small>
-                </div>
-              </li>
-            <% end %>
+          <%= render 'destinations/status', destination: destination %>
 
-            <% destination.periods.order(last_day: :desc).each do |period| %>
-              <%= render 'periods/one_period', period: period, start: date_format(period.first_day), stop: date_format(period.last_day), count: (period.last_day - period.first_day).to_i + 1 %>
-            <% end %>
+          <% if destination.latest_entry && destination.latest_entry <= Date.current %>
+            <%= render 'periods/one_period', start: date_format(destination.latest_entry), stop: "ongoing", count: (Date.current - destination.latest_entry).to_i + 1, destination: destination, period: nil %>
+          <% elsif destination.latest_entry && destination.latest_entry > Date.current %>
+            <%= render 'periods/one_period', start: date_format(destination.latest_entry), stop: "", count: "X", destination: destination, period: nil %>
+          <% else %>
             <li class="list-group-item">
               <div class="row text-center">
-                <small><%= link_to 'Add a period', {controller: "periods", action: "new", zone: destination.zone} %></small>
+                <small><%= link_to 'Add latest or planned entry', edit_destination_path(destination) %></small>
               </div>
             </li>
-          </ul>
-        </div>
+          <% end %>
+
+          <% destination.periods.order(last_day: :desc).each do |period| %>
+            <%= render 'periods/one_period', period: period, start: date_format(period.first_day), stop: date_format(period.last_day), count: (period.last_day - period.first_day).to_i + 1 %>
+          <% end %>
+          <li class="list-group-item">
+            <div class="row text-center">
+              <small><%= link_to 'Add a period', {controller: "periods", action: "new", zone: destination.zone} %></small>
+            </div>
+          </li>
+        </ul>
       </div>
     <% end %>
     </div>
