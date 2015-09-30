@@ -8,7 +8,37 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-lg-6 col-md-4">
+
+      <ul class="list-group">
+        <li class="list-group-item text-uppercase padded-mini">
+          <div class="text-center">
+            <%= link_to 'Edit', edit_user_path(@user), class: "text-mini", style: "position: absolute; top: 10px; right: 10px;" %>
+            <div class="text-mini">Your citizenship</div>
+            <div class="text-medium padded-mini"><strong><%= @user.citizenship %></strong></div>
+            <span><%= image_tag "flags/us.svg", width: "30px" %></span>
+          </div>
+        </li>
+
+        <% @user.destinations.each do |destination| %>
+          <li class="list-group-item padded-mini">
+            <div class="text-center text-uppercase">
+              <div class="text-medium padded-mini"><%= destination %></div>
+            </div>
+            <div class='media'>
+              <div class='media-left media-middle'>
+                <%= image_tag visa_need(destination)[:image], height: '50px', style: 'vertical-align: text-bottom' %>
+              </div>
+              <div class='media-body'>
+                <div class='media-heading text-uppercase'><strong><%= visa_need(destination)[:title] %></strong></div>
+                <%= visa_need(destination)[:text] %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col-lg-6 col-md-8">
       <% @user.destinations.order(:zone).each do |destination| %>
       <div class="col-md-6">
         <ul class="list-group">
@@ -38,25 +68,6 @@
         </ul>
       </div>
     <% end %>
-    </div>
-    <div class="col-md-6">
-
-      <div class="panel panel-primary">
-        <div class="panel-heading">Your citizenship is <strong><%= @user.citizenship %></strong> <span class="pull-right"><%= link_to 'Edit', edit_user_path(@user), class: "btn-ghost" %></span></div>
-        <div class="panel-body">
-
-          <% @user.destinations.each do |destination| %>
-          <div>
-            <span class="pull-right"><%= user_policy_for(destination) %></span>
-            <h4><%= destination %></h4>
-          </div>
-
-            <% if destination.countdown %>
-              <%= display_countdown_for(destination) %>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
     </div>
   </div>
 </div>

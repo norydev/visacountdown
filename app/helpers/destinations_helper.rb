@@ -1,7 +1,21 @@
 module DestinationsHelper
 
+  def visa_need(destination)
+    if destination.policy.freedom?
+      { image: "walk.svg", title: "Freedom of movement", text: "You can freely move inside #{destination.zone == 'Turkey' ? '' : 'the '}#{destination.zone} without any limitation. You can travel with your ID card." }
+    elsif destination.policy.need_visa? === true
+      { image: "visa.svg", title: "Visa needed", text: "You need an e-visa to enter #{destination.zone == 'Turkey' ? '' : 'the '}#{destination.zone}. You can stay 90 days in ANY 180 days period." }
+    elsif destination.policy.need_visa? === false
+      { image: "novisa.svg", title: "Visa not needed", text: "You don't need a visa to enter #{destination.zone == 'Turkey' ? '' : 'the '}#{destination.zone}. You can stay 90 days in ANY 180 days period." }
+    else
+      { image: "logo_no_text.svg", title: "No information", text: "Sorry, Visa Countdown has no information for citizens from #{destination.user.citizenship} going to #{destination.zone == 'Turkey' ? '' : 'the '}#{destination.zone}." }
+    end
+  end
+
   def status_color(destination)
-    if destination.countdown
+    if destination.policy.freedom?
+      situation = "freedom"
+    elsif destination.countdown
       situation = destination.countdown.situation
     else
       situation = "no info"
@@ -31,57 +45,15 @@ module DestinationsHelper
     end
   end
 
-  def display_countdown_for(destination)
-    countdown = destination.countdown
-    case countdown.situation
-    when "inside_ok"
-      "<div class='panel panel-success'>
-        <div class='panel-heading'>You are in #{destination}</div>
-        <div class='panel-body'>
-          <ul class=list-unstyled>
-            <li>Time spent in the last #{destination.policy.window} days: <strong>#{countdown.time_spent}</strong> days</li>
-            #{
-              if destination.latest_entry && destination.latest_entry <= Date.current
-                'You entered on ' + date_format(destination.latest_entry)
-              elsif destination.latest_entry && destination.latest_entry > Date.current
-                'You plan to enter on ' + date_format(destination.latest_entry)
-              else
-                '</ul><ul class=list-unstyled><li>If you enter tomorrow:</li>'.html_safe
-              end
-            }
-            <li>Remaining time: <strong>#{countdown.remaining_time}</strong> days</li>
-            <li>Latest exit date: <strong>#{date_format(countdown.exit_day)}</strong></li>
-          </ul>
-        </div>
-      </div>".html_safe
-    when "outside_ok"
-      "<div class='panel panel-success'>
-        <div class='panel-heading'>You are outside of #{destination}</div>
-        <div class='panel-body'>
-          <ul class=list-unstyled>
-            <li>Time spent in the last #{destination.policy.window} days: <strong>#{countdown.time_spent}</strong> days</li>
-            #{'</ul><ul class=list-unstyled><li>If you enter tomorrow:</li>'.html_safe unless destination.latest_entry}
-            <li>Remaining time: <strong>#{countdown.remaining_time}</strong> days</li>
-            <li>Latest exit date: <strong>#{date_format(countdown.exit_day)}</strong></li>
-          </ul>
-        </div>
-      </div>".html_safe
-    when "overstay"
-      "<div class='panel panel-danger'>
-        <div class='panel-heading'>You are in overstay in #{destination}</div>
-        <div class='panel-body'>
-          <p>Time spent in the last #{destination.policy.window} days: <strong>#{countdown.time_spent}</strong> days</p>
-          <p><strong>Get out of here!</strong> This is more than the #{destination.policy.length} days you are allowed.</p>
-        </div>
-      </div>".html_safe
-    when "current_too_long"
-    when "one_next_too_long"
-    when "quota_will_be_used_can_enter"
-    when "quota_will_be_used_cannot_enter"
-    when "quota_will_be_used_no_entry"
-    when "quota_used_can_enter"
-    when "quota_used_cannot_enter"
-    when "quota_used_no_entry"
-    end
-  end
+  # "inside_ok"
+  # "outside_ok"
+  # "overstay"
+  # "current_too_long"
+  # "one_next_too_long"
+  # "quota_will_be_used_can_enter"
+  # "quota_will_be_used_cannot_enter"
+  # "quota_will_be_used_no_entry"
+  # "quota_used_can_enter"
+  # "quota_used_cannot_enter"
+  # "quota_used_no_entry"
 end
