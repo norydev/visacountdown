@@ -1,0 +1,13 @@
+
+<div class="container svg">
+  <div class="row">
+    <div class="col-xs-10 col-xs-offset-1">
+
+      <% COUNTRIES.each do |country| %>
+        <i class="flag-webicon small <%= country.downcase.gsub(' ', '-') %>" style="vertical-align: baseline; margin-right: 5px;"><%= country.downcase.gsub(' ', '-') %></i>
+      <% end %>
+
+    </div>
+  </div>
+</div>
+

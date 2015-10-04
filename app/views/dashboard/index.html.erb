@@ -6,14 +6,15 @@
   The Schengen area and Turkey are among the countries in which many foreigners can stay with a tourist visa for 90 days in ANY 180 days period. Calculate when you must leave or when you can re-enter.
 <% end %>
 
-<div class="container">
+<div class="container svg">
   <div class="row">
     <div class="col-sm-5">
 
       <ul class="list-group">
         <li class="list-group-item text-uppercase padded">
           <div class="text-center">
-            <%= image_tag "flags/us.svg",style: "vertical-align: baseline; margin-right: 5px", height: "32px" %>
+            <%#= image_tag "flags/us.svg",style: "vertical-align: baseline; margin-right: 5px", height: "32px" %>
+              <i class="flag-webicon small <%= @user.citizenship.downcase.gsub(' ', '-') %>" style="vertical-align: baseline; margin-right: 5px;"></i>
             <div class="text-left" style="display: inline-block; margin: 0 auto;">
                 <div>
                   <div class="text-medium"><strong><%= @user.citizenship %></strong></div>
