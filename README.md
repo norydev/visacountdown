@@ -1,6 +1,6 @@
 # Visa Countdown
 
-[Visa Countdown](https://visacountdown.com) helps you calculate your visa days in areas that have a "90 days in any 180 days" policy such as the Schengen Area and Turkey.
+[Visa Countdown](http://visacountdown.com) helps you calculate your visa days in areas that have a "90 days in any 180 days" policy such as the Schengen Area and Turkey.
 
 ## Contributing
 
