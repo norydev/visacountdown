@@ -14,11 +14,13 @@ class Countdown
   def remaining_time
     n = get_remaining_time(date: status[:rt_date], latest_entry: status[:rt_latest])
     n += 1 unless entry_has_happened?(date: status[:rt_date], latest_entry: status[:rt_latest])
+    n
   end
 
   def exit_day
     d = get_exit_day(date: status[:exit_date])
     d -= 1 unless entry_has_happened?(date: status[:rt_date], latest_entry: status[:rt_latest])
+    d
   end
 
   def next_entry

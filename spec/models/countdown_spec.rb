@@ -88,7 +88,7 @@ RSpec.describe Countdown, type: :model do
       end
 
       it 'returns the correct remaining time' do
-        expect(@countdown.remaining_time).to be(39)
+        expect(@countdown.remaining_time).to be(40)
       end
 
       it 'returns the correct exit day' do
@@ -117,7 +117,7 @@ RSpec.describe Countdown, type: :model do
       end
 
       it 'returns the correct remaining time' do
-        expect(@countdown.remaining_time).to be(39)
+        expect(@countdown.remaining_time).to be(40)
       end
 
       it 'returns the correct exit day' do
@@ -148,7 +148,7 @@ RSpec.describe Countdown, type: :model do
       end
 
       it 'returns the correct remaining time' do
-        expect(@countdown.remaining_time).to be(49)
+        expect(@countdown.remaining_time).to be(50)
       end
 
       it 'returns the correct exit day' do
@@ -177,7 +177,7 @@ RSpec.describe Countdown, type: :model do
       end
 
       it 'returns the correct remaining time' do
-        expect(@countdown.remaining_time).to be(49)
+        expect(@countdown.remaining_time).to be(50)
       end
 
       it 'returns the correct exit day' do
@@ -300,7 +300,7 @@ RSpec.describe Countdown, type: :model do
       end
 
       it 'returns the correct remaining time' do
-        expect(@countdown.remaining_time).to be(13)
+        expect(@countdown.remaining_time).to be(14)
       end
 
       it 'returns the correct exit day' do
@@ -326,7 +326,7 @@ RSpec.describe Countdown, type: :model do
       end
 
       it 'returns the correct remaining time' do
-        expect(@countdown.remaining_time).to be(13)
+        expect(@countdown.remaining_time).to be(14)
       end
 
       it 'returns the correct exit day' do
@@ -361,7 +361,7 @@ RSpec.describe Countdown, type: :model do
       end
 
       it 'returns the correct remaining time' do
-        expect(@countdown.remaining_time).to be(89)
+        expect(@countdown.remaining_time).to be(90)
       end
 
       it 'returns the correct exit day' do
@@ -395,7 +395,7 @@ RSpec.describe Countdown, type: :model do
       end
 
       it 'returns the correct remaining time' do
-        expect(@countdown.remaining_time).to be(89)
+        expect(@countdown.remaining_time).to be(90)
       end
 
       it 'returns the correct exit day' do
@@ -430,7 +430,7 @@ RSpec.describe Countdown, type: :model do
       end
 
       it 'returns the correct remaining time' do
-        expect(@countdown.remaining_time).to be(89)
+        expect(@countdown.remaining_time).to be(90)
       end
 
       it 'returns the correct exit day' do
@@ -464,7 +464,7 @@ RSpec.describe Countdown, type: :model do
       end
 
       it 'returns the correct remaining time' do
-        expect(@countdown.remaining_time).to be(69)
+        expect(@countdown.remaining_time).to be(70)
       end
 
       it 'returns the correct exit day' do
@@ -499,7 +499,7 @@ RSpec.describe Countdown, type: :model do
       end
 
       it 'returns the correct remaining time' do
-        expect(@countdown.remaining_time).to be(89)
+        expect(@countdown.remaining_time).to be(90)
       end
 
       it 'returns the correct exit day' do
@@ -533,7 +533,7 @@ RSpec.describe Countdown, type: :model do
       end
 
       it 'returns the correct remaining time' do
-        expect(@countdown.remaining_time).to be(69)
+        expect(@countdown.remaining_time).to be(70)
       end
 
       it 'returns the correct exit day' do
@@ -567,7 +567,7 @@ RSpec.describe Countdown, type: :model do
     end
 
     it 'returns the correct remaining time' do
-      expect(@countdown.remaining_time).to be(89)
+      expect(@countdown.remaining_time).to be(90)
     end
 
     it 'returns the correct exit day' do
@@ -600,7 +600,7 @@ RSpec.describe Countdown, type: :model do
     end
 
     it 'returns the correct remaining time' do
-      expect(@countdown.remaining_time).to be(89)
+      expect(@countdown.remaining_time).to be(90)
     end
 
     it 'returns the correct exit day' do
@@ -633,7 +633,7 @@ RSpec.describe Countdown, type: :model do
     end
 
     it 'returns the correct remaining time' do
-      expect(@countdown.remaining_time).to be(89)
+      expect(@countdown.remaining_time).to be(90)
     end
 
     it 'returns the correct exit day' do
