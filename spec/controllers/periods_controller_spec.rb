@@ -29,21 +29,6 @@ RSpec.describe PeriodsController, type: :controller do
     end
   end
 
-  describe "GET #index" do
-    it "assigns all periods as @periods" do
-      get :index, {}, valid_session
-      expect(assigns(:periods)).to eq(periods)
-    end
-  end
-
-  describe "GET #show" do
-    it "assigns the requested period as @period" do
-      period = FactoryGirl.create :period, destination: @destination
-      get :show, {:id => period.to_param}, valid_session
-      expect(assigns(:period)).to eq(period)
-    end
-  end
-
   describe "GET #new" do
     it "assigns a new period as @period" do
       get :new, {}, valid_session
@@ -75,7 +60,7 @@ RSpec.describe PeriodsController, type: :controller do
 
       it "redirects to the created period" do
         post :create, {:period => valid_attributes}, valid_session
-        expect(response).to redirect_to(Period.last)
+        expect(response).to redirect_to(root_path)
       end
     end
 
@@ -114,7 +99,7 @@ RSpec.describe PeriodsController, type: :controller do
       it "redirects to the period" do
         period = FactoryGirl.create :period, destination: @destination
         put :update, {:id => period.to_param, :period => valid_attributes}, valid_session
-        expect(response).to redirect_to(period)
+        expect(response).to redirect_to(root_path)
       end
     end
 

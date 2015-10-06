@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate_user!
-  before_action :set_user
+  before_action :set_user, only: [:edit, :set_citizenship]
+
+  # GET
+  def edit
+  end
 
   # PATCH
   def set_citizenship

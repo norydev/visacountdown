@@ -18,17 +18,17 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :destinations, only: [] do
+  resources :destinations, only: [:edit] do
     member do
       patch 'set_latest_entry'
       put 'set_latest_entry'
     end
   end
 
-  resources :periods
+  resources :periods, except: [:index, :show]
 
   devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
 
-  root 'welcome#index'
+  root 'dashboard#index'
 
 end

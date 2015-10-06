@@ -9,39 +9,62 @@
 .padded {
   padding-top: 3em;
   padding-bottom: 3em;
+  &-mini {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    &-bottom {
+      padding-top: 0;
+      padding-bottom: 1em;
+    }
+  }
 }
 
-.mini-padded {
-  padding-top: 1em;
-  padding-bottom: 1em;
+.citizen {
+  &-text {
+    display: inline-block;
+    margin: 0 auto;
+  }
+  &-flag {
+    vertical-align: baseline;
+    margin-right: 5px;
+  }
 }
+
+
 
 .bg-red {
   background: $red;
   color: white;
+  border-color: $red;
 }
 .bg-blue {
   background: $blue;
   color: white;
+  border-color: $blue;
 }
 .bg-yellow {
   background: $yellow;
   color: white;
+  border-color: $yellow;
 }
 .bg-orange {
   background: $orange;
   color: white;
+  border-color: $orange;
 }
 .bg-green {
   background: $green;
   color: white;
+  border-color: $green;
 }
 .bg-purple {
   background: $purple;
   color: white;
+  border-color: $purple;
 }
 
 .bg-dark {
   background: $gray-darker;
   color: white;
+  border-color: $gray-darker;
 }

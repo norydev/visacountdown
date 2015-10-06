@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   validates_inclusion_of :citizenship, :in => COUNTRIES, :allow_blank => true
 
   has_many :destinations, dependent: :destroy
+  has_many :periods, through: :destinations
 
   def self.find_for_facebook_oauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

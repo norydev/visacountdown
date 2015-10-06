@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>User</th>
+      <th>Zone</th>
       <th>First day</th>
       <th>Last day</th>
       <th colspan="3"></th>
@@ -15,7 +16,8 @@
   <tbody>
     <% @periods.each do |period| %>
       <tr>
-        <td><%= period.user %></td>
+        <td><%= period.destination.user %></td>
+        <td><%= period.zone %></td>
         <td><%= period.first_day %></td>
         <td><%= period.last_day %></td>
         <td><%= link_to 'Show', period %></td>
@@ -25,14 +27,6 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-time spent: <%= current_or_guest_user.time_spent(Date.today) %>
-<br>
-remaining time: <%= current_or_guest_user.remaining_time %>
-<br>
-You must leave on <%= current_or_guest_user.latest_exit %> or before
-<br>
 
 <%= link_to 'New Period', new_period_path %>
 
