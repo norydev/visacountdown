@@ -91,11 +91,9 @@ class Countdown
 
     def get_time_spent(date: Date.current, latest_entry: nil)
       nb_days = 0
-
       oldest_date = date - (@window - 1)
-      user_periods = @periods.clone
 
-      user_periods = remove_too_old(user_periods, oldest_date)
+      user_periods = remove_too_old(@periods.clone, oldest_date)
       user_periods = remove_future(user_periods, date)
 
       user_periods = remove_overlaps(user_periods, latest_entry) if latest_entry
@@ -116,9 +114,10 @@ class Countdown
     def get_remaining_time(date: Date.current, latest_entry: nil)
       rt = 0
       entry = latest_entry || date
+      periods = @periods.clone
 
-      (date..(entry + (@length - 1))).each do |day|
-        rt += 1 if get_time_spent(date: day + 1, latest_entry: entry) <= @length
+      (date + 1..(entry + (@length - 1))).each do |day|
+        rt += 1 unless periods.select {|p| (p.first_day..p.last_day).include?(day - @length) }.present?
       end
       rt
     end
@@ -129,8 +128,10 @@ class Countdown
 
     def get_next_entry(date: Date.current)
       wt = 0
+      periods = @periods.clone
+
       (date..(date + @length)).each do |day|
-        wt += 1 if get_time_spent(date: day) >= @length
+        wt += 1 unless periods.select {|p| (p.first_day..p.last_day).include?(day - @window) }.present?
       end
       date + wt
     end
