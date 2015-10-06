@@ -4,7 +4,7 @@ class Period < ActiveRecord::Base
   validates :first_day, :last_day, presence: true
 
   validates_inclusion_of :zone, in: ZONES
-  validates_inclusion_of :country, in: COUNTRIES, :allow_blank => true
+  validates_inclusion_of :country, in: COUNTRIES, allow_blank: true
 
   before_save :solve_overlaps
 

@@ -43,9 +43,7 @@ RSpec.describe PeriodsController, type: :controller do
   describe "POST #create" do
     context "with valid params" do
       it "creates a new Period" do
-        expect {
-          post :create, { period: valid_attributes }, valid_session
-        }.to change(Period, :count).by(1)
+        expect { post :create, { period: valid_attributes }, valid_session }.to change(Period, :count).by(1)
       end
 
       it "assigns a newly created period as @period" do

@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [ :twitter, :facebook ]
 
-  validates_inclusion_of :citizenship, in: COUNTRIES, :allow_blank => true
+  validates_inclusion_of :citizenship, in: COUNTRIES, allow_blank: true
 
   has_many :destinations, dependent: :destroy
   has_many :periods, through: :destinations
