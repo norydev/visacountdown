@@ -12,11 +12,13 @@ class Countdown
   end
 
   def remaining_time
-    get_remaining_time(date: status[:rt_date], latest_entry: status[:rt_latest])
+    n = get_remaining_time(date: status[:rt_date], latest_entry: status[:rt_latest])
+    n += 1 unless entry_has_happened?(date: status[:rt_date], latest_entry: status[:rt_latest])
   end
 
   def exit_day
-    get_exit_day(date: status[:exit_date])
+    d = get_exit_day(date: status[:exit_date])
+    d -= 1 unless entry_has_happened?(date: status[:rt_date], latest_entry: status[:rt_latest])
   end
 
   def next_entry
@@ -48,7 +50,7 @@ class Countdown
             return one_period_too_long || { situation: "inside_ok", rt_date: @latest_entry || user_current_period.last_day + 1, exit_date: @latest_entry || user_current_period.last_day + 1}
           end
         else
-          # check if one next is too long otherwise outisde ok
+          # check if one next is too long otherwise outside ok
           return one_period_too_long || { situation: "outside_ok", rt_date: @latest_entry || Date.current + 1, exit_date: @latest_entry || Date.current + 1 }
         end
       else

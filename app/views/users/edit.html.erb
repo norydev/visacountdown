@@ -14,7 +14,7 @@
         <%= f.error_notification %>
 
         <div class="form-inputs">
-          <%= f.input :citizenship, collection: COUNTRIES, include_blank: false, selected: @user.citizenship %>
+          <%= f.input :citizenship, label: "Your citizenship", collection: COUNTRIES, include_blank: false, selected: @user.citizenship %>
 
           <button type="submit" class="btn btn-success btn-block text-uppercase"><small>Continue</small></button>
         </div>

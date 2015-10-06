@@ -1,47 +1,36 @@
-<div class="container">
-  <!-- CITIZENSHIP SELECTION -->
-  <div class="row">
-    <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-      <ul class="list-group">
-        <li class="list-group-item">
-          <div class="row vertical-align">
-            <div class="top-right">
-              <%= link_to root_path do %>
-                <i class="fa fa-times"></i>
-              <% end %>
-            </div>
+<ul class="list-group">
+  <li class="list-group-item">
+    <div class="row vertical-align">
+      <div class="top-right">
+        <%= link_to root_path do %>
+          <i class="fa fa-times"></i>
+        <% end %>
+      </div>
 
-            <%= simple_form_for @period do |f| %>
-              <%= f.error_notification %>
-              <%= f.input :zone, as: :hidden, value: @period.zone %>
-              <div class="col-xs-6">
-                <div class="input-group">
-                    <span class="input-group-btn">
-                      <button type="submit" class="btn btn-success btn-sm"><small><i class="fa fa-check"></i></small></button>
-                    </span>
-                    <%= f.input :first_day, label: "Entry Date", label_html: {class: "sr-only"}, as: :string, input_html: { class: "first_day input-sm", required: "required", value: date_format(@period.first_day)}, placeholder: "Entry Date" %>
-                  </div><!-- /input-group -->
-              </div>
-              <div class="col-xs-6">
-                <div class="input-group">
-                <%= f.input :last_day, label: "Exit Date", label_html: {class: "sr-only"}, as: :string, input_html: { class: "last_day input-sm", required: "required", value: date_format(@period.last_day)}, placeholder: "Exit Date" %>
-                    <span class="input-group-btn">
-                      <button type="submit" class="btn btn-success btn-sm"><small><i class="fa fa-check"></i></small></button>
-                    </span>
-                  </div><!-- /input-group -->
-              </div>
-            <% end %>
-          </div>
-          <div class="row">
-            <div class="col-xs-12 text-center">
-              <span class="text-small">
-                  <%= link_to 'Cancel', root_path %>
+      <%= simple_form_for @period do |f| %>
+        <%= f.error_notification %>
+        <%= f.input :zone, as: :hidden, value: @period.zone %>
+        <div class="col-xs-6">
+          <div class="input-group">
+              <%= f.input :first_day, label: "Entry Date", label_html: {class: "sr-only"}, as: :string, input_html: { class: "first_day input-sm", required: "required", value: date_format(@period.first_day)}, placeholder: "Entry Date" %>
+            </div><!-- /input-group -->
+        </div>
+        <div class="col-xs-6">
+          <div class="input-group">
+          <%= f.input :last_day, label: "Exit Date", label_html: {class: "sr-only"}, as: :string, input_html: { class: "last_day input-sm", required: "required", value: date_format(@period.last_day)}, placeholder: "Exit Date" %>
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-success btn-sm"><small><i class="fa fa-check"></i></small></button>
               </span>
-            </div>
-          </div>
-        </li>
-      </ul>
+            </div><!-- /input-group -->
+        </div>
+      <% end %>
     </div>
-  </div>
-  <!-- END CITIZENSHIP SELECTION -->
-</div>
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <span class="text-small">
+            <%= link_to 'Cancel', root_path %>
+        </span>
+      </div>
+    </div>
+  </li>
+</ul>
