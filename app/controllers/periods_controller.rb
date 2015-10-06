@@ -3,8 +3,6 @@ class PeriodsController < ApplicationController
   before_action :set_period, only: [:show, :edit, :update, :destroy]
   before_action :get_destination, only: [:create, :update]
 
-  # skip_before_filter :verify_authenticity_token, only: [:update]
-
   # GET /periods/new
   def new
     @period = Period.new(zone: params[:zone])

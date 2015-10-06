@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   post 'welcome/add_empty'
   post 'welcome/calculation'
 
-  resources :users, only: [:show, :edit] do
+  resources :users, only: [:edit] do
     member do
       patch 'set_citizenship'
       put 'set_citizenship'

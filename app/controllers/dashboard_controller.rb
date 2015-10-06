@@ -3,9 +3,7 @@ class DashboardController < ApplicationController
   before_action :set_user
 
   def index
-    unless @user.citizenship
-      redirect_to edit_user_path(@user)
-    end
+    redirect_to edit_user_path(@user) unless @user.citizenship
   end
 
   private

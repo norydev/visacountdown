@@ -34,7 +34,7 @@ class Policy
   end
 
   def self.write_new
-    #erase file
+    # erase file
     File.open('config/policies.yml', 'w') do |file|
       file.write("")
     end
@@ -48,7 +48,7 @@ class Policy
   private
 
   def self.write_destination(file, destination)
-    file.write( "#{destination}:" + "\n")
+    file.write("#{destination}:" + "\n")
     COUNTRY_LIST.each do |a|
 
       citizenship = a.first
@@ -78,11 +78,11 @@ class Policy
         window = "error"
       end
 
-      file.write( "  #{citizenship}:" + "\n")
-      file.write( "    freedom: #{freedom}" + "\n")
-      file.write( "    need_visa: #{need_visa}" + "\n")
-      file.write( "    length: #{length}" + "\n")
-      file.write( "    window: #{window}" + "\n")
+      file.write("  #{citizenship}:" + "\n")
+      file.write("    freedom: #{freedom}" + "\n")
+      file.write("    need_visa: #{need_visa}" + "\n")
+      file.write("    length: #{length}" + "\n")
+      file.write("    window: #{window}" + "\n")
     end
   end
 end

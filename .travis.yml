@@ -12,3 +12,6 @@ before_script:
 
 script:
   - bundle exec rake
+
+notifications:
+  email: false

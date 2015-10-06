@@ -41,15 +41,15 @@ class Countdown
     def status
       if get_time_spent(latest_entry: @latest_entry) < @length
         if entry_has_happened?(latest_entry: @latest_entry)
-          return { situation: "inside_ok", rt_date: Date.current, rt_latest: @latest_entry, exit_date: Date.current}
+          return { situation: "inside_ok", rt_date: Date.current, rt_latest: @latest_entry, exit_date: Date.current }
         elsif user_in_period?
           if get_time_spent(date: user_current_period.last_day) > @length
-            return { situation: "current_too_long", rt_date: Date.current, rt_latest: user_current_period.first_day, exit_date: Date.current}
+            return { situation: "current_too_long", rt_date: Date.current, rt_latest: user_current_period.first_day, exit_date: Date.current }
           elsif get_time_spent(date: user_current_period.last_day) == @length
             return quota_used(date: user_current_period.last_day + 1, future: "will_be_", quota: user_current_period.last_day)
           else
             # check if one next is too long otherwise inside ok
-            return one_period_too_long || { situation: "inside_ok", rt_date: @latest_entry || user_current_period.last_day + 1, exit_date: @latest_entry || user_current_period.last_day + 1}
+            return one_period_too_long || { situation: "inside_ok", rt_date: @latest_entry || user_current_period.last_day + 1, exit_date: @latest_entry || user_current_period.last_day + 1 }
           end
         else
           # check if one next is too long otherwise outside ok
@@ -65,9 +65,9 @@ class Countdown
     end
 
     def one_period_too_long
-      @periods.order(:first_day).reject{ |p| p.first_day < Date.current }.each do |p|
+      @periods.order(:first_day).reject { |p| p.first_day < Date.current }.each do |p|
         if get_time_spent(date: p.last_day) > @length
-          #plans won't work, one further period will overstay
+          # plans won't work, one further period will overstay
           return { situation: "one_next_too_long", rt_date: p.first_day, exit_date: p.first_day }
         elsif get_time_spent(date: p.last_day) == @length
           return quota_used(quota: p.last_day, date: p.last_day + 1, future: "will_be_")
@@ -117,7 +117,7 @@ class Countdown
       periods = @periods.clone
 
       (date + 1..(entry + (@length - 1))).each do |day|
-        rt += 1 unless periods.select {|p| (p.first_day..p.last_day).include?(day - @length) }.present?
+        rt += 1 unless periods.select { |p| (p.first_day..p.last_day).include?(day - @length) }.present?
       end
       rt
     end
@@ -131,7 +131,7 @@ class Countdown
       periods = @periods.clone
 
       (date..(date + @length)).each do |day|
-        wt += 1 unless periods.select {|p| (p.first_day..p.last_day).include?(day - @window) }.present?
+        wt += 1 unless periods.select { |p| (p.first_day..p.last_day).include?(day - @window) }.present?
       end
       date + wt
     end

@@ -23,7 +23,7 @@ module DestinationsHelper
 
     if ["current_too_long", "one_next_too_long", "quota_will_be_used_cannot_enter", "quota_used_cannot_enter"].include?(situation)
       "orange"
-    elsif ["quota_will_be_used_no_entry", "quota_used_no_entry", "no info" ].include?(situation)
+    elsif ["quota_will_be_used_no_entry", "quota_used_no_entry", "no info"].include?(situation)
       "blue"
     elsif situation == "overstay"
       "red"
@@ -40,7 +40,8 @@ module DestinationsHelper
       "info-circle"
     when "red"
       "times-circle"
-    when "orange"
+    else
+    # when "orange"
       "exclamation-triangle"
     end
   end
