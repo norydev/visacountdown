@@ -40,7 +40,7 @@
         <div class="text-average"><strong><%= destination.countdown.remaining_time %> days</strong></div>
       </div>
 
-      <% unless ["outside_ok", "inside_ok"].include?(destination.countdown.situation) && destination.latest_entry.nil? %>
+      <% unless ["outside_ok", "inside_ok"].include?(destination.countdown.situation) && !destination.latest_entry? %>
         <div class="col-xs-6 text-right">
           <div class="text-mini">Latest exit</div>
           <div class="text-average"><strong><%= date_format(destination.countdown.exit_day) %></strong></div>

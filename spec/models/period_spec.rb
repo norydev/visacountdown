@@ -12,8 +12,8 @@ RSpec.describe Period, type: :model do
   it 'solves overlaping periods from same user and same country' do
     u = FactoryGirl.create :user, citizenship: "United States"
     d = FactoryGirl.create :destination, zone: "Schengen area", user: d
-    p1 = FactoryGirl.create( :period, destination: d, first_day: 40.days.ago, last_day: 20.days.ago, country: "Germany" )
-    p2 = FactoryGirl.create( :period, destination: d, first_day: 30.days.ago, last_day: 10.days.ago, country: "Germany" )
+    p1 = FactoryGirl.create :period, destination: d, first_day: 40.days.ago, last_day: 20.days.ago, country: "Germany"
+    p2 = FactoryGirl.create :period, destination: d, first_day: 30.days.ago, last_day: 10.days.ago, country: "Germany"
 
     expect(d.periods.size).to eq(1)
   end
@@ -21,8 +21,8 @@ RSpec.describe Period, type: :model do
   it 'keep periods as declared if not overlaping' do
     u = FactoryGirl.create :user, citizenship: "United States"
     d = FactoryGirl.create :destination, zone: "Schengen area", user: d
-    p1 = FactoryGirl.create( :period, destination: d, first_day: 40.days.ago, last_day: 20.days.ago, country: "Germany" )
-    p2 = FactoryGirl.create( :period, destination: d, first_day: 19.days.ago, last_day: 10.days.ago, country: "Germany" )
+    p1 = FactoryGirl.create :period, destination: d, first_day: 40.days.ago, last_day: 20.days.ago, country: "Germany"
+    p2 = FactoryGirl.create :period, destination: d, first_day: 19.days.ago, last_day: 10.days.ago, country: "Germany"
 
     expect(d.periods.size).to eq(2)
   end

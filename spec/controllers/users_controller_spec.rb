@@ -6,9 +6,7 @@ RSpec.describe UsersController, type: :controller do
 
   describe "PATCH #set_citizenship" do
     context "with valid params" do
-      let(:new_attributes) {
-        {citizenship: "Belgium"}
-      }
+      let(:new_attributes) { {citizenship: "Belgium"} }
 
       it 'updates the requested user' do
         user = FactoryGirl.create :user
@@ -33,13 +31,13 @@ RSpec.describe UsersController, type: :controller do
     context "with invalid params" do
       it "assigns the user as @user" do
         user = FactoryGirl.create :user
-        patch :set_citizenship, {:id => user.to_param, :user => {citizenship: "Rhodesia" }}, valid_session
+        patch :set_citizenship, {id: user.to_param, user: {citizenship: "Rhodesia" }}, valid_session
         expect(assigns(:user)).to eq(user)
       end
 
       it "re-renders the 'edit' template" do
         user = FactoryGirl.create :user
-        patch :set_citizenship, {:id => user.to_param, :user => {citizenship: "Rhodesia" }}, valid_session
+        patch :set_citizenship, {id: user.to_param, user: {citizenship: "Rhodesia" }}, valid_session
         expect(response).to render_template("edit")
       end
     end

@@ -62,12 +62,12 @@ class ApplicationController < ActionController::Base
   end
 
   def create_guest_user
-    u = User.create(:email => "guest_#{Time.now.to_i}#{rand(100)}@example.com")
-    u.save!(:validate => false)
+    u = User.create(email: "guest_#{Time.now.to_i}#{rand(100)}@example.com")
+    u.save!(validate: false)
 
     ZONES.each do |z|
       d = Destination.new(user: u, zone: z)
-      d.save!(:validate => false)
+      d.save!(validate: false)
     end
 
     session[:guest_user_id] = u.id

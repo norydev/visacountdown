@@ -1,7 +1,5 @@
 module PeriodsHelper
   def date_format(date)
-    if date
-      date.strftime("%d %b %Y")
-    end
+    date.strftime("%d %b %Y") if date
   end
 end

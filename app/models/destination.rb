@@ -9,9 +9,7 @@ class Destination < ActiveRecord::Base
   end
 
   def countdown
-    if policy.length != policy.window
-      Countdown.new(destination: self)
-    end
+    Countdown.new(destination: self) if policy.length != policy.window
   end
 
   def to_s
