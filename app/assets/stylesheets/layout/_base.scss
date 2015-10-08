@@ -58,6 +58,17 @@ strong {
   }
 }
 
+.citizen {
+  &-text {
+    display: inline-block;
+    margin: 0 auto;
+  }
+  &-flag {
+    vertical-align: baseline;
+    margin-right: 5px;
+  }
+}
+
 .btn-ghost {
   margin: 0;
   padding: 0;

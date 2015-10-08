@@ -19,19 +19,6 @@
   }
 }
 
-.citizen {
-  &-text {
-    display: inline-block;
-    margin: 0 auto;
-  }
-  &-flag {
-    vertical-align: baseline;
-    margin-right: 5px;
-  }
-}
-
-
-
 .bg-red {
   background: $red;
   color: white;

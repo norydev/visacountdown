@@ -1,5 +1,6 @@
 class Period < ActiveRecord::Base
   belongs_to :destination, required: true
+  has_one :user, through: :destination
 
   validates :first_day, :last_day, presence: true
 

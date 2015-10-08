@@ -10,6 +10,7 @@ admin = User.new
 admin.email = "superadmin@yopmail.com"
 admin.password = "superadmin"
 admin.password_confirmation = "superadmin"
+admin.citizenship = COUNTRIES.sample
 admin.admin = true
 admin.save!
 
@@ -22,12 +23,14 @@ admin.save!
   u.save!
 end
 
-User.all.each do |u|
-  d = Destination.new
-  d.user = u
-  d.zone = ZONES.sample
-  d.latest_entry = [rand(20).days.ago, nil].sample
-  d.save!
+ZONES.each do |zone|
+  User.all.each do |u|
+    d = Destination.new
+    d.user = u
+    d.zone = zone
+    d.latest_entry = [rand(20).days.ago, nil].sample
+    d.save!
+  end
 end
 
 Destination.all.each do |d|
