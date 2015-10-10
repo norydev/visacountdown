@@ -4,24 +4,9 @@
     <div class="col-xs-10 col-xs-offset-1">
 
       <% COUNTRIES.each do |country| %>
-        <i class="flag-webicon small <%= country.downcase.gsub(' ', '-') %>" style="vertical-align: baseline; margin-right: 5px;"><%= country.downcase.gsub(' ', '-') %></i>
-      <% end %>
-
-    </div>
-  </div>
-
-  <div class="row bg-dark padded">
-    <div class="col-xs-10 col-xs-offset-1">
-
-      <% COUNTRIES.each do |country| %>
-        <%= image_tag "flags/#{country.downcase.gsub(' ', '-')}.svg", height: "32px", class: "citizen-flag" %>
+        <%= image_tag "flags/#{country.downcase.gsub(' ', '-')}.svg", alt: "#{country.downcase.gsub(' ', '-')}", height: "32px", class: "citizen-flag" %>
       <% end %>
 
     </div>
   </div>
 </div>
-
-
-
-
-

@@ -34,4 +34,8 @@ class User < ActiveRecord::Base
   def to_s
     email
   end
+
+  def flag
+    citizenship.downcase.gsub(' ', '-') if citizenship
+  end
 end
