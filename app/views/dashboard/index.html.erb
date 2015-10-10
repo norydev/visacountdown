@@ -13,7 +13,7 @@
       <ul class="list-group">
         <li class="list-group-item text-uppercase padded">
           <div class="text-center">
-            <i class="flag-webicon small <%= @user.citizenship.downcase.gsub(' ', '-') %> citizen-flag"></i>
+            <%= image_tag "flags/#{@user.flag}.svg", alt: "#{@user.flag}", height: "32px", class: "citizen-flag" %>
             <div class="text-left citizen-text">
               <div>
                 <div class="text-medium"><strong><%= @user.citizenship %></strong></div>

@@ -1,4 +1,4 @@
-ActiveAdmin.register User do
+ActiveAdmin.register Destination do
 
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -13,24 +13,24 @@ ActiveAdmin.register User do
 #   permitted
 # end
 
-  permit_params :email, :citizenship, :admin
+  permit_params :user_id, :zone, :latest_entry
 
   index do
     selectable_column
     column :id
-    column :email
-    column :citizenship
-    column :admin
+    column :user
+    column :zone
+    column :latest_entry
     actions
   end
 
   form do |f|
     f.inputs "Identity" do
-      f.input :email
-      f.input :citizenship, collection: COUNTRIES
+      f.input :zone, collection: ZONES
     end
-    f.inputs "Admin" do
-      f.input :admin
+    f.inputs "Attributes" do
+      f.input :user_id
+      f.input :latest_entry
     end
     f.actions
   end
