@@ -39,7 +39,8 @@ class Countdown
 
     # DEFINE STATUS
     def status
-      if get_time_spent(latest_entry: @latest_entry) < @length
+      time_spent = get_time_spent(latest_entry: @latest_entry)
+      if time_spent < @length
         if entry_has_happened?(latest_entry: @latest_entry)
           return { situation: "inside_ok", rt_date: Date.current, rt_latest: @latest_entry, exit_date: Date.current }
         elsif user_in_period?
@@ -55,6 +56,8 @@ class Countdown
           # check if one next is too long otherwise outside ok
           return one_period_too_long || { situation: "outside_ok", rt_date: @latest_entry || Date.current + 1, exit_date: @latest_entry || Date.current + 1 }
         end
+      elsif time_spent == @length
+        return quota_used(quota: Date.current)
       else
         if user_in_zone?(latest_entry: @latest_entry)
           return { situation: "overstay" }
