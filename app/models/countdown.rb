@@ -56,11 +56,13 @@ class Countdown
           # check if one next is too long otherwise outside ok
           return one_period_too_long || { situation: "outside_ok", rt_date: @latest_entry || Date.current + 1, exit_date: @latest_entry || Date.current + 1 }
         end
-      elsif time_spent == @length
-        return quota_used(quota: Date.current)
       else
         if user_in_zone?(latest_entry: @latest_entry)
-          return { situation: "overstay" }
+          if time_spent == @length
+            return quota_used(quota: Date.current)
+          else
+            return { situation: "overstay" }
+          end
         else
           return quota_used(quota: @periods.order(last_day: :desc).first.last_day)
         end
