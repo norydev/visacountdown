@@ -51,7 +51,7 @@ class PeriodsController < ApplicationController
     @period.destroy
 
     respond_to do |format|
-      format.html { redirect_to root_path, notice: 'Period was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Period was successfully deleted.' }
       format.js
     end
   end
