@@ -129,8 +129,8 @@ RSpec.describe Countdown, type: :model do
   describe 'Situation: outside_ok' do
     context 'with latest entry in the future' do
       before(:context) do
-        @d.latest_entry = 10.days.from_now
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 50.days.ago, last_day: 11.days.ago
+        @d.latest_entry = 1.days.from_now
+        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 98.days.ago, last_day: 11.days.ago
         @countdown = @d.countdown
       end
 
@@ -144,15 +144,15 @@ RSpec.describe Countdown, type: :model do
       end
 
       it 'returns the correct time spent' do
-        expect(@countdown.time_spent).to be(40)
+        expect(@countdown.time_spent).to be(88)
       end
 
       it 'returns the correct remaining time' do
-        expect(@countdown.remaining_time).to be(50)
+        expect(@countdown.remaining_time).to be(2)
       end
 
       it 'returns the correct exit day' do
-        expect(@countdown.exit_day).to eq(59.days.from_now.to_date)
+        expect(@countdown.exit_day).to eq(2.days.from_now.to_date)
       end
     end
 

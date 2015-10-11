@@ -114,10 +114,9 @@ class Countdown
     def get_remaining_time(date: Date.current, latest_entry: nil)
       rt = 0
       entry = latest_entry || date
-      periods = @periods.clone
 
       (date + 1..(entry + (@length - 1))).each do |day|
-        rt += 1 unless periods.select { |p| (p.first_day..p.last_day).include?(day - @length) }.present?
+        rt += 1 if get_time_spent(date: day, latest_entry: entry) <= @length
       end
       rt
     end
