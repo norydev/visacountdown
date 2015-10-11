@@ -6,7 +6,7 @@ class Policy
     @destination = destination || nil
     @citizenship = citizenship || nil
     begin
-      @rules = POLICIES[@destination][@citizenship]
+      @rules = POLICIES[@destination]["policies"][@citizenship]
     rescue
       @rules = {
         "freedom" => "Argument error: nothing found in DB",
@@ -31,6 +31,10 @@ class Policy
 
   def window
     @rules["window"]
+  end
+
+  def website
+    POLICIES[@destination]["website"]
   end
 
   def self.write_new

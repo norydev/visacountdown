@@ -34,7 +34,10 @@
               </div>
               <div class='media-body'>
                 <div class='media-heading text-uppercase'><strong><%= visa_need(destination)[:title] %></strong></div>
-                <%= visa_need(destination)[:text] %>
+                <p><%= visa_need(destination)[:text] %></p>
+                <% if destination.policy.need_visa? === true %>
+                  <p>Get a visa: <a href="<%= destination.policy.website %>" target="_blank"><%= destination.policy.website %></a></p>
+                <% end %>
               </div>
             </div>
           </li>
