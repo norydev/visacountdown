@@ -23,7 +23,7 @@
           </div>
         </li>
 
-        <% @user.destinations.each do |destination| %>
+        <% @user.destinations.order(:zone).each do |destination| %>
           <li class="list-group-item padded-mini">
             <div class="text-center text-uppercase">
               <div class="text-medium padded-mini"><%= destination %></div>
