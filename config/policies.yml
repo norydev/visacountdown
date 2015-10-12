@@ -1,6 +1,11 @@
 Schengen area:
   website: "http://www.schengenvisainfo.com/how-to-apply-schengen-visa/"
   policies:
+    None:
+      freedom: false
+      need_visa: no info
+      length: 90
+      window: 180
     Albania:
       freedom: false
       need_visa: false
@@ -519,6 +524,11 @@ Schengen area:
 Turkey:
   website: "https://www.evisa.gov.tr/en/apply/"
   policies:
+    None:
+      freedom: false
+      need_visa: no info
+      length: 90
+      window: 180
     Albania:
       freedom: false
       need_visa: false
