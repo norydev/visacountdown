@@ -8,22 +8,27 @@ RSpec.describe DestinationsController, type: :controller do
     context "with valid params" do
       let(:new_attributes) { { latest_entry: 5.days.ago } }
 
+      before(:context) do
+        @user = FactoryGirl.create :user
+        @destination = FactoryGirl.create :destination, user: @user
+      end
+
       it 'updates the requested destination' do
-        destination = FactoryGirl.create :destination
-        patch :set_latest_entry, { id: destination.to_param, destination: new_attributes }, valid_session
-        destination.reload
+        sign_in @user
+        patch :set_latest_entry, { id: @destination.to_param, destination: new_attributes }, valid_session
+        @destination.reload
         expect(assigns(:destination)).to have_attributes(latest_entry: Date.parse(5.days.ago.to_s))
       end
 
       it "assigns the requested destination as @destination" do
-        destination = FactoryGirl.create :destination
-        patch :set_latest_entry, { id: destination.to_param, destination: { latest_entry: rand(30).days.ago } }, valid_session
-        expect(assigns(:destination)).to eq(destination)
+        sign_in @user
+        patch :set_latest_entry, { id: @destination.to_param, destination: { latest_entry: rand(30).days.ago } }, valid_session
+        expect(assigns(:destination)).to eq(@destination)
       end
 
       it "redirects to the root_path" do
-        destination = FactoryGirl.create :destination
-        patch :set_latest_entry, { id: destination.to_param, destination: { latest_entry: rand(30).days.ago } }, valid_session
+        sign_in @user
+        patch :set_latest_entry, { id: @destination.to_param, destination: { latest_entry: rand(30).days.ago } }, valid_session
         expect(response).to redirect_to(root_path)
       end
     end

@@ -18,7 +18,7 @@ RSpec.describe PeriodsController, type: :controller do
 
   before(:context) do
     @user = FactoryGirl.create :user
-    @destination = FactoryGirl.create :destination, user: @destination
+    @destination = FactoryGirl.create :destination, user: @user
 
     10.times do
       FactoryGirl.create :period, destination: @destination
@@ -76,6 +76,7 @@ RSpec.describe PeriodsController, type: :controller do
       let(:new_attributes) { { zone: "Schengen area", first_day: 5.days.ago, last_day: 2.days.ago } }
 
       it "updates the requested period" do
+        sign_in @user
         period = FactoryGirl.create :period, destination: @destination
         put :update, { id: period.to_param, period: new_attributes }, valid_session
         period.reload
@@ -83,12 +84,14 @@ RSpec.describe PeriodsController, type: :controller do
       end
 
       it "assigns the requested period as @period" do
+        sign_in @user
         period = FactoryGirl.create :period, destination: @destination
         put :update, { id: period.to_param, period: valid_attributes }, valid_session
         expect(assigns(:period)).to eq(period)
       end
 
       it "redirects to the period" do
+        sign_in @user
         period = FactoryGirl.create :period, destination: @destination
         put :update, { id: period.to_param, period: valid_attributes }, valid_session
         expect(response).to redirect_to(root_path)
@@ -97,12 +100,14 @@ RSpec.describe PeriodsController, type: :controller do
 
     context "with invalid params" do
       it "assigns the period as @period" do
+        sign_in @user
         period = FactoryGirl.create :period, destination: @destination
         put :update, { id: period.to_param, period: invalid_attributes }, valid_session
         expect(assigns(:period)).to eq(period)
       end
 
       it "re-renders the 'edit' template" do
+        sign_in @user
         period = FactoryGirl.create :period, destination: @destination
         put :update, { id: period.to_param, period: invalid_attributes }, valid_session
         expect(response).to render_template("edit")
@@ -112,11 +117,13 @@ RSpec.describe PeriodsController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested period" do
+      sign_in @user
       period = FactoryGirl.create :period, destination: @destination
       expect { delete :destroy, { id: period.to_param }, valid_session }.to change(Period, :count).by(-1)
     end
 
     it "redirects to the periods list" do
+      sign_in @user
       period = FactoryGirl.create :period, destination: @destination
       delete :destroy, { id: period.to_param }, valid_session
       expect(response).to redirect_to(root_path)

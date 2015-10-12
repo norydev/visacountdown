@@ -1,6 +1,6 @@
 class PeriodsController < ApplicationController
   skip_before_action :authenticate_user!
-  before_action :set_period, only: [:show, :edit, :update, :destroy]
+  before_action :set_period, only: [:edit, :update, :destroy]
   before_action :get_destination, only: [:create, :update]
 
   # GET /periods/new
@@ -10,6 +10,7 @@ class PeriodsController < ApplicationController
 
   # GET /periods/1/edit
   def edit
+    user_not_authorized unless current_or_guest_user.periods.include?(@period)
   end
 
   # POST /periods
@@ -32,27 +33,35 @@ class PeriodsController < ApplicationController
 
   # PATCH/PUT /periods/1
   def update
-    @period.destination = @destination
-    if @period.update(period_params)
-      respond_to do |format|
-        format.html { redirect_to root_path, notice: 'Period was successfully updated.' }
-        format.js
+    if current_or_guest_user.periods.include?(@period)
+      @period.destination = @destination
+      if @period.update(period_params)
+        respond_to do |format|
+          format.html { redirect_to root_path, notice: 'Period was successfully updated.' }
+          format.js
+        end
+      else
+        respond_to do |format|
+          format.html { render :edit }
+          format.js
+        end
       end
     else
-      respond_to do |format|
-        format.html { render :edit }
-        format.js
-      end
+      user_not_authorized
     end
   end
 
   # DELETE /periods/1
   def destroy
-    @period.destroy
+    if current_or_guest_user.periods.include?(@period)
+      @period.destroy
 
-    respond_to do |format|
-      format.html { redirect_to root_path, notice: 'Period was successfully deleted.' }
-      format.js
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: 'Period was successfully deleted.' }
+        format.js
+      end
+    else
+      user_not_authorized
     end
   end
 

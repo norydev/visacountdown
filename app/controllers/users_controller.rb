@@ -4,21 +4,25 @@ class UsersController < ApplicationController
 
   # GET
   def edit
+    user_not_authorized unless @user == current_or_guest_user
   end
 
   # PATCH
   def set_citizenship
-    # update for FE-FW
-    if @user.update(citizenship_params)
-      respond_to do |format|
-        format.html { redirect_to root_path, notice: 'Your citizenship has been updated.' }
-        format.js
+    if @user == current_or_guest_user
+      if @user.update(citizenship_params)
+        respond_to do |format|
+          format.html { redirect_to root_path, notice: 'Your citizenship has been updated.' }
+          format.js
+        end
+      else
+        respond_to do |format|
+          format.html { render :edit }
+          format.js
+        end
       end
     else
-      respond_to do |format|
-        format.html { render :edit }
-        format.js
-      end
+      user_not_authorized
     end
   end
 
