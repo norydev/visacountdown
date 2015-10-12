@@ -1,16 +1,9 @@
 class ApplicationController < ActionController::Base
-  include Pundit
-
   protect_from_forgery with: :exception
 
   before_action :authenticate_user!, unless: :pages_controller?
 
   helper_method :current_or_guest_user
-
-  # after_action :verify_authorized, except:  :index, unless: :devise_or_pages_controller?
-  # after_action :verify_policy_scoped, only: :index, unless: :devise_or_pages_controller?
-
-  # rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   # if user is logged in, return current_user, else return guest_user
   def current_or_guest_user
