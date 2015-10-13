@@ -23,3 +23,5 @@ deploy:
   app: daysinturkey-production
   on:
     repo: NoryDev/visacountdown
+  run:
+    - "rake db:migrate"
