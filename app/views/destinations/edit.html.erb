@@ -27,7 +27,7 @@
                 <%= f.error_notification %>
 
                 <div class="input-group">
-                  <%= f.input :latest_entry, label_html: {class: "sr-only"}, as: :string, input_html: {class: "form-control input-sm latest_planned", value: date_format(@destination.latest_entry)}%>
+                  <%= f.input :latest_entry, label_html: { class: "sr-only" }, as: :string, input_html: { type: "date", class: "form-control input-sm latest_planned", value: form_date_format(@destination.latest_entry) }%>
                   <span class="input-group-btn">
                     <button type="submit" class="btn btn-success btn-sm"><small><i class="fa fa-check"></i></small></button>
                   </span>

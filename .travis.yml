@@ -25,3 +25,4 @@ deploy:
     repo: NoryDev/visacountdown
   run:
     - "rake db:migrate"
+    - restart
