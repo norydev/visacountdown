@@ -1,35 +1,39 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate_user!
+  before_action :set_user, only: [:edit, :set_citizenship]
 
-  def latest_entry
+  # GET
+  def edit
+    user_not_authorized unless @user == current_or_guest_user
+  end
 
-    @time_now = Time.zone.now.strftime("%B %d, %Y - %H:%M")
-    @today = Time.zone.now.to_date
-    @oldest_date = (Time.zone.now.to_date - 179).strftime("%d %b %Y")
-
-    @user = current_or_guest_user
-
-    @user.latest_entry = latest_params[:latest_entry]
-
-    @periods = @user.periods.order(:last_day)
-    @latest_entry = @user.latest_entry.strftime("%d %b %Y") if @user.latest_entry
-
-    if @user.save
-      respond_to do |format|
-        format.html { redirect_to root_path, notice: 'Your countdown has been calculated.' }
-        format.js
+  # PATCH
+  def set_citizenship
+    if @user == current_or_guest_user
+      if @user.update(citizenship_params)
+        respond_to do |format|
+          format.html { redirect_to root_path, notice: 'Your citizenship has been updated.' }
+          format.js
+        end
+      else
+        respond_to do |format|
+          format.html { render :edit }
+          format.js
+        end
       end
     else
-      respond_to do |format|
-        format.html { render :new }
-        format.js
-      end
+      user_not_authorized
     end
   end
 
   private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_user
+      @user = User.find(params[:id]) # was current_or_guest_user
+    end
+
     # Only allow a trusted parameter "white list" through.
-    def latest_params
-      params.require(:user).permit(:latest_entry)
+    def citizenship_params
+      params.require(:user).permit(:citizenship)
     end
 end

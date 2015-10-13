@@ -1,5 +1,9 @@
-<h1>New Period</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+      <h4>New Period</h4>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', periods_path %>
+      <%= render 'form', period: @period %>
+    </div>
+  </div>
+</div>

@@ -13,30 +13,21 @@ ActiveAdmin.register User do
 #   permitted
 # end
 
-  permit_params :email, :latest_entry, :citizenship, :destination, :admin
+  permit_params :email, :citizenship, :admin
 
   index do
     selectable_column
     column :id
     column :email
     column :citizenship
-    column :destination
-    column :latest_entry
-    # column :created_at
-    column :updated_at
     column :admin
     actions
   end
 
   form do |f|
     f.inputs "Identity" do
-      # f.input :name
       f.input :email
-      f.input :citizenship
-    end
-    f.inputs "Entries" do
-      f.input :destination
-      f.input :latest_entry
+      f.input :citizenship, collection: COUNTRIES
     end
     f.inputs "Admin" do
       f.input :admin

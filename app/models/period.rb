@@ -1,16 +1,24 @@
 class Period < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :destination, required: true
+  has_one :user, through: :destination
 
   validates :first_day, :last_day, presence: true
+
+  validates_inclusion_of :zone, in: ZONES
+  validates_inclusion_of :country, in: COUNTRIES, allow_blank: true
 
   before_save :solve_overlaps
 
   private
 
-    def solve_overlaps
-      self.user.periods.each do |p|
-        next if self == p
+    def all_periods_but_me
+      self.destination.periods.where(zone: self.zone).where.not(id: id)
+    end
 
+    def solve_overlaps
+      # Solve overlaps of periods in the same zone.
+      # For Schengen, see Destination method to solve overlaps within a destination
+      all_periods_but_me.each do |p|
         overlaps_with_previous = (p.first_day..p.last_day).overlaps?(self.first_day..self.last_day)
 
         if overlaps_with_previous

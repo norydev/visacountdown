@@ -6,12 +6,8 @@ gem "rails", "4.2.0"
 gem "pg"
 gem "figaro"
 gem "simple_form"
-gem "country_select"
 gem "high_voltage"
 gem "devise"
-gem "pundit"
-gem "paperclip"
-gem "aws-sdk", "< 2.0"
 
 gem "jquery-rails"
 gem "jquery-ui-rails"
@@ -30,6 +26,9 @@ gem 'omniauth-facebook'
 
 gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin.git'
 
+# API
+gem "jbuilder"
+
 group :development, :test do
   gem "spring"
   gem "annotate"
@@ -39,6 +38,13 @@ group :development, :test do
   gem "pry-byebug"
   gem "pry-rails"
   gem "letter_opener"
+  gem "faker"
+  gem "rspec-rails"
+  gem "factory_girl_rails"
+end
+
+group :test do
+  gem "shoulda-matchers"
 end
 
 group :production do

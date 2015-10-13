@@ -1,16 +1,9 @@
 class ApplicationController < ActionController::Base
-  include Pundit
-
   protect_from_forgery with: :exception
 
   before_action :authenticate_user!, unless: :pages_controller?
 
   helper_method :current_or_guest_user
-
-  # after_action :verify_authorized, except:  :index, unless: :devise_or_pages_controller?
-  # after_action :verify_policy_scoped, only: :index, unless: :devise_or_pages_controller?
-
-  # rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   # if user is logged in, return current_user, else return guest_user
   def current_or_guest_user
@@ -55,17 +48,21 @@ class ApplicationController < ActionController::Base
   # called (once) when the user logs in, insert any code your application needs
   # to hand off from guest_user to current_user.
   def logging_in
-    guest_user.periods.update_all(user_id: current_user.id)
+    guest_user.destinations.update_all(user_id: current_user.id) unless current_user.destinations.present?
 
-    current_user.citizenship = guest_user.citizenship if guest_user.citizenship
-    current_user.destination = guest_user.destination if guest_user.destination
-    current_user.latest_entry = guest_user.latest_entry if guest_user.latest_entry
+    current_user.citizenship = guest_user.citizenship unless current_user.citizenship
     current_user.save
   end
 
   def create_guest_user
-    u = User.create(:email => "guest_#{Time.now.to_i}#{rand(100)}@example.com")
-    u.save!(:validate => false)
+    u = User.new(email: "guest_#{Time.now.to_i}#{rand(100)}@example.com")
+    u.save!(validate: false)
+
+    ZONES.each do |z|
+      d = Destination.new(user: u, zone: z)
+      d.save!(validate: false)
+    end
+
     session[:guest_user_id] = u.id
     u
   end

@@ -2,24 +2,24 @@ Rails.application.routes.draw do
 
   ActiveAdmin.routes(self)
 
-  get 'welcome/index'
-  get 'welcome/empty_user'
-  get 'welcome/calculator'
-  get 'welcome/results'
+  resources :users, only: [:edit] do
+    member do
+      patch 'set_citizenship'
+      put 'set_citizenship'
+    end
+  end
 
-  post 'welcome/user_details'
-  post 'welcome/add_empty'
-  post 'welcome/calculation'
+  resources :destinations, only: [:edit] do
+    member do
+      patch 'set_latest_entry'
+      put 'set_latest_entry'
+    end
+  end
 
-  post 'users/latest_entry'
-
-  patch 'users/latest_entry'
-  put 'users/latest_entry'
-
-  resources :periods
+  resources :periods, except: [:index, :show]
 
   devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
 
-  root 'welcome#index'
+  root 'dashboard#index'
 
 end

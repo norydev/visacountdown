@@ -1,0 +1,25 @@
+<%= content_for(:title) do %>
+  Visa Countdown
+<% end %>
+
+<%= content_for(:description) do %>
+  The Schengen area and Turkey are among the countries in which many foreigners can stay with a tourist visa for 90 days in ANY 180 days period. Calculate when you must leave or when you can re-enter.
+<% end %>
+
+<div class="container">
+  <!-- CITIZENSHIP SELECTION -->
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+      <%= simple_form_for(@user, url: set_citizenship_user_path(@user)) do |f| %>
+        <%= f.error_notification %>
+
+        <div class="form-inputs">
+          <%= f.input :citizenship, label: "Your citizenship", collection: COUNTRIES, include_blank: false, selected: @user.citizenship %>
+
+          <button type="submit" class="btn btn-success btn-block text-uppercase"><small>Continue</small></button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <!-- END CITIZENSHIP SELECTION -->
+</div>

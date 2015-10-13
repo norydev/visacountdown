@@ -2,7 +2,7 @@
  * Fonts
  * ------------------------------------- */
 // Google fonts
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,300,700|Montserrat:400,700|Raleway:300,400");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,300,500,600,700|Montserrat:400,700|Raleway:300,400");
 $base-font: "Open Sans", "Helvetica", "sans-serif";
 $header-font: "Open Sans", "Montserrat", "sans-serif";
 $navbar-font: "Open Sans", "Montserrat", 'Raleway', "sans-serif";
@@ -18,23 +18,24 @@ $navbar-font: "Open Sans", "Montserrat", 'Raleway', "sans-serif";
 // $my-font: "Font Name";
 
 // Font-size and line-height
-$base-size: 16px;
+$base-size: 14px;
 $base-height: 1.4;
 
 /* -------------------------------------
  * Colors
  * ------------------------------------- */
 // Scheme
-$red: #C9302C;
-$blue: #31B0D5;
+$red: #d9534f;
+$blue: #5bc0de;
 $yellow: #FDB631;
-$orange: #EC971F;
-$green: #47CF57;
-$purple: #286090;
+$orange: #f0ad4e;
+$green: #5cb85c;
+$purple: darken(#428bca, 6.5%);
 
 // Gray scale
 $gray-darker:  lighten(#000, 13.5%); // #222
 $gray-dark:    lighten(#000, 20%);   // #333
 $gray:         lighten(#000, 33.5%); // #555
 $gray-light:   lighten(#000, 46.7%); // #777
-$gray-lighter: lighten(#000, 93.5%); // #eee
+$gray-lighter: lighten(#000, 75%);
+$gray-ultralight: lighten(#000, 93.5%); // #eee

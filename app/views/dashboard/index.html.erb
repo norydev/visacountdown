@@ -1,0 +1,81 @@
+<%= content_for(:title) do %>
+  Visa Countdown
+<% end %>
+
+<%= content_for(:description) do %>
+  The Schengen area and Turkey are among the countries in which many foreigners can stay with a tourist visa for 90 days in ANY 180 days period. Calculate when you must leave or when you can re-enter.
+<% end %>
+
+<div class="container svg">
+  <div class="row">
+    <!-- USER COLUMN -->
+    <div class="col-sm-5">
+      <ul class="list-group">
+        <li class="list-group-item text-uppercase padded">
+          <div class="text-center">
+            <%= image_tag "flags/#{@user.flag}.svg", alt: "#{@user.flag}", height: "32px", class: "citizen-flag" %>
+            <div class="text-left citizen-text">
+              <div>
+                <div class="text-medium"><strong><%= @user.citizenship %></strong></div>
+                <div class="text-mini"><%= link_to 'Edit your citizenship', edit_user_path(@user) %></div>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <% @user.destinations.order(:zone).each do |destination| %>
+          <li class="list-group-item padded-mini">
+            <div class="text-center text-uppercase">
+              <div class="text-medium padded-mini"><%= destination %></div>
+            </div>
+            <div class='media'>
+              <div class='media-left media-middle'>
+                <%= image_tag visa_need(destination)[:image], height: '50px', style: 'vertical-align: text-bottom' %>
+              </div>
+              <div class='media-body'>
+                <div class='media-heading text-uppercase'><strong><%= visa_need(destination)[:title] %></strong></div>
+                <p><%= visa_need(destination)[:text] %></p>
+              </div>
+            </div>
+
+            <% if destination.policy.need_visa? === true %>
+              <div class="text-center"><a href="<%= destination.policy.website %>" class="btn btn-primary" target="_blank">Get a visa</a></div>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <!-- END USER COLUMN -->
+    <div class="col-sm-7">
+      <% @user.destinations.order(:zone).each do |destination| %>
+      <div class="col-md-6">
+        <ul class="list-group">
+
+          <%= render 'destinations/status', destination: destination %>
+
+          <% if destination.latest_entry && destination.latest_entry <= Date.current %>
+            <%= render 'periods/one_period', start: date_format(destination.latest_entry), stop: "ongoing", count: (Date.current - destination.latest_entry).to_i + 1, destination: destination, period: nil %>
+          <% elsif destination.latest_entry && destination.latest_entry > Date.current %>
+            <%= render 'periods/one_period', start: date_format(destination.latest_entry), stop: "", count: "X", destination: destination, period: nil %>
+          <% else %>
+            <li class="list-group-item">
+              <div class="row text-center">
+                <small><%= link_to 'Add latest or planned entry', edit_destination_path(destination) %></small>
+              </div>
+            </li>
+          <% end %>
+
+          <% destination.periods.order(last_day: :desc).each do |period| %>
+            <%= render 'periods/one_period', period: period, start: date_format(period.first_day), stop: date_format(period.last_day), count: (period.last_day - period.first_day).to_i + 1 %>
+          <% end %>
+          <li class="list-group-item">
+            <div class="row text-center">
+              <small><%= link_to 'Add a period', {controller: "periods", action: "new", zone: destination.zone} %></small>
+            </div>
+          </li>
+        </ul>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</div>

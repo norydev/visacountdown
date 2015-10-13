@@ -1,0 +1,58 @@
+<% color = status_color(destination) %>
+<li class="list-group-item bg-<%= color %> text-uppercase padded-mini">
+  <div class="text-center padded-mini-bottom">
+    <div class="text-medium"><strong><%= destination %></strong></div>
+    <div class="text-large">
+      <i class="fa fa-<%= status_icon(color) %>"></i>
+    </div>
+  </div>
+<% if destination.policy.freedom? %>
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <span class="text-small">Freedom of movement</span>
+    </div>
+  </div>
+<% elsif destination.countdown %>
+  <% if destination.countdown.situation == "overstay" %>
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <div class="text-average"><strong>You are in overstay</strong></div>
+      </div>
+    </div>
+  <% else %>
+
+    <% if ["quota_will_be_used_cannot_enter", "quota_will_be_used_no_entry", "quota_used_cannot_enter", "quota_used_no_entry"].include?(destination.countdown.situation) %>
+      <div class="row padded-mini-bottom">
+        <div class="col-xs-6">
+          <div class="text-mini">Quota used on</div>
+          <div class="text-average"><strong><%= date_format(destination.countdown.quota_day) %></strong></div>
+        </div>
+        <div class="col-xs-6 text-right">
+          <div class="text-mini">Next possible entry</div>
+          <div class="text-average"><strong><%= date_format(destination.countdown.next_entry) %></strong></div>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-xs-6">
+        <div class="text-mini">Remaining time</div>
+        <div class="text-average"><strong><%= destination.countdown.remaining_time %> days</strong></div>
+      </div>
+
+      <% unless ["outside_ok", "inside_ok"].include?(destination.countdown.situation) && !destination.latest_entry? %>
+        <div class="col-xs-6 text-right">
+          <div class="text-mini">Latest exit</div>
+          <div class="text-average"><strong><%= date_format(destination.countdown.exit_day) %></strong></div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <span class="text-small">No information</span>
+    </div>
+  </div>
+<% end %>
+</li>

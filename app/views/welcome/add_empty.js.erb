@@ -1,7 +1,0 @@
-var new_form = $("<%= j render 'welcome/stay', id: @next_id, first_day: '', last_day: '' %>").hide();
-$('#new_stays').append(new_form);
-new_form.slideDown();
-
-delete_row();
-add_row();
-date_picker();

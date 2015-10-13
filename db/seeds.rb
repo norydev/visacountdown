@@ -5,3 +5,42 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+admin = User.new
+admin.email = "superadmin@yopmail.com"
+admin.password = "superadmin"
+admin.password_confirmation = "superadmin"
+admin.citizenship = COUNTRIES.sample
+admin.admin = true
+admin.save!
+
+10.times do
+  u = User.new
+  u.email = "#{Faker::Internet.user_name}@yopmail.com"
+  u.password = "12345678"
+  u.password_confirmation = "12345678"
+  u.citizenship = COUNTRIES.sample
+  u.save!
+end
+
+ZONES.each do |zone|
+  User.all.each do |u|
+    d = Destination.new
+    d.user = u
+    d.zone = zone
+    d.latest_entry = [rand(20).days.ago, nil].sample
+    d.save!
+  end
+end
+
+Destination.all.each do |d|
+  3.times do
+    p = Period.new
+    start = Faker::Date.backward(220)
+    p.first_day = start
+    p.last_day = start + 20
+    p.zone = d.zone
+    p.destination = d
+    p.save!
+  end
+end
