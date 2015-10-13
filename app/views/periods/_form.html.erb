@@ -11,10 +11,10 @@
           <%= f.error_notification %>
           <%= f.input :zone, as: :hidden, value: period.zone %>
           <div class="col-xs-5">
-            <%= f.input :first_day, label: "Entry Date", label_html: {class: "sr-only"}, as: :string, input_html: { type: "date", class: "first_day input-sm", required: "required", value: date_format(period.first_day)}, placeholder: "Entry Date" %>
+            <%= f.input :first_day, label: "Entry Date", label_html: { class: "sr-only" }, as: :string, input_html: { type: "date", class: "first_day input-sm", required: "required", value: form_date_format(period.first_day)}, placeholder: "Entry Date" %>
           </div>
           <div class="col-xs-5">
-            <%= f.input :last_day, label: "Exit Date", label_html: {class: "sr-only"}, as: :string, input_html: { type: "date", class: "last_day input-sm", required: "required", value: date_format(period.last_day)}, placeholder: "Exit Date" %>
+            <%= f.input :last_day, label: "Exit Date", label_html: { class: "sr-only" }, as: :string, input_html: { type: "date", class: "last_day input-sm", required: "required", value: form_date_format(period.last_day) }, placeholder: "Exit Date" %>
           </div>
           <div class="col-xs-2">
             <button type="submit" class="btn btn-success btn-sm"><small><i class="fa fa-check"></i></small></button>

@@ -1,13 +1,19 @@
 //Calendar dates for booking
 var date_picker = function(){
 
-  $(".latest_planned").datepicker({
+  if ($( ".latest_planned" ).val()) {
+    $( ".latest_planned" ).val(moment($(".latest_planned").val().toString()).format('DD MMM YYYY'));
+  }
+  $( ".latest_planned" ).datepicker({
     dateFormat: "dd M yy",
     defaultDate: 0,
     changeMonth: false,
     numberOfMonths: 1,
   });
 
+  if ($( ".first_day" ).val()) {
+    $( ".first_day" ).val(moment($( ".first_day" ).val().toString()).format('DD MMM YYYY'));
+  }
   $( ".first_day" ).datepicker({
     dateFormat: "dd M yy",
     defaultDate: 0,
@@ -21,6 +27,9 @@ var date_picker = function(){
     }
   });
 
+  if ($( ".last_day" ).val()) {
+    $( ".last_day" ).val(moment($( ".last_day" ).val().toString()).format('DD MMM YYYY'));
+  }
   $( ".last_day" ).datepicker({
     dateFormat: "dd M yy",
     defaultDate: +1,
@@ -37,5 +46,7 @@ var date_picker = function(){
 //end calendar dates for booking
 
 $(document).ready(function () {
-  date_picker();
+  if (!Modernizr.inputtypes.date) {
+    date_picker();
+  }
 });

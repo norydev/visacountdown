@@ -17,6 +17,9 @@ gem "uglifier"
 gem "bootstrap-sass"
 gem "font-awesome-sass"
 
+gem 'modernizr-rails'
+gem 'momentjs-rails'
+
 gem "rails-i18n"
 gem "devise-i18n"
 gem "devise-i18n-views"
