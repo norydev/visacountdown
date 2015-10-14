@@ -54,7 +54,7 @@ class Countdown
           end
         else
           # check if one next is too long otherwise outside ok
-          return one_period_too_long || { situation: "outside_ok", rt_date: @latest_entry || Date.current + 1, exit_date: @latest_entry || Date.current + 1 }
+          return one_period_too_long || { situation: "outside_ok", rt_date: @latest_entry || (@periods.map{ |p| p.last_day + 1 } << Date.current + 1).max, exit_date: @latest_entry || (@periods.map{ |p| p.last_day + 1 } << Date.current + 1).max }
         end
       else
         if user_in_zone?(latest_entry: @latest_entry)
