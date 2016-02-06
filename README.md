@@ -1,5 +1,6 @@
 # Visa Countdown
 [![Build Status](https://travis-ci.org/NoryDev/visacountdown.svg?branch=develop)](https://travis-ci.org/NoryDev/visacountdown)
+[![security](https://hakiri.io/github/NoryDev/visacountdown/master.svg)](https://hakiri.io/github/NoryDev/visacountdown/master)
 
 [Visa Countdown](http://visacountdown.com) helps you calculate your visa days in areas that have a "90 days in any 180 days" policy such as the Schengen Area and Turkey.
 
