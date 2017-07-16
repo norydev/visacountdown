@@ -1,5 +1,7 @@
 language: ruby
 
+cache: bundler
+
 rvm:
   - 2.4.0
 
@@ -19,7 +21,7 @@ notifications:
 deploy:
   provider: heroku
   api_key:
-    secure: B2FjyjOLP5/z+V/57TN10+WaEdWwniQb4sKRnUYdC1qOQIOH5nTDhT2S4k4AWMLOOWETw3LbEWc5JDQ19p06ovyUNHdn1kBngDKva1FMMQ2NkmQzVpR7oZ8BU2ZbssRVpJbQJxdt1VRIQRW/qnLIb/Crfa0NiS87Mbx1kFpt1Yg=
+    secure: PdqFvJPGsDxNbw9sNUbIVqHpPr/isaoFwGeJBbxYW0cPCpyREpzonpVbt30mEr9XWyidaodE7VyZ+LvVy0gpyPEYerXKpZOzgk62A6RkGtYYvWGysERB7GHCpXGACxrOgIhrC/fdCBG66BPnYMUz6K/6JMzDTLtXgYeTizItsF4=
   app: daysinturkey-production
   on:
     repo: NoryDev/visacountdown
