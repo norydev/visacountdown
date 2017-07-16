@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 
-ruby "2.3.0"
+ruby "2.4.0"
 
-gem "rails", "4.2.5.2"
+gem "rails", "4.2.9"
 gem "pg"
 gem "figaro"
 gem "simple_form"
@@ -27,7 +27,7 @@ gem "devise-i18n-views"
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 
-gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin.git'
+gem 'activeadmin'
 
 # API
 gem "jbuilder"
@@ -42,7 +42,7 @@ group :development, :test do
   gem "pry-rails"
   gem "letter_opener"
   gem "faker"
-  gem "rspec-rails"
+  gem "rspec-rails", '~> 3.4.0'
   gem "factory_girl_rails"
 end
 

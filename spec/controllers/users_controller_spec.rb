@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
-
-  let(:valid_session) { {} }
-
   before(:context) do
     @user = FactoryGirl.create :user
   end
@@ -14,20 +11,20 @@ RSpec.describe UsersController, type: :controller do
 
       it 'updates the requested user' do
         sign_in @user
-        patch :set_citizenship, { id: @user.to_param, user: new_attributes }, valid_session
+        patch :set_citizenship, { id: @user.to_param, user: new_attributes }
         @user.reload
         expect(assigns(:user)).to have_attributes new_attributes
       end
 
       it "assigns the requested user as @user" do
         sign_in @user
-        patch :set_citizenship, { id: @user.to_param, user: { citizenship: COUNTRIES.sample } }, valid_session
+        patch :set_citizenship, { id: @user.to_param, user: { citizenship: COUNTRIES.sample } }
         expect(assigns(:user)).to eq(@user)
       end
 
       it "redirects to the root_path" do
         sign_in @user
-        patch :set_citizenship, { id: @user.to_param, user: { citizenship: COUNTRIES.sample } }, valid_session
+        patch :set_citizenship, { id: @user.to_param, user: { citizenship: COUNTRIES.sample } }
         expect(response).to redirect_to(root_path)
       end
     end
@@ -35,13 +32,13 @@ RSpec.describe UsersController, type: :controller do
     context "with invalid params" do
       it "assigns the user as @user" do
         sign_in @user
-        patch :set_citizenship, { id: @user.to_param, user: { citizenship: "Rhodesia" } }, valid_session
+        patch :set_citizenship, { id: @user.to_param, user: { citizenship: "Rhodesia" } }
         expect(assigns(:user)).to eq(@user)
       end
 
       it "re-renders the 'edit' template" do
         sign_in @user
-        patch :set_citizenship, { id: @user.to_param, user: { citizenship: "Rhodesia" } }, valid_session
+        patch :set_citizenship, { id: @user.to_param, user: { citizenship: "Rhodesia" } }
         expect(response).to render_template("edit")
       end
     end
