@@ -1,6 +1,6 @@
 class Destination < ActiveRecord::Base
   belongs_to :user
-  has_many :periods, dependent: :destroy
+  has_many :periods, -> { order(last_day: :desc) }, dependent: :destroy
 
   validates_presence_of :zone
 
