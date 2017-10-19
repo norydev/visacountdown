@@ -2,7 +2,7 @@ class Period < ActiveRecord::Base
   belongs_to :destination, required: true
   has_one :user, through: :destination
 
-  validates :first_day, :last_day, presence: true
+  validates :destination, :first_day, :last_day, presence: true
 
   validates_inclusion_of :zone, in: ZONES
   validates_inclusion_of :country, in: COUNTRIES, allow_blank: true

@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 
-ruby "2.4.0"
+ruby "2.4.2"
 
-gem "rails", "4.2.9"
+gem "rails", "5.1.4"
 gem "pg"
 gem "figaro"
 gem "simple_form"
@@ -17,32 +17,26 @@ gem "uglifier"
 gem "bootstrap-sass"
 gem "font-awesome-sass"
 
-gem 'modernizr-rails'
-gem 'momentjs-rails'
+gem "modernizr-rails"
+gem "momentjs-rails"
 
-gem "rails-i18n"
-gem "devise-i18n"
-gem "devise-i18n-views"
+gem "omniauth-twitter"
+gem "omniauth-facebook"
 
-gem 'omniauth-twitter'
-gem 'omniauth-facebook'
+gem "activeadmin"
 
-gem 'activeadmin'
-
-# API
-gem "jbuilder"
-
-group :development, :test do
-  gem "spring"
-  gem "annotate"
-  gem "binding_of_caller"
-  gem "better_errors"
-  gem "quiet_assets"
+group :development do
   gem "pry-byebug"
   gem "pry-rails"
+  gem "spring"
+  gem "annotate"
+end
+
+group :development, :test do
   gem "letter_opener"
   gem "faker"
-  gem "rspec-rails", '~> 3.4.0'
+  gem "rspec-rails"
+  gem "rails-controller-testing"
   gem "factory_girl_rails"
 end
 
