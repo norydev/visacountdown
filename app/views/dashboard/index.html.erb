@@ -23,7 +23,7 @@
           </div>
         </li>
 
-        <% @user.destinations.order(:zone).each do |destination| %>
+        <% @destinations.each do |destination| %>
           <li class="list-group-item padded-mini">
             <div class="text-center text-uppercase">
               <div class="text-medium padded-mini"><%= destination %></div>
@@ -47,7 +47,7 @@
     </div>
     <!-- END USER COLUMN -->
     <div class="col-sm-7">
-      <% @user.destinations.order(:zone).each do |destination| %>
+      <% @destinations.each do |destination| %>
       <div class="col-md-6">
         <ul class="list-group">
 
@@ -65,7 +65,7 @@
             </li>
           <% end %>
 
-          <% destination.periods.order(last_day: :desc).each do |period| %>
+          <% destination.periods.each do |period| %>
             <%= render 'periods/one_period', period: period, start: date_format(period.first_day), stop: date_format(period.last_day), count: (period.last_day - period.first_day).to_i + 1 %>
           <% end %>
           <li class="list-group-item">

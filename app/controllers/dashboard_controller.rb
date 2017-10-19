@@ -3,6 +3,7 @@ class DashboardController < ApplicationController
   before_action :set_user
 
   def index
+    @destinations = @user.destinations.includes(:periods)
   end
 
   private
