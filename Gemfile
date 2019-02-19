@@ -21,7 +21,6 @@ gem "modernizr-rails"
 gem "momentjs-rails"
 
 gem "omniauth-twitter"
-gem "omniauth-facebook"
 
 gem "activeadmin"
 
