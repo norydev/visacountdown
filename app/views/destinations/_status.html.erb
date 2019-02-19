@@ -3,7 +3,7 @@
   <div class="text-center padded-mini-bottom">
     <div class="text-medium"><strong><%= destination %></strong></div>
     <div class="text-large">
-      <i class="fa fa-<%= status_icon(color) %>"></i>
+      <i class="<%= status_icon(color) %>"></i>
     </div>
   </div>
 <% if destination.policy.freedom? %>

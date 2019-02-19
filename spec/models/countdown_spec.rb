@@ -2,16 +2,16 @@ require 'rails_helper'
 
 RSpec.describe Countdown, type: :model do
   before(:context) do
-    u = FactoryGirl.create :user, citizenship: "Switzerland"
-    @d = FactoryGirl.create :destination, user: u, zone: "Turkey"
+    u = FactoryBot.create :user, citizenship: "Switzerland"
+    @d = FactoryBot.create :destination, user: u, zone: "Turkey"
   end
 
   describe 'Situation: inside_ok' do
     context 'no trip overlaping 180 days ago' do
       before(:context) do
         @d.update(latest_entry: 10.days.ago)
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 50.days.ago, last_day: 40.days.ago
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 30.days.ago, last_day: 20.days.ago
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 50.days.ago, last_day: 40.days.ago
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 30.days.ago, last_day: 20.days.ago
         @countdown = @d.reload.countdown
       end
 
@@ -40,7 +40,7 @@ RSpec.describe Countdown, type: :model do
     context '1 trip overlaping 180 days ago' do
       before(:context) do
         @d.update(latest_entry: 10.days.ago)
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 185.days.ago, last_day: 105.days.ago
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 185.days.ago, last_day: 105.days.ago
         @countdown = @d.reload.countdown
       end
 
@@ -69,7 +69,7 @@ RSpec.describe Countdown, type: :model do
     context 'inside a period, latest entry after this period' do
       before(:context) do
         @d.update(latest_entry: 20.days.from_now)
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 39.days.ago, last_day: 10.days.from_now
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 39.days.ago, last_day: 10.days.from_now
         @countdown = @d.reload.countdown
       end
 
@@ -98,7 +98,7 @@ RSpec.describe Countdown, type: :model do
     context 'inside a period, no latest entry' do
       before(:context) do
         @d.update(latest_entry: nil)
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 39.days.ago, last_day: 10.days.from_now
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 39.days.ago, last_day: 10.days.from_now
         @countdown = @d.reload.countdown
       end
 
@@ -129,7 +129,7 @@ RSpec.describe Countdown, type: :model do
     context 'with latest entry in the future' do
       before(:context) do
         @d.update(latest_entry: 1.days.from_now)
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 98.days.ago, last_day: 11.days.ago
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 98.days.ago, last_day: 11.days.ago
         @countdown = @d.reload.countdown
       end
 
@@ -158,7 +158,7 @@ RSpec.describe Countdown, type: :model do
     context 'without any latest entry' do
       before(:context) do
         @d.update(latest_entry: nil)
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 50.days.ago, last_day: 11.days.ago
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 50.days.ago, last_day: 11.days.ago
         @countdown = @d.reload.countdown
       end
 
@@ -189,7 +189,7 @@ RSpec.describe Countdown, type: :model do
     context 'latest entry earlier than 90 days ago' do
       before(:context) do
         @d.update(latest_entry: 90.days.ago)
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 120.days.ago, last_day: 100.days.ago
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 120.days.ago, last_day: 100.days.ago
         @countdown = @d.reload.countdown
       end
 
@@ -209,7 +209,7 @@ RSpec.describe Countdown, type: :model do
     context 'in the middle of a period longer than 90 days' do
       before(:context) do
         @d.update(latest_entry: nil)
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 95.days.ago, last_day: 5.days.from_now
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 95.days.ago, last_day: 5.days.from_now
         @countdown = @d.reload.countdown
       end
 
@@ -232,7 +232,7 @@ RSpec.describe Countdown, type: :model do
     context 'with latest entry in the future' do
       before(:context) do
         @d.update(latest_entry: 30.days.from_now)
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 80.days.ago, last_day: 15.days.from_now
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 80.days.ago, last_day: 15.days.from_now
         @countdown = @d.reload.countdown
       end
 
@@ -257,7 +257,7 @@ RSpec.describe Countdown, type: :model do
     context 'without any latest entry' do
       before(:context) do
         @d.update(latest_entry: nil)
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 80.days.ago, last_day: 15.days.from_now
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 80.days.ago, last_day: 15.days.from_now
         @countdown = @d.reload.countdown
       end
 
@@ -284,8 +284,8 @@ RSpec.describe Countdown, type: :model do
     context 'with latest entry in the future' do
       before(:context) do
         @d.update(latest_entry: 30.days.from_now)
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 80.days.ago, last_day: 5.days.ago
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 5.days.from_now, last_day: 25.days.from_now
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 80.days.ago, last_day: 5.days.ago
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 5.days.from_now, last_day: 25.days.from_now
         @countdown = @d.reload.countdown
       end
 
@@ -310,8 +310,8 @@ RSpec.describe Countdown, type: :model do
     context 'without any latest entry' do
       before(:context) do
         @d.update(latest_entry: nil)
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 80.days.ago, last_day: 5.days.ago
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 5.days.from_now, last_day: 25.days.from_now
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 80.days.ago, last_day: 5.days.ago
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 5.days.from_now, last_day: 25.days.from_now
         @countdown = @d.reload.countdown
       end
 
@@ -338,7 +338,7 @@ RSpec.describe Countdown, type: :model do
     context 'User in zone, in the middle of a period' do
       before(:context) do
         @d.update(latest_entry: 120.days.from_now)
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 80.days.ago, last_day: 9.days.from_now
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 80.days.ago, last_day: 9.days.from_now
         @countdown = @d.reload.countdown
       end
 
@@ -371,8 +371,8 @@ RSpec.describe Countdown, type: :model do
     context 'User out of zone, one next period will use quota' do
       before(:context) do
         @d.update(latest_entry: 120.days.from_now)
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 79.days.ago, last_day: 10.days.ago
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 5.days.from_now, last_day: 24.days.from_now
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 79.days.ago, last_day: 10.days.ago
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 5.days.from_now, last_day: 24.days.from_now
         @countdown = @d.reload.countdown
       end
 
@@ -407,7 +407,7 @@ RSpec.describe Countdown, type: :model do
     context 'User in zone, in the middle of a period' do
       before(:context) do
         @d.update(latest_entry: 60.days.from_now)
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 80.days.ago, last_day: 9.days.from_now
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 80.days.ago, last_day: 9.days.from_now
         @countdown = @d.reload.countdown
       end
 
@@ -440,8 +440,8 @@ RSpec.describe Countdown, type: :model do
     context 'User out of zone, one next period will use quota' do
       before(:context) do
         @d.update(latest_entry: 60.days.from_now)
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 89.days.ago, last_day: 20.days.ago
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 5.days.from_now, last_day: 24.days.from_now
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 89.days.ago, last_day: 20.days.ago
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 5.days.from_now, last_day: 24.days.from_now
         @countdown = @d.reload.countdown
       end
 
@@ -476,7 +476,7 @@ RSpec.describe Countdown, type: :model do
     context 'User in zone, in the middle of a period' do
       before(:context) do
         @d.update(latest_entry: nil)
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 80.days.ago, last_day: 9.days.from_now
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 80.days.ago, last_day: 9.days.from_now
         @countdown = @d.reload.countdown
       end
 
@@ -509,8 +509,8 @@ RSpec.describe Countdown, type: :model do
     context 'User out of zone, one next period will use quota' do
       before(:context) do
         @d.update(latest_entry: nil)
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 89.days.ago, last_day: 20.days.ago
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 5.days.from_now, last_day: 24.days.from_now
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 89.days.ago, last_day: 20.days.ago
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 5.days.from_now, last_day: 24.days.from_now
         @countdown = @d.reload.countdown
       end
 
@@ -544,7 +544,7 @@ RSpec.describe Countdown, type: :model do
   describe 'Situation: quota_used_can_enter' do
     before(:context) do
       @d.update(latest_entry: 100.days.from_now)
-      FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 109.days.ago, last_day: 20.days.ago
+      FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 109.days.ago, last_day: 20.days.ago
       @countdown = @d.reload.countdown
     end
 
@@ -577,7 +577,7 @@ RSpec.describe Countdown, type: :model do
   describe 'Situation: quota_used_cannot_enter' do
     before(:context) do
       @d.update(latest_entry: 10.days.from_now)
-      FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 109.days.ago, last_day: 20.days.ago
+      FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 109.days.ago, last_day: 20.days.ago
       @countdown = @d.reload.countdown
     end
 
@@ -610,7 +610,7 @@ RSpec.describe Countdown, type: :model do
   describe 'Situation: quota_used_no_entry' do
     before(:context) do
       @d.update(latest_entry: nil)
-      FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 109.days.ago, last_day: 20.days.ago
+      FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 109.days.ago, last_day: 20.days.ago
       @countdown = @d.reload.countdown
     end
 
@@ -644,8 +644,8 @@ RSpec.describe Countdown, type: :model do
     context 'latest entry in the middle of a period' do
       before(:context) do
         @d.update(latest_entry: 9.days.ago)
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 84.days.ago, last_day: 25.days.ago
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 14.days.ago, last_day: 5.days.ago
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 84.days.ago, last_day: 25.days.ago
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 14.days.ago, last_day: 5.days.ago
         @countdown = @d.reload.countdown
       end
 
@@ -674,8 +674,8 @@ RSpec.describe Countdown, type: :model do
     context 'latest entry before a full period' do
       before(:context) do
         @d.update(latest_entry: 9.days.ago)
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 84.days.ago, last_day: 25.days.ago
-        FactoryGirl.create :period, destination: @d, zone: @d.zone, first_day: 4.days.ago, last_day: 50.days.from_now
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 84.days.ago, last_day: 25.days.ago
+        FactoryBot.create :period, destination: @d, zone: @d.zone, first_day: 4.days.ago, last_day: 50.days.from_now
         @countdown = @d.reload.countdown
       end
 

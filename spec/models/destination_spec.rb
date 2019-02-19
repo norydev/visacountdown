@@ -7,14 +7,34 @@ RSpec.describe Destination, type: :model do
   it { should validate_presence_of(:zone) }
 
   it 'responds to policy with a Policy object' do
-    u = FactoryGirl.build :user, citizenship: "Switzerland"
-    d = FactoryGirl.build :destination, user: u, zone: "Turkey"
+    u = FactoryBot.build :user, citizenship: "Switzerland"
+    d = FactoryBot.build :destination, user: u, zone: "Turkey"
     expect(d.policy).to be_an_instance_of(Policy)
   end
 
   it 'responds to policy with the correct Policy' do
-    u = FactoryGirl.build :user, citizenship: "Switzerland"
-    d = FactoryGirl.build :destination, user: u, zone: "Turkey"
+    u = FactoryBot.build :user, citizenship: "Switzerland"
+    d = FactoryBot.build :destination, user: u, zone: "Turkey"
     expect(d.policy).to have_attributes(destination: "Turkey", citizenship: "Switzerland")
   end
 end
+
+# == Schema Information
+#
+# Table name: destinations
+#
+#  id           :bigint(8)        not null, primary key
+#  latest_entry :date
+#  zone         :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  user_id      :integer
+#
+# Indexes
+#
+#  index_destinations_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
+#

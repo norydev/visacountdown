@@ -1,6 +1,5 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :countdown do
     association :destination
   end
-
 end

@@ -1,7 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :policy do
     citizenship   { COUNTRIES.sample }
     destination   { ZONES.sample }
   end
-
 end

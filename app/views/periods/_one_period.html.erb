@@ -3,12 +3,12 @@
     <div class="top-right">
       <% if period %>
         <%= link_to period, method: :delete, title: "Delete" do %>
-          <i class="fa fa-trash"></i>
+          <i class="far fa-trash-alt"></i>
         <% end %>
       <% elsif destination %>
         <%= simple_form_for(destination, url: set_latest_entry_destination_path(destination)) do |f| %>
             <%= f.input :latest_entry, as: :hidden, input_html: { value: "" } %>
-            <button class="btn btn-ghost" type="submit" title="Delete"><i class="fa fa-trash"></i></button>
+            <button class="btn btn-ghost" type="submit" title="Delete"><i class="far fa-trash-alt"></i></button>
         <% end %>
       <% end %>
     </div>

@@ -15,7 +15,7 @@
           <div class="row vertical-align">
             <div class="top-right">
                 <%= link_to root_path do %>
-                  <i class="fa fa-times"></i>
+                  <i class="fas fa-times"></i>
                 <% end %>
             </div>
             <div class="col-xs-4">
@@ -29,7 +29,7 @@
                 <div class="input-group">
                   <%= f.input :latest_entry, label_html: { class: "sr-only" }, as: :string, input_html: { type: "date", class: "form-control input-sm latest_planned", value: form_date_format(@destination.latest_entry) }%>
                   <span class="input-group-btn">
-                    <button type="submit" class="btn btn-success btn-sm"><small><i class="fa fa-check"></i></small></button>
+                    <button type="submit" class="btn btn-success btn-sm"><small><i class="fas fa-check"></i></small></button>
                   </span>
                 </div><!-- /input-group -->
 

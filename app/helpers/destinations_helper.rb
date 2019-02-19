@@ -35,14 +35,14 @@ module DestinationsHelper
   def status_icon(color)
     case color
     when "green"
-      "thumbs-o-up"
+      "far fa-thumbs-up"
     when "blue"
-      "info-circle"
+      "fas fa-info-circle"
     when "red"
-      "times-circle"
+      "fas fa-times-circle"
     else
     # when "orange"
-      "exclamation-triangle"
+      "fas fa-exclamation-triangle"
     end
   end
 

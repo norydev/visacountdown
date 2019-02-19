@@ -5,8 +5,8 @@ RSpec.describe DestinationsController, type: :controller do
     let(:new_attributes) { { latest_entry: 5.days.ago } }
 
     before(:each) do
-      @user = FactoryGirl.create :user
-      @destination = FactoryGirl.create :destination, user: @user
+      @user = FactoryBot.create :user
+      @destination = FactoryBot.create :destination, user: @user
     end
 
     it 'updates the requested destination' do

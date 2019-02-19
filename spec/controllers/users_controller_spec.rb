@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
   before(:context) do
-    @user = FactoryGirl.create :user
+    @user = FactoryBot.create :user
   end
 
   describe "PATCH #set_citizenship" do

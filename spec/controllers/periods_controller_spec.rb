@@ -5,18 +5,18 @@ RSpec.describe PeriodsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Period. As you add validations to Period, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { FactoryGirl.attributes_for(:period) }
+  let(:valid_attributes) { FactoryBot.attributes_for(:period) }
 
   let(:invalid_attributes) { { first_day: "4 july 1776", last_day: nil, zone: "Cyprus" } }
 
   let(:periods) { Period.all }
 
   before(:context) do
-    @user = FactoryGirl.create :user
-    @destination = FactoryGirl.create :destination, user: @user
+    @user = FactoryBot.create :user
+    @destination = FactoryBot.create :destination, user: @user
 
     10.times do
-      FactoryGirl.create :period, destination: @destination
+      FactoryBot.create :period, destination: @destination
     end
   end
 
@@ -29,7 +29,7 @@ RSpec.describe PeriodsController, type: :controller do
 
   describe "GET #edit" do
     it "assigns the requested period as @period" do
-      period = FactoryGirl.create :period, destination: @destination
+      period = FactoryBot.create :period, destination: @destination
       get :edit, params: { id: period.to_param }
       expect(assigns(:period)).to eq(period)
     end
@@ -72,7 +72,7 @@ RSpec.describe PeriodsController, type: :controller do
 
       it "updates the requested period" do
         sign_in @user
-        period = FactoryGirl.create :period, destination: @destination
+        period = FactoryBot.create :period, destination: @destination
         put :update, params: { id: period.to_param, period: new_attributes }
         period.reload
         expect(assigns(:period)).to have_attributes(zone: "Schengen area", first_day: Date.parse(5.days.ago.to_s), last_day: Date.parse(2.days.ago.to_s))
@@ -80,14 +80,14 @@ RSpec.describe PeriodsController, type: :controller do
 
       it "assigns the requested period as @period" do
         sign_in @user
-        period = FactoryGirl.create :period, destination: @destination
+        period = FactoryBot.create :period, destination: @destination
         put :update, params: { id: period.to_param, period: valid_attributes }
         expect(assigns(:period)).to eq(period)
       end
 
       it "redirects to the period" do
         sign_in @user
-        period = FactoryGirl.create :period, destination: @destination
+        period = FactoryBot.create :period, destination: @destination
         put :update, params: { id: period.to_param, period: valid_attributes }
         expect(response).to redirect_to(root_path)
       end
@@ -96,14 +96,14 @@ RSpec.describe PeriodsController, type: :controller do
     context "with invalid params" do
       it "assigns the period as @period" do
         sign_in @user
-        period = FactoryGirl.create :period, destination: @destination
+        period = FactoryBot.create :period, destination: @destination
         put :update, params: { id: period.to_param, period: invalid_attributes }
         expect(assigns(:period)).to eq(period)
       end
 
       it "re-renders the 'edit' template" do
         sign_in @user
-        period = FactoryGirl.create :period, destination: @destination
+        period = FactoryBot.create :period, destination: @destination
         put :update, params: { id: period.to_param, period: invalid_attributes }
         expect(response).to render_template("edit")
       end
@@ -113,13 +113,13 @@ RSpec.describe PeriodsController, type: :controller do
   describe "DELETE #destroy" do
     it "destroys the requested period" do
       sign_in @user
-      period = FactoryGirl.create :period, destination: @destination
+      period = FactoryBot.create :period, destination: @destination
       expect { delete :destroy, params: { id: period.to_param } }.to change(Period, :count).by(-1)
     end
 
     it "redirects to the periods list" do
       sign_in @user
-      period = FactoryGirl.create :period, destination: @destination
+      period = FactoryBot.create :period, destination: @destination
       delete :destroy, params: { id: period.to_param }
       expect(response).to redirect_to(root_path)
     end

@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 
-ruby "2.4.2"
+ruby "2.6.1"
 
-gem "rails", "5.1.4"
+gem "rails", "5.2.2"
 gem "pg"
 gem "figaro"
 gem "simple_form"
@@ -36,7 +36,7 @@ group :development, :test do
   gem "faker"
   gem "rspec-rails"
   gem "rails-controller-testing"
-  gem "factory_girl_rails"
+  gem "factory_bot_rails"
 end
 
 group :test do
