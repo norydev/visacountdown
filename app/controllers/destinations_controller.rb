@@ -6,7 +6,6 @@ class DestinationsController < ApplicationController
     user_not_authorized unless current_or_guest_user.destinations.include?(@destination)
   end
 
-  # PATCH
   def set_latest_entry
     if current_or_guest_user.destinations.include?(@destination)
       if @destination.update(latest_entry_params)
@@ -26,12 +25,11 @@ class DestinationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_destination
       @destination = Destination.find(params[:id])
     end
 
-    # Only allow a trusted parameter "white list" through.
     def latest_entry_params
       params.require(:destination).permit(:latest_entry)
     end

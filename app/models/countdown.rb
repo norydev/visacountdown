@@ -1,5 +1,4 @@
 class Countdown
-
   def initialize(destination: nil)
     @latest_entry = destination.latest_entry
     @periods = destination.periods.map(&:dup)

@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe PeriodsController, type: :controller do
-
   # This should return the minimal set of attributes required to create a valid
   # Period. As you add validations to Period, be sure to
   # adjust the attributes here as well.
@@ -124,5 +123,4 @@ RSpec.describe PeriodsController, type: :controller do
       expect(response).to redirect_to(root_path)
     end
   end
-
 end

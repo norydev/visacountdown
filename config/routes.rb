@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-
   ActiveAdmin.routes(self)
+
   devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
 
   resources :users, only: [:edit] do
@@ -20,5 +20,4 @@ Rails.application.routes.draw do
   resources :periods, except: [:index, :show]
 
   root 'dashboard#index'
-
 end

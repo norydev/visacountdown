@@ -17,7 +17,6 @@ class Period < ActiveRecord::Base
 
     def solve_overlaps
       # Solve overlaps of periods in the same zone.
-      # For Schengen, see Destination method to solve overlaps within a destination
       all_periods_but_me.each do |p|
         overlaps_with_previous = (p.first_day..p.last_day).overlaps?(self.first_day..self.last_day)
 

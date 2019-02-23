@@ -2,12 +2,10 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_user!
   before_action :set_user, only: [:edit, :set_citizenship]
 
-  # GET
   def edit
     user_not_authorized unless @user == current_or_guest_user
   end
 
-  # PATCH
   def set_citizenship
     if @user == current_or_guest_user
       if @user.update(citizenship_params)
@@ -27,12 +25,11 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_user
-      @user = User.find(params[:id]) # was current_or_guest_user
+      @user = User.find(params[:id])
     end
 
-    # Only allow a trusted parameter "white list" through.
     def citizenship_params
       params.require(:user).permit(:citizenship)
     end

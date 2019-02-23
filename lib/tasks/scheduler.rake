@@ -1,10 +1,8 @@
-task :erase_guest_user => :environment do
-  #do something
+desc "Erase guest users who didn't make any modifications in the last 24h"
+task erase_guest_user: :environment do
   puts "destroying guest users"
-  User.all.each do |u|
-    if u.encrypted_password == "" && (Time.zone.now.to_date - u.updated_at.to_date).to_i >= 1
-      u.destroy!
-    end
-  end
+
+  User.where(encrypted_password: "", updated_at: 50.years.ago..1.day.ago).destroy_all
+
   puts "guest user removed"
 end

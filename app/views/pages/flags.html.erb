@@ -1,12 +1,9 @@
-
 <div class="container svg">
   <div class="row">
     <div class="col-xs-10 col-xs-offset-1">
-
       <% COUNTRIES.each do |country| %>
         <%= image_tag "flags/#{country.downcase.gsub(' ', '-')}.svg", alt: "#{country.downcase.gsub(' ', '-')}", height: "32px", class: "citizen-flag" %>
       <% end %>
-
     </div>
   </div>
 </div>

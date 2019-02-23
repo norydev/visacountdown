@@ -1,5 +1,4 @@
 class Policy
-
   attr_reader :destination, :citizenship, :rules
 
   def initialize(citizenship: nil, destination: nil)

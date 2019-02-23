@@ -152,6 +152,5 @@ RSpec.describe Policy, type: :model do
       p = Policy.new(citizenship: "Turkmenistan", destination: "China")
       expect(p.need_visa?).to match("Argument error: nothing found in DB")
     end
-
   end
 end

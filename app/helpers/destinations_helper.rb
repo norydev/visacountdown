@@ -1,5 +1,4 @@
 module DestinationsHelper
-
   def visa_need(destination)
     if destination.policy.freedom?
       { image: "walk.svg", title: "Freedom of movement", text: "You can freely move inside #{destination.zone == 'Turkey' ? '' : 'the '}#{destination.zone} without any limitation. You can travel with your ID card." }
@@ -12,6 +11,19 @@ module DestinationsHelper
     end
   end
 
+  # Statuses:
+  #
+  # "inside_ok"
+  # "outside_ok"
+  # "overstay"
+  # "current_too_long"
+  # "one_next_too_long"
+  # "quota_will_be_used_can_enter"
+  # "quota_will_be_used_cannot_enter"
+  # "quota_will_be_used_no_entry"
+  # "quota_used_can_enter"
+  # "quota_used_cannot_enter"
+  # "quota_used_no_entry"
   def status_color(destination)
     if destination.policy.freedom?
       situation = "freedom"
@@ -45,16 +57,4 @@ module DestinationsHelper
       "fas fa-exclamation-triangle"
     end
   end
-
-  # "inside_ok"
-  # "outside_ok"
-  # "overstay"
-  # "current_too_long"
-  # "one_next_too_long"
-  # "quota_will_be_used_can_enter"
-  # "quota_will_be_used_cannot_enter"
-  # "quota_will_be_used_no_entry"
-  # "quota_used_can_enter"
-  # "quota_used_cannot_enter"
-  # "quota_used_no_entry"
 end

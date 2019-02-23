@@ -15,7 +15,6 @@ class Destination < ActiveRecord::Base
   def to_s
     zone
   end
-
 end
 
 # == Schema Information

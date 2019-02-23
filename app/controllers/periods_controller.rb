@@ -3,17 +3,14 @@ class PeriodsController < ApplicationController
   before_action :set_period, only: [:edit, :update, :destroy]
   before_action :get_destination, only: [:create, :update]
 
-  # GET /periods/new
   def new
     @period = Period.new(zone: params[:zone])
   end
 
-  # GET /periods/1/edit
   def edit
     user_not_authorized unless current_or_guest_user.periods.include?(@period)
   end
 
-  # POST /periods
   def create
     @period = Period.new(period_params)
     @period.destination = @destination
@@ -31,7 +28,6 @@ class PeriodsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /periods/1
   def update
     if current_or_guest_user.periods.include?(@period)
       @period.destination = @destination
@@ -66,13 +62,11 @@ class PeriodsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_period
-      # might need to change to period_params[:id] and pass it in the form (SPA)
       @period = Period.find(params[:id])
     end
 
-    # Only allow a trusted parameter "white list" through.
     def period_params
       params.require(:period).permit(:first_day, :last_day, :zone)
     end

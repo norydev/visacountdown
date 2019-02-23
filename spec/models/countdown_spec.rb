@@ -701,5 +701,4 @@ RSpec.describe Countdown, type: :model do
       end
     end
   end
-
 end

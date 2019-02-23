@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Period, type: :model do
-
   it { should belong_to(:destination).required }
   it { should validate_presence_of(:destination) }
   it { should validate_presence_of(:first_day) }
@@ -15,7 +14,7 @@ RSpec.describe Period, type: :model do
     FactoryBot.create :period, destination: d, first_day: 40.days.ago, last_day: 20.days.ago, country: "Germany"
     FactoryBot.create :period, destination: d, first_day: 30.days.ago, last_day: 10.days.ago, country: "Germany"
 
-    expect(d.periods.size).to eq(1)
+    expect(d.reload.periods.size).to eq(1)
   end
 
   it 'keep periods as declared if not overlaping' do
@@ -24,9 +23,8 @@ RSpec.describe Period, type: :model do
     FactoryBot.create :period, destination: d, first_day: 40.days.ago, last_day: 20.days.ago, country: "Germany"
     FactoryBot.create :period, destination: d, first_day: 19.days.ago, last_day: 10.days.ago, country: "Germany"
 
-    expect(d.periods.size).to eq(2)
+    expect(d.reload.periods.size).to eq(2)
   end
-
 end
 
 # == Schema Information
