@@ -99,10 +99,10 @@ class Countdown
 
       user_periods = (periods || @periods).map(&:dup)
 
-      user_periods = remove_too_old(user_periods, oldest_date)
-      user_periods = remove_future(user_periods, date)
+      user_periods = remove_too_old(user_periods.map(&:dup), oldest_date)
+      user_periods = remove_future(user_periods.map(&:dup), date)
 
-      user_periods = remove_overlaps(user_periods, latest_entry) if latest_entry
+      user_periods = remove_overlaps(user_periods.map(&:dup), latest_entry) if latest_entry
 
       if user_periods.present?
         user_periods = user_periods.map do |period|
