@@ -12,8 +12,7 @@ end
 #
 # Table name: periods
 #
-#  id             :bigint(8)        not null, primary key
-#  country        :string
+#  id             :integer          not null, primary key
 #  first_day      :date             not null
 #  last_day       :date             not null
 #  zone           :string           not null

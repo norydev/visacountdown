@@ -5,7 +5,6 @@ RSpec.describe Period, type: :model do
   it { should validate_presence_of(:destination) }
   it { should validate_presence_of(:first_day) }
   it { should validate_presence_of(:last_day) }
-  it { should validate_inclusion_of(:country).in_array(COUNTRIES).allow_blank }
   it { should validate_inclusion_of(:zone).in_array(ZONES) }
 
   it 'solves overlaping periods from same user and same zone' do
@@ -31,8 +30,7 @@ end
 #
 # Table name: periods
 #
-#  id             :bigint(8)        not null, primary key
-#  country        :string
+#  id             :integer          not null, primary key
 #  first_day      :date             not null
 #  last_day       :date             not null
 #  zone           :string           not null

@@ -24,7 +24,7 @@ end
 #
 # Table name: destinations
 #
-#  id           :bigint(8)        not null, primary key
+#  id           :integer          not null, primary key
 #  latest_entry :date
 #  zone         :string           not null
 #  created_at   :datetime         not null
