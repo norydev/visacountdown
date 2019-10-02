@@ -35,6 +35,7 @@ group :development, :test do
   gem "letter_opener"
   gem "faker"
   gem "rspec-rails", git: "https://github.com/rspec/rspec-rails", branch: "4-0-dev"
+  gem "rspec-its"
   gem "rails-controller-testing"
   gem "factory_bot_rails"
 end
