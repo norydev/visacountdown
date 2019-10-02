@@ -9,7 +9,10 @@ class Destination < ActiveRecord::Base
   end
 
   def countdown
-    Countdown.new(destination: self) if policy.length != policy.window
+    VisaCountdown.new(periods: periods.map { |period| {first_day: period.first_day, last_day: period.last_day} },
+                      latest_entry: latest_entry,
+                      length_of_stay: policy.length,
+                      window_of_stay: policy.window) if policy.length != policy.window
   end
 
   def to_s
