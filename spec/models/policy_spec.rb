@@ -124,33 +124,33 @@ RSpec.describe Policy, type: :model do
   describe 'missing and not supported arguments' do
 
     it 'has no citizenship, destination Schengen' do
-      p = Policy.new(destination: "Schengen")
-      expect(p.freedom?).to match("Argument error: nothing found in DB")
+      policy = Policy.new(destination: "Schengen")
+      expect(policy.freedom?).to match("Argument error: nothing found in DB")
     end
 
     it 'has no destination, citizenship Switzerland' do
-      p = Policy.new(citizenship: "Switzerland")
-      expect(p.need_visa?).to match("Argument error: nothing found in DB")
+      policy = Policy.new(citizenship: "Switzerland")
+      expect(policy.need_visa?).to match("Argument error: nothing found in DB")
     end
 
     it 'has no destination, nor citizenship' do
-      p = Policy.new
-      expect(p.length).to match("Argument error: nothing found in DB")
+      policy = Policy.new
+      expect(policy.length).to match("Argument error: nothing found in DB")
     end
 
     it 'has Turkmenistan citizenship, goes to Turkey' do
-      p = Policy.new(citizenship: "Turkmenistan")
-      expect(p.window).to match("Argument error: nothing found in DB")
+      policy = Policy.new(citizenship: "Turkmenistan")
+      expect(policy.window).to match("Argument error: nothing found in DB")
     end
 
     it 'has Switzerland citizenship, goes to China' do
-      p = Policy.new(citizenship: "Switzerland", destination: "China")
-      expect(p.freedom?).to match("Argument error: nothing found in DB")
+      policy = Policy.new(citizenship: "Switzerland", destination: "China")
+      expect(policy.freedom?).to match("Argument error: nothing found in DB")
     end
 
     it 'has Turkmenistan citizenship, goes to China' do
-      p = Policy.new(citizenship: "Turkmenistan", destination: "China")
-      expect(p.need_visa?).to match("Argument error: nothing found in DB")
+      policy = Policy.new(citizenship: "Turkmenistan", destination: "China")
+      expect(policy.need_visa?).to match("Argument error: nothing found in DB")
     end
   end
 end

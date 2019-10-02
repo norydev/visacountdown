@@ -5,25 +5,24 @@ class Period < ActiveRecord::Base
   validates :destination, :first_day, :last_day, presence: true
 
   validates_inclusion_of :zone, in: ZONES
-  validates_inclusion_of :country, in: COUNTRIES, allow_blank: true
 
   before_save :solve_overlaps
 
   private
 
     def all_periods_but_me
-      self.destination.periods.where(zone: self.zone).where.not(id: id)
+      Period.where(destination: destination).where(zone: zone).where.not(id: id)
     end
 
     def solve_overlaps
       # Solve overlaps of periods in the same zone.
-      all_periods_but_me.each do |p|
-        overlaps_with_previous = (p.first_day..p.last_day).overlaps?(self.first_day..self.last_day)
+      all_periods_but_me.each do |period|
+        overlaps_with_previous = (period.first_day..period.last_day).overlaps?(self.first_day..self.last_day)
 
         if overlaps_with_previous
-          self.first_day = [p.first_day, self.first_day].min
-          self.last_day = [p.last_day, self.last_day].max
-          p.destroy
+          self.first_day = [period.first_day, self.first_day].min
+          self.last_day = [period.last_day, self.last_day].max
+          period.destroy
         end
       end
     end
@@ -33,8 +32,7 @@ end
 #
 # Table name: periods
 #
-#  id             :bigint(8)        not null, primary key
-#  country        :string
+#  id             :integer          not null, primary key
 #  first_day      :date             not null
 #  last_day       :date             not null
 #  zone           :string           not null

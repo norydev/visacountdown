@@ -5,25 +5,24 @@ RSpec.describe Period, type: :model do
   it { should validate_presence_of(:destination) }
   it { should validate_presence_of(:first_day) }
   it { should validate_presence_of(:last_day) }
-  it { should validate_inclusion_of(:country).in_array(COUNTRIES).allow_blank }
   it { should validate_inclusion_of(:zone).in_array(ZONES) }
 
-  it 'solves overlaping periods from same user and same country' do
-    u = FactoryBot.create :user, citizenship: "United States"
-    d = FactoryBot.create :destination, zone: "Schengen area", user: u
-    FactoryBot.create :period, destination: d, first_day: 40.days.ago, last_day: 20.days.ago, country: "Germany"
-    FactoryBot.create :period, destination: d, first_day: 30.days.ago, last_day: 10.days.ago, country: "Germany"
+  it 'solves overlaping periods from same user and same zone' do
+    user = FactoryBot.create :user, citizenship: "United States"
+    destination = FactoryBot.create :destination, zone: "Schengen area", user: user
+    FactoryBot.create :period, destination: destination, first_day: 40.days.ago, last_day: 20.days.ago, zone: "Schengen area"
+    FactoryBot.create :period, destination: destination, first_day: 30.days.ago, last_day: 10.days.ago, zone: "Schengen area"
 
-    expect(d.reload.periods.size).to eq(1)
+    expect(destination.reload.periods.size).to eq(1)
   end
 
   it 'keep periods as declared if not overlaping' do
-    u = FactoryBot.create :user, citizenship: "United States"
-    d = FactoryBot.create :destination, zone: "Schengen area", user: u
-    FactoryBot.create :period, destination: d, first_day: 40.days.ago, last_day: 20.days.ago, country: "Germany"
-    FactoryBot.create :period, destination: d, first_day: 19.days.ago, last_day: 10.days.ago, country: "Germany"
+    user = FactoryBot.create :user, citizenship: "United States"
+    destination = FactoryBot.create :destination, zone: "Schengen area", user: user
+    FactoryBot.create :period, destination: destination, first_day: 40.days.ago, last_day: 20.days.ago, zone: "Schengen area"
+    FactoryBot.create :period, destination: destination, first_day: 19.days.ago, last_day: 10.days.ago, zone: "Schengen area"
 
-    expect(d.reload.periods.size).to eq(2)
+    expect(destination.reload.periods.size).to eq(2)
   end
 end
 
@@ -31,8 +30,7 @@ end
 #
 # Table name: periods
 #
-#  id             :bigint(8)        not null, primary key
-#  country        :string
+#  id             :integer          not null, primary key
 #  first_day      :date             not null
 #  last_day       :date             not null
 #  zone           :string           not null

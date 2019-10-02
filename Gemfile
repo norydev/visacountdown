@@ -25,16 +25,17 @@ gem "omniauth-twitter"
 gem "activeadmin"
 
 group :development do
-  gem "pry-byebug"
-  gem "pry-rails"
   gem "spring"
   gem "annotate"
 end
 
 group :development, :test do
+  gem "pry-byebug"
+  gem "pry-rails"
   gem "letter_opener"
   gem "faker"
   gem "rspec-rails", git: "https://github.com/rspec/rspec-rails", branch: "4-0-dev"
+  gem "rspec-its"
   gem "rails-controller-testing"
   gem "factory_bot_rails"
 end

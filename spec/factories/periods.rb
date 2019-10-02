@@ -1,8 +1,8 @@
 FactoryBot.define do
-  d = rand(180)
+  number = rand(180)
   factory :period do
-    first_day    { d.days.ago }
-    last_day     { (d + 10).days.ago }
+    first_day    { number.days.ago }
+    last_day     { (number + 10).days.ago }
     zone         { ZONES.sample }
     association  :destination
   end
@@ -12,8 +12,7 @@ end
 #
 # Table name: periods
 #
-#  id             :bigint(8)        not null, primary key
-#  country        :string
+#  id             :integer          not null, primary key
 #  first_day      :date             not null
 #  last_day       :date             not null
 #  zone           :string           not null

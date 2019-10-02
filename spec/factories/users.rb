@@ -11,7 +11,7 @@ end
 #
 # Table name: users
 #
-#  id                     :bigint(8)        not null, primary key
+#  id                     :integer          not null, primary key
 #  admin                  :boolean          default(FALSE), not null
 #  citizenship            :string           default("None"), not null
 #  current_sign_in_at     :datetime
