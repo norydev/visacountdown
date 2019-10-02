@@ -21,7 +21,7 @@ notifications:
 deploy:
   provider: heroku
   api_key:
-    secure: PdqFvJPGsDxNbw9sNUbIVqHpPr/isaoFwGeJBbxYW0cPCpyREpzonpVbt30mEr9XWyidaodE7VyZ+LvVy0gpyPEYerXKpZOzgk62A6RkGtYYvWGysERB7GHCpXGACxrOgIhrC/fdCBG66BPnYMUz6K/6JMzDTLtXgYeTizItsF4=
+    secure: jqCvM5pbJXZcuP3ZOhdcI9f3KtUpJ2nS+d26A9zeT5sRuQA1ftpOQdbNdvpGEOEQAp2KP5I8iW8bi40wXoZCjJ/KLLnISwmBjbu20h9YMwXHt4V4I5f9fvaLDtAGi3k7lFL1KgatHEyTElRimpsK84RXsGxMGOwm3lRw5mJFZjs=
   app: daysinturkey-production
   on:
     repo: NoryDev/visacountdown
